@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "Quantity", Namespace = Database.Namespace)]
+  [DataContract(Name = "Quantity", Namespace = SaveFile.Namespace)]
   public class Quantity : ExtensibleDataObject
   {
     [DataMember(Order = 0)]

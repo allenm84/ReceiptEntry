@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "Unit", Namespace = Database.Namespace)]
+  [DataContract(Name = "Unit", Namespace = SaveFile.Namespace)]
   public enum Unit
   {
     [EnumMember]
