@@ -1,36 +1,57 @@
-﻿using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Views.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraBars;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace ReceiptEntry
 {
   public partial class MainForm : BaseForm
   {
+    private ReceiptItemGridViewHelper gridViewHelper;
     private GridViewFeatures features;
 
     public MainForm()
     {
       InitializeComponent();
+
+      gridViewHelper = new ReceiptItemGridViewHelper(gridViewReceiptItems);
+      gridViewReceiptItems.OptionsView.ShowColumnHeaders = false;
+      gridViewReceiptItems.OptionsView.ShowIndicator = false;
+      gridViewReceiptItems.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
+      gridViewReceiptItems.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
+
       features = new GridViewFeatures(gridViewReceipts);
       features.AddAlignGroupSummariesToColumns();
     }
 
-    private void EditReceiptByRowHandle(int rowHandle)
+    private async void LoadDatabase()
     {
-      EditReceiptByRowHandle(gridViewReceipts.GetRow(rowHandle));
+      Enabled = false;
+      
+      await Task.Run(() => Database.Load());
+      merchantSource.DataSource = Database.Merchants;
+      receiptSource.DataSource = Database.Receipts;
+
+      Enabled = true;
     }
 
-    private void EditReceiptByRowHandle(object row)
+    private async void DoSave()
     {
-      EditReceiptByItem(row as Receipt);
+      tbbSave.Enabled = false;
+      await Task.Run(() => Database.Save());
+      tbbSave.Enabled = true;
+    }
+
+    private void EditReceiptByRowHandle(int rowHandle)
+    {
+      EditReceiptByItem(gridViewReceipts.GetRow(rowHandle) as Receipt);
     }
 
     private void EditReceiptByItem(Receipt receipt)
@@ -50,32 +71,26 @@ namespace ReceiptEntry
 
     protected override void OnLoad(EventArgs e)
     {
-      SaveFile.Load();
-      merchantSource.DataSource = SaveFile.Merchants;
-      namedItemSource.DataSource = SaveFile.Items;
-      receiptSource.DataSource = SaveFile.Receipts;
       base.OnLoad(e);
+      LoadDatabase();
     }
 
     private void tbbSave_ItemClick(object sender, ItemClickEventArgs e)
     {
-      SaveFile.Save();
+      DoSave();
     }
 
-    private void tbbBrands_ItemClick(object sender, ItemClickEventArgs e)
+    private void tbbMerchantTypes_ItemClick(object sender, ItemClickEventArgs e)
     {
 
-    }
-
-    private void tbbItems_ItemClick(object sender, ItemClickEventArgs e)
-    {
-      using (var dlg = new NamedItemsDialog(SaveFile.Items))
-      {
-        dlg.ShowDialog(this);
-      }
     }
 
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
+    {
+
+    }
+
+    private void tbbFriendlyNames_ItemClick(object sender, ItemClickEventArgs e)
     {
 
     }
@@ -85,20 +100,17 @@ namespace ReceiptEntry
       var receipt = new Receipt
       {
         Date = DateTime.Today,
-        ID = Pool.ID,
-        Items = new List<ReceiptItem>(),
+        Items = new BindingList<ReceiptItem>(),
         MerchantID = null,
         Tax = 0,
       };
 
       using (var dlg = new EditReceiptDialog(receipt))
       {
-        dlg.Text = "Add Receipt";
+        dlg.ShowEditOrder = true;
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
           receiptSource.Add(receipt);
-          namedItemSource.ResetBindings(false);
-          merchantSource.ResetBindings(false);
         }
       }
     }
@@ -119,7 +131,7 @@ namespace ReceiptEntry
       if (e.Column == colDateMonth)
       {
         var value = e.Row as Receipt;
-        e.Value = value.Date;
+        e.Value = value.Date.Date;
       }
     }
 

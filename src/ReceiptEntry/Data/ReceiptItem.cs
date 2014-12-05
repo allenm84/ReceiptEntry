@@ -7,19 +7,27 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "ReceiptItem", Namespace = SaveFile.Namespace)]
+  [DataContract(Name = "ReceiptItem", Namespace = Database.Namespace)]
   public class ReceiptItem : ExtensibleDataObject
   {
-    [DataMember]
-    public string ItemID { get; set; }
-    [DataMember]
-    public decimal Quantity { get; set; }
-    [DataMember]
-    public decimal PricePerItem { get; set; }
+    [DataMember(Order = 0)]
+    [PropertyIDAttribute("Name", "Name")]
+    public string Name { get; set; }
 
-    public decimal Total
-    {
-      get { return Quantity * PricePerItem; }
-    }
+    [DataMember(Order = 1)]
+    [PropertyIDAttribute("Price", "Price")]
+    public decimal Price { get; set; }
+
+    [DataMember(Order = 2)]
+    [PropertyIDAttribute("AliasID", "Friendly Name")]
+    public string AliasID { get; set; }
+
+    [DataMember(Order = 3)]
+    [PropertyIDAttribute("Code", "Code")]
+    public string Code { get; set; }
+
+    [DataMember(Order = 4)]
+    [PropertyIDAttribute("Quantity", "Quantity")]
+    public Quantity Quantity { get; set; }
   }
 }

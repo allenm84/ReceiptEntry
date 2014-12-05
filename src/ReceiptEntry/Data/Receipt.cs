@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -7,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "Receipt", Namespace = SaveFile.Namespace)]
+  [DataContract(Name = "Receipt", Namespace = Database.Namespace)]
   public class Receipt : ExtensibleDataObject
   {
-    [DataMember]
-    public string ID { get; set; }
-    [DataMember]
-    public string MerchantID { get; set; }
-    [DataMember]
+    [DataMember(Order = 0)]
     public DateTime Date { get; set; }
-    [DataMember]
-    public List<ReceiptItem> Items { get; set; }
-    [DataMember]
+    [DataMember(Order = 1)]
+    public string MerchantID { get; set; }
+    [DataMember(Order = 2)]
+    public BindingList<ReceiptItem> Items { get; set; }
+    [DataMember(Order = 3)]
     public decimal Tax { get; set; }
+    [DataMember(Order = 4)]
+    public string[] EditOrder { get; set; }
+    [DataMember(Order = 5)]
+    public bool ShowCodeColumn { get; set; }
 
     public decimal Total
     {
@@ -28,7 +31,7 @@ namespace ReceiptEntry
         decimal total = Tax;
         if (Items != null)
         {
-          total += Items.Sum(i => i.Total);
+          total += Items.Sum(i => i.Price);
         }
         return total;
       }
