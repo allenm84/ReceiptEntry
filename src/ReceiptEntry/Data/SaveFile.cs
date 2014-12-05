@@ -1,109 +1,93 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
 using System.IO;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace ReceiptEntry
 {
   [DataContract(Name = "SaveFile", Namespace = SaveFile.Namespace)]
-  public class SaveFile : IExtensibleDataObject
+  public class SaveFile : ExtensibleDataObject
   {
-    public const string Namespace = "http://www.mapa-apps.com/receiptentry";
+    public const string Namespace = "http://www.mapa.com/apps/all/ReceiptEntry";
+    private SaveFile() { }
 
-    static object syncRoot = new object();
-    static SaveFile instance = new SaveFile();
-    public static SaveFile Instance { get { lock (syncRoot) { return instance; } } }
+    [DataMember]
+    private List<Brand> brands;
+    [DataMember]
+    private List<NamedItem> items;
+    [DataMember]
+    private List<Merchant> merchants;
+    [DataMember]
+    private List<Receipt> receipts;
 
-    static DataContractSerializer serializer;
     static string filepath;
+    static DataContractSerializer dcs;
+    static SaveFile instance;
 
     static SaveFile()
     {
-      serializer = new DataContractSerializer(typeof(SaveFile));
-      filepath = Path.Combine(Application.StartupPath, "saved.xml");
-    }
-
-    public static void Reset()
-    {
+      filepath = Path.Combine(Application.StartupPath, "receipts.xml");
+      dcs = new DataContractSerializer(typeof(SaveFile));
       instance = new SaveFile();
-      instance.Initialize();
     }
 
     public static void Load()
     {
-      SaveFile other = null;
+      instance.brands = new List<Brand>();
+      instance.items = new List<NamedItem>();
+      instance.merchants = new List<Merchant>();
+      instance.receipts = new List<Receipt>();
+
       if (File.Exists(filepath))
       {
-        using (Stream stream = File.OpenRead(filepath))
+        using (var stream = File.OpenRead(filepath))
         {
-          other = serializer.ReadObject(stream) as SaveFile;
+          var data = dcs.ReadObject(stream) as SaveFile;
+          if (data != null)
+          {
+            instance.brands = data.brands ?? instance.brands;
+            instance.items = data.items ?? instance.items;
+            instance.merchants = data.merchants ?? instance.merchants;
+            instance.receipts = data.receipts ?? instance.receipts;
+          }
         }
       }
-      instance.Initialize(other);
     }
 
     public static void Save()
     {
-      lock (syncRoot)
+      using (var stream = File.Create(filepath))
       {
-        using (Stream stream = File.Create(filepath))
-        {
-          serializer.WriteObject(stream, instance);
-        }
+        dcs.WriteObject(stream, instance);
       }
     }
 
-    private SaveFile() { }
-
-    private void Initialize()
+    public static List<Brand> Brands
     {
-      Initialize(null);
+      get { return instance.brands; }
+      set { instance.brands = value; }
     }
 
-    private void Initialize(SaveFile other)
+    public static List<NamedItem> Items
     {
-      var type = instance.GetType();
-      var properties = type.GetProperties();
-      foreach (var property in properties)
-      {
-        if (property.HasAttribute(typeof(DataMemberAttribute)))
-        {
-          object value = null;
-          if (other != null)
-          {
-            var otherValue = property.GetValue(other, null);
-            value = otherValue;
-          }
-
-          if (value == null)
-          {
-            value = Creator.CreateInstance(property.PropertyType);
-          }
-
-          property.SetValue(instance, value, null);
-        }
-      }
+      get { return instance.items; }
+      set { instance.items = value; }
     }
 
-    public ExtensionDataObject ExtensionData { get; set; }
+    public static List<Merchant> Merchants
+    {
+      get { return instance.merchants; }
+      set { instance.merchants = value; }
+    }
 
-    [DataMember(Order = 0)]
-    public List<Merchant> Merchants { get; set; }
-
-    [DataMember(Order = 1)]
-    public List<Receipt> Receipts { get; set; }
-
-    [DataMember(Order = 2)]
-    public List<NamedItem> NamedItems { get; set; }
-
-    [DataMember(Order = 3)]
-    public Options Options { get; set; }
-
-    [DataMember(Order = 4)]
-    public List<PaidBy> PaidBys { get; set; }
+    public static List<Receipt> Receipts
+    {
+      get { return instance.receipts; }
+      set { instance.receipts = value; }
+    }
   }
 }

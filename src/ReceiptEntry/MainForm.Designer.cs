@@ -29,360 +29,500 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
+      DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-      this.uiCommandManager = new Janus.Windows.UI.CommandBars.UICommandManager(this.components);
-      this.BottomRebar1 = new Janus.Windows.UI.CommandBars.UIRebar();
-      this.uiCommandBar = new Janus.Windows.UI.CommandBars.UICommandBar();
-      this.tbbSave = new Janus.Windows.UI.CommandBars.UICommand("SaveCommand");
-      this.Separator2 = new Janus.Windows.UI.CommandBars.UICommand("Separator");
-      this.tbbMerchantsDatabase = new Janus.Windows.UI.CommandBars.UICommand("MerchantDatabaseCommand");
-      this.tbbItemsDatabase = new Janus.Windows.UI.CommandBars.UICommand("ItemsDatabaseCommand");
-      this.Separator1 = new Janus.Windows.UI.CommandBars.UICommand("Separator");
-      this.tbbAddReceipt = new Janus.Windows.UI.CommandBars.UICommand("AddReceiptCommand");
-      this.tbbEditReceipt = new Janus.Windows.UI.CommandBars.UICommand("EditReceiptCommand");
-      this.tbbRemoveReceipt = new Janus.Windows.UI.CommandBars.UICommand("RemoveReceiptCommand");
-      this.Separator3 = new Janus.Windows.UI.CommandBars.UICommand("Separator");
-      this.tbbStatistics = new Janus.Windows.UI.CommandBars.UICommand("StatisticsCommand");
-      this.tbbSearch = new Janus.Windows.UI.CommandBars.UICommand("SearchCommand");
-      this.SaveCommand = new Janus.Windows.UI.CommandBars.UICommand("SaveCommand");
-      this.AddReceiptCommand = new Janus.Windows.UI.CommandBars.UICommand("AddReceiptCommand");
-      this.EditReceiptCommand = new Janus.Windows.UI.CommandBars.UICommand("EditReceiptCommand");
-      this.RemoveReceiptCommand = new Janus.Windows.UI.CommandBars.UICommand("RemoveReceiptCommand");
-      this.ItemsDatabaseCommand = new Janus.Windows.UI.CommandBars.UICommand("ItemsDatabaseCommand");
-      this.MerchantDatabaseCommand = new Janus.Windows.UI.CommandBars.UICommand("MerchantDatabaseCommand");
-      this.StatisticsCommand = new Janus.Windows.UI.CommandBars.UICommand("StatisticsCommand");
-      this.SearchCommand = new Janus.Windows.UI.CommandBars.UICommand("SearchCommand");
-      this.LeftRebar1 = new Janus.Windows.UI.CommandBars.UIRebar();
-      this.RightRebar1 = new Janus.Windows.UI.CommandBars.UIRebar();
-      this.TopRebar1 = new Janus.Windows.UI.CommandBars.UIRebar();
-      this.gridReceipts = new Janus.Windows.GridEX.GridEX();
-      this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-      this.progStatus = new System.Windows.Forms.ProgressBar();
-      ((System.ComponentModel.ISupportInitialize)(this.uiCommandManager)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BottomRebar1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.uiCommandBar)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.LeftRebar1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.RightRebar1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.TopRebar1)).BeginInit();
-      this.TopRebar1.SuspendLayout();
+      this.gridViewReceiptItems = new DevExpress.XtraGrid.Views.Grid.GridView();
+      this.colItemID = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.cboNamedItems = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+      this.namedItemSource = new System.Windows.Forms.BindingSource(this.components);
+      this.colQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colPricePerItem = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.gridReceipts = new DevExpress.XtraGrid.GridControl();
+      this.receiptSource = new System.Windows.Forms.BindingSource(this.components);
+      this.gridViewReceipts = new DevExpress.XtraGrid.Views.Grid.GridView();
+      this.colID = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colMerchantID = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.cboMerchants = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+      this.merchantSource = new System.Windows.Forms.BindingSource(this.components);
+      this.colTax = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colDateYear = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colDateMonth = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colTotal = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+      this.bar1 = new DevExpress.XtraBars.Bar();
+      this.tbbSave = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbBrands = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbItems = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbMerchants = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbNewReceipt = new DevExpress.XtraBars.BarButtonItem();
+      this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
+      this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
+      this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptItems)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboNamedItems)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.namedItemSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).BeginInit();
-      this.tableLayoutPanel1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.receiptSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchants)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.merchantSource)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+      this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
       this.SuspendLayout();
       // 
-      // uiCommandManager
+      // gridViewReceiptItems
       // 
-      this.uiCommandManager.AllowClose = Janus.Windows.UI.InheritableBoolean.False;
-      this.uiCommandManager.AllowCustomize = Janus.Windows.UI.InheritableBoolean.False;
-      this.uiCommandManager.AllowMerge = false;
-      this.uiCommandManager.BottomRebar = this.BottomRebar1;
-      this.uiCommandManager.CommandBars.AddRange(new Janus.Windows.UI.CommandBars.UICommandBar[] {
-            this.uiCommandBar});
-      this.uiCommandManager.Commands.AddRange(new Janus.Windows.UI.CommandBars.UICommand[] {
-            this.SaveCommand,
-            this.AddReceiptCommand,
-            this.EditReceiptCommand,
-            this.RemoveReceiptCommand,
-            this.ItemsDatabaseCommand,
-            this.MerchantDatabaseCommand,
-            this.StatisticsCommand,
-            this.SearchCommand});
-      this.uiCommandManager.ContainerControl = this;
-      this.uiCommandManager.Id = new System.Guid("2f451b2c-23b8-4d75-a347-afc65480f7f6");
-      this.uiCommandManager.LeftRebar = this.LeftRebar1;
-      this.uiCommandManager.LockCommandBars = true;
-      this.uiCommandManager.RightRebar = this.RightRebar1;
-      this.uiCommandManager.ShowAddRemoveButton = Janus.Windows.UI.InheritableBoolean.False;
-      this.uiCommandManager.ShowCustomizeButton = Janus.Windows.UI.InheritableBoolean.False;
-      this.uiCommandManager.ShowQuickCustomizeMenu = false;
-      this.uiCommandManager.Tag = null;
-      this.uiCommandManager.TopRebar = this.TopRebar1;
+      this.gridViewReceiptItems.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colItemID,
+            this.colQuantity,
+            this.colPricePerItem});
+      this.gridViewReceiptItems.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+      this.gridViewReceiptItems.GridControl = this.gridReceipts;
+      this.gridViewReceiptItems.Name = "gridViewReceiptItems";
+      this.gridViewReceiptItems.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+      this.gridViewReceiptItems.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+      this.gridViewReceiptItems.OptionsBehavior.Editable = false;
+      this.gridViewReceiptItems.OptionsBehavior.ReadOnly = true;
+      this.gridViewReceiptItems.OptionsCustomization.AllowColumnMoving = false;
+      this.gridViewReceiptItems.OptionsCustomization.AllowFilter = false;
+      this.gridViewReceiptItems.OptionsCustomization.AllowQuickHideColumns = false;
+      this.gridViewReceiptItems.OptionsMenu.EnableColumnMenu = false;
+      this.gridViewReceiptItems.OptionsMenu.EnableFooterMenu = false;
+      this.gridViewReceiptItems.OptionsMenu.EnableGroupPanelMenu = false;
+      this.gridViewReceiptItems.OptionsSelection.EnableAppearanceFocusedCell = false;
+      this.gridViewReceiptItems.OptionsView.ShowColumnHeaders = false;
+      this.gridViewReceiptItems.OptionsView.ShowGroupPanel = false;
+      this.gridViewReceiptItems.OptionsView.ShowIndicator = false;
+      this.gridViewReceiptItems.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colItemID, DevExpress.Data.ColumnSortOrder.Ascending)});
       // 
-      // BottomRebar1
+      // colItemID
       // 
-      this.BottomRebar1.CommandManager = this.uiCommandManager;
-      this.BottomRebar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.BottomRebar1.Location = new System.Drawing.Point(0, 471);
-      this.BottomRebar1.Name = "BottomRebar1";
-      this.BottomRebar1.Size = new System.Drawing.Size(550, 0);
+      this.colItemID.Caption = "Name";
+      this.colItemID.ColumnEdit = this.cboNamedItems;
+      this.colItemID.FieldName = "ItemID";
+      this.colItemID.Name = "colItemID";
+      this.colItemID.SortMode = DevExpress.XtraGrid.ColumnSortMode.DisplayText;
+      this.colItemID.Visible = true;
+      this.colItemID.VisibleIndex = 0;
       // 
-      // uiCommandBar
+      // cboNamedItems
       // 
-      this.uiCommandBar.CommandManager = this.uiCommandManager;
-      this.uiCommandBar.Commands.AddRange(new Janus.Windows.UI.CommandBars.UICommand[] {
-            this.tbbSave,
-            this.Separator2,
-            this.tbbMerchantsDatabase,
-            this.tbbItemsDatabase,
-            this.Separator1,
-            this.tbbAddReceipt,
-            this.tbbEditReceipt,
-            this.tbbRemoveReceipt,
-            this.Separator3,
-            this.tbbStatistics,
-            this.tbbSearch});
-      this.uiCommandBar.FullRow = true;
-      this.uiCommandBar.Key = "TopCommandBar";
-      this.uiCommandBar.Location = new System.Drawing.Point(0, 0);
-      this.uiCommandBar.Name = "uiCommandBar";
-      this.uiCommandBar.RowIndex = 0;
-      this.uiCommandBar.Size = new System.Drawing.Size(550, 28);
-      this.uiCommandBar.Text = "TopCommandBar";
+      this.cboNamedItems.AutoHeight = false;
+      this.cboNamedItems.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboNamedItems.DataSource = this.namedItemSource;
+      this.cboNamedItems.DisplayMember = "Name";
+      this.cboNamedItems.Name = "cboNamedItems";
+      this.cboNamedItems.ValueMember = "ID";
       // 
-      // tbbSave
+      // namedItemSource
       // 
-      this.tbbSave.Key = "SaveCommand";
-      this.tbbSave.Name = "tbbSave";
+      this.namedItemSource.DataSource = typeof(ReceiptEntry.NamedItem);
       // 
-      // Separator2
+      // colQuantity
       // 
-      this.Separator2.CommandType = Janus.Windows.UI.CommandBars.CommandType.Separator;
-      this.Separator2.Key = "Separator";
-      this.Separator2.Name = "Separator2";
+      this.colQuantity.AppearanceCell.Options.UseTextOptions = true;
+      this.colQuantity.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+      this.colQuantity.AppearanceHeader.Options.UseTextOptions = true;
+      this.colQuantity.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+      this.colQuantity.FieldName = "Quantity";
+      this.colQuantity.MaxWidth = 75;
+      this.colQuantity.MinWidth = 75;
+      this.colQuantity.Name = "colQuantity";
+      this.colQuantity.Visible = true;
+      this.colQuantity.VisibleIndex = 1;
       // 
-      // tbbMerchantsDatabase
+      // colPricePerItem
       // 
-      this.tbbMerchantsDatabase.Key = "MerchantDatabaseCommand";
-      this.tbbMerchantsDatabase.Name = "tbbMerchantsDatabase";
-      // 
-      // tbbItemsDatabase
-      // 
-      this.tbbItemsDatabase.Key = "ItemsDatabaseCommand";
-      this.tbbItemsDatabase.Name = "tbbItemsDatabase";
-      // 
-      // Separator1
-      // 
-      this.Separator1.CommandType = Janus.Windows.UI.CommandBars.CommandType.Separator;
-      this.Separator1.Key = "Separator";
-      this.Separator1.Name = "Separator1";
-      // 
-      // tbbAddReceipt
-      // 
-      this.tbbAddReceipt.Key = "AddReceiptCommand";
-      this.tbbAddReceipt.Name = "tbbAddReceipt";
-      // 
-      // tbbEditReceipt
-      // 
-      this.tbbEditReceipt.Key = "EditReceiptCommand";
-      this.tbbEditReceipt.Name = "tbbEditReceipt";
-      // 
-      // tbbRemoveReceipt
-      // 
-      this.tbbRemoveReceipt.Key = "RemoveReceiptCommand";
-      this.tbbRemoveReceipt.Name = "tbbRemoveReceipt";
-      // 
-      // Separator3
-      // 
-      this.Separator3.CommandType = Janus.Windows.UI.CommandBars.CommandType.Separator;
-      this.Separator3.Key = "Separator";
-      this.Separator3.Name = "Separator3";
-      // 
-      // tbbStatistics
-      // 
-      this.tbbStatistics.Key = "StatisticsCommand";
-      this.tbbStatistics.Name = "tbbStatistics";
-      // 
-      // tbbSearch
-      // 
-      this.tbbSearch.Key = "SearchCommand";
-      this.tbbSearch.Name = "tbbSearch";
-      // 
-      // SaveCommand
-      // 
-      this.SaveCommand.Image = ((System.Drawing.Image)(resources.GetObject("SaveCommand.Image")));
-      this.SaveCommand.Key = "SaveCommand";
-      this.SaveCommand.Name = "SaveCommand";
-      this.SaveCommand.Shortcut = System.Windows.Forms.Shortcut.CtrlS;
-      this.SaveCommand.Text = "Save";
-      this.SaveCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.SaveCommand_Click);
-      // 
-      // AddReceiptCommand
-      // 
-      this.AddReceiptCommand.Image = ((System.Drawing.Image)(resources.GetObject("AddReceiptCommand.Image")));
-      this.AddReceiptCommand.Key = "AddReceiptCommand";
-      this.AddReceiptCommand.Name = "AddReceiptCommand";
-      this.AddReceiptCommand.Text = "Add";
-      this.AddReceiptCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.AddReceiptCommand_Click);
-      // 
-      // EditReceiptCommand
-      // 
-      this.EditReceiptCommand.Image = ((System.Drawing.Image)(resources.GetObject("EditReceiptCommand.Image")));
-      this.EditReceiptCommand.Key = "EditReceiptCommand";
-      this.EditReceiptCommand.Name = "EditReceiptCommand";
-      this.EditReceiptCommand.Text = "Edit";
-      this.EditReceiptCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.EditReceiptCommand_Click);
-      // 
-      // RemoveReceiptCommand
-      // 
-      this.RemoveReceiptCommand.Image = ((System.Drawing.Image)(resources.GetObject("RemoveReceiptCommand.Image")));
-      this.RemoveReceiptCommand.Key = "RemoveReceiptCommand";
-      this.RemoveReceiptCommand.Name = "RemoveReceiptCommand";
-      this.RemoveReceiptCommand.Shortcut = System.Windows.Forms.Shortcut.Del;
-      this.RemoveReceiptCommand.Text = "Remove";
-      this.RemoveReceiptCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.RemoveReceiptCommand_Click);
-      // 
-      // ItemsDatabaseCommand
-      // 
-      this.ItemsDatabaseCommand.Image = ((System.Drawing.Image)(resources.GetObject("ItemsDatabaseCommand.Image")));
-      this.ItemsDatabaseCommand.Key = "ItemsDatabaseCommand";
-      this.ItemsDatabaseCommand.Name = "ItemsDatabaseCommand";
-      this.ItemsDatabaseCommand.Text = "Items";
-      this.ItemsDatabaseCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.ItemsDatabaseCommand_Click);
-      // 
-      // MerchantDatabaseCommand
-      // 
-      this.MerchantDatabaseCommand.Image = ((System.Drawing.Image)(resources.GetObject("MerchantDatabaseCommand.Image")));
-      this.MerchantDatabaseCommand.Key = "MerchantDatabaseCommand";
-      this.MerchantDatabaseCommand.Name = "MerchantDatabaseCommand";
-      this.MerchantDatabaseCommand.Text = "Merchants";
-      this.MerchantDatabaseCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.MerchantDatabaseCommand_Click);
-      // 
-      // StatisticsCommand
-      // 
-      this.StatisticsCommand.Image = ((System.Drawing.Image)(resources.GetObject("StatisticsCommand.Image")));
-      this.StatisticsCommand.Key = "StatisticsCommand";
-      this.StatisticsCommand.Name = "StatisticsCommand";
-      this.StatisticsCommand.Text = "Stats";
-      this.StatisticsCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.StatisticsCommand_Click);
-      // 
-      // SearchCommand
-      // 
-      this.SearchCommand.Image = ((System.Drawing.Image)(resources.GetObject("SearchCommand.Image")));
-      this.SearchCommand.Key = "SearchCommand";
-      this.SearchCommand.Name = "SearchCommand";
-      this.SearchCommand.Text = "Search";
-      this.SearchCommand.Click += new Janus.Windows.UI.CommandBars.CommandEventHandler(this.SearchCommand_Click);
-      // 
-      // LeftRebar1
-      // 
-      this.LeftRebar1.CommandManager = this.uiCommandManager;
-      this.LeftRebar1.Dock = System.Windows.Forms.DockStyle.Left;
-      this.LeftRebar1.Location = new System.Drawing.Point(0, 28);
-      this.LeftRebar1.Name = "LeftRebar1";
-      this.LeftRebar1.Size = new System.Drawing.Size(0, 443);
-      // 
-      // RightRebar1
-      // 
-      this.RightRebar1.CommandManager = this.uiCommandManager;
-      this.RightRebar1.Dock = System.Windows.Forms.DockStyle.Right;
-      this.RightRebar1.Location = new System.Drawing.Point(550, 28);
-      this.RightRebar1.Name = "RightRebar1";
-      this.RightRebar1.Size = new System.Drawing.Size(0, 443);
-      // 
-      // TopRebar1
-      // 
-      this.TopRebar1.CommandBars.AddRange(new Janus.Windows.UI.CommandBars.UICommandBar[] {
-            this.uiCommandBar});
-      this.TopRebar1.CommandManager = this.uiCommandManager;
-      this.TopRebar1.Controls.Add(this.uiCommandBar);
-      this.TopRebar1.Dock = System.Windows.Forms.DockStyle.Top;
-      this.TopRebar1.Location = new System.Drawing.Point(0, 0);
-      this.TopRebar1.Name = "TopRebar1";
-      this.TopRebar1.Size = new System.Drawing.Size(550, 28);
+      this.colPricePerItem.AppearanceCell.Options.UseTextOptions = true;
+      this.colPricePerItem.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+      this.colPricePerItem.AppearanceHeader.Options.UseTextOptions = true;
+      this.colPricePerItem.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+      this.colPricePerItem.Caption = "Price";
+      this.colPricePerItem.DisplayFormat.FormatString = "C2";
+      this.colPricePerItem.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colPricePerItem.FieldName = "PricePerItem";
+      this.colPricePerItem.MaxWidth = 80;
+      this.colPricePerItem.MinWidth = 80;
+      this.colPricePerItem.Name = "colPricePerItem";
+      this.colPricePerItem.Visible = true;
+      this.colPricePerItem.VisibleIndex = 2;
+      this.colPricePerItem.Width = 80;
       // 
       // gridReceipts
       // 
-      this.gridReceipts.AllowCardSizing = false;
-      this.gridReceipts.AllowColumnDrag = false;
-      this.gridReceipts.AllowEdit = Janus.Windows.GridEX.InheritableBoolean.False;
-      this.gridReceipts.CellToolTip = Janus.Windows.GridEX.CellToolTip.TruncatedText;
-      this.gridReceipts.ColumnAutoResize = true;
-      this.gridReceipts.ColumnHeaders = Janus.Windows.GridEX.InheritableBoolean.False;
-      this.gridReceipts.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.gridReceipts.FocusCellDisplayMode = Janus.Windows.GridEX.FocusCellDisplayMode.UseSelectedFormatStyle;
-      this.gridReceipts.GridLines = Janus.Windows.GridEX.GridLines.None;
-      this.gridReceipts.GroupByBoxVisible = false;
-      this.gridReceipts.HideSelection = Janus.Windows.GridEX.HideSelection.HighlightInactive;
-      this.gridReceipts.Location = new System.Drawing.Point(3, 3);
+      this.gridReceipts.Cursor = System.Windows.Forms.Cursors.Default;
+      this.gridReceipts.DataSource = this.receiptSource;
+      gridLevelNode1.LevelTemplate = this.gridViewReceiptItems;
+      gridLevelNode1.RelationName = "Items";
+      this.gridReceipts.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
+            gridLevelNode1});
+      this.gridReceipts.Location = new System.Drawing.Point(24, 43);
+      this.gridReceipts.MainView = this.gridViewReceipts;
+      this.gridReceipts.MenuManager = this.barManager1;
       this.gridReceipts.Name = "gridReceipts";
-      this.gridReceipts.SelectionMode = Janus.Windows.GridEX.SelectionMode.MultipleSelection;
-      this.gridReceipts.Size = new System.Drawing.Size(544, 408);
+      this.gridReceipts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.cboMerchants,
+            this.cboNamedItems});
+      this.gridReceipts.Size = new System.Drawing.Size(539, 378);
       this.gridReceipts.TabIndex = 4;
-      this.gridReceipts.SelectionChanged += new System.EventHandler(this.gridReceipts_SelectionChanged);
+      this.gridReceipts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewReceipts,
+            this.gridViewReceiptItems});
+      this.gridReceipts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridReceipts_MouseDoubleClick);
       // 
-      // tableLayoutPanel1
+      // receiptSource
       // 
-      this.tableLayoutPanel1.ColumnCount = 1;
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-      this.tableLayoutPanel1.Controls.Add(this.gridReceipts, 0, 0);
-      this.tableLayoutPanel1.Controls.Add(this.progStatus, 0, 1);
-      this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
-      this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-      this.tableLayoutPanel1.RowCount = 2;
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-      this.tableLayoutPanel1.Size = new System.Drawing.Size(550, 443);
-      this.tableLayoutPanel1.TabIndex = 5;
+      this.receiptSource.DataSource = typeof(ReceiptEntry.Receipt);
       // 
-      // progStatus
+      // gridViewReceipts
       // 
-      this.progStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.progStatus.Location = new System.Drawing.Point(3, 417);
-      this.progStatus.Name = "progStatus";
-      this.progStatus.Size = new System.Drawing.Size(544, 23);
-      this.progStatus.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-      this.progStatus.TabIndex = 5;
+      this.gridViewReceipts.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colID,
+            this.colMerchantID,
+            this.colTax,
+            this.colDateYear,
+            this.colDateMonth,
+            this.colTotal});
+      this.gridViewReceipts.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+      this.gridViewReceipts.GridControl = this.gridReceipts;
+      this.gridViewReceipts.GroupCount = 2;
+      this.gridViewReceipts.GroupFormat = "{1} {2}";
+      this.gridViewReceipts.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", null, "{0:c2}")});
+      this.gridViewReceipts.Name = "gridViewReceipts";
+      this.gridViewReceipts.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+      this.gridViewReceipts.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+      this.gridViewReceipts.OptionsBehavior.Editable = false;
+      this.gridViewReceipts.OptionsBehavior.ReadOnly = true;
+      this.gridViewReceipts.OptionsCustomization.AllowColumnMoving = false;
+      this.gridViewReceipts.OptionsCustomization.AllowFilter = false;
+      this.gridViewReceipts.OptionsCustomization.AllowQuickHideColumns = false;
+      this.gridViewReceipts.OptionsDetail.ShowDetailTabs = false;
+      this.gridViewReceipts.OptionsMenu.EnableColumnMenu = false;
+      this.gridViewReceipts.OptionsMenu.EnableFooterMenu = false;
+      this.gridViewReceipts.OptionsMenu.EnableGroupPanelMenu = false;
+      this.gridViewReceipts.OptionsSelection.EnableAppearanceFocusedCell = false;
+      this.gridViewReceipts.OptionsView.ShowColumnHeaders = false;
+      this.gridViewReceipts.OptionsView.ShowGroupPanel = false;
+      this.gridViewReceipts.OptionsView.ShowIndicator = false;
+      this.gridViewReceipts.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colDateYear, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colDateMonth, DevExpress.Data.ColumnSortOrder.Ascending)});
+      this.gridViewReceipts.CustomColumnGroup += new DevExpress.XtraGrid.Views.Base.CustomColumnSortEventHandler(this.gridViewReceipts_CustomColumnGroup);
+      this.gridViewReceipts.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewReceipts_CustomUnboundColumnData);
+      // 
+      // colID
+      // 
+      this.colID.FieldName = "ID";
+      this.colID.Name = "colID";
+      // 
+      // colMerchantID
+      // 
+      this.colMerchantID.Caption = "Merchant";
+      this.colMerchantID.ColumnEdit = this.cboMerchants;
+      this.colMerchantID.FieldName = "MerchantID";
+      this.colMerchantID.Name = "colMerchantID";
+      this.colMerchantID.Visible = true;
+      this.colMerchantID.VisibleIndex = 0;
+      this.colMerchantID.Width = 268;
+      // 
+      // cboMerchants
+      // 
+      this.cboMerchants.AutoHeight = false;
+      this.cboMerchants.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboMerchants.DataSource = this.merchantSource;
+      this.cboMerchants.DisplayMember = "Name";
+      this.cboMerchants.Name = "cboMerchants";
+      this.cboMerchants.ValueMember = "ID";
+      // 
+      // merchantSource
+      // 
+      this.merchantSource.DataSource = typeof(ReceiptEntry.Merchant);
+      // 
+      // colTax
+      // 
+      this.colTax.FieldName = "Tax";
+      this.colTax.Name = "colTax";
+      // 
+      // colDateYear
+      // 
+      this.colDateYear.Caption = "Year";
+      this.colDateYear.DisplayFormat.FormatString = "yyyy";
+      this.colDateYear.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colDateYear.FieldName = "Date";
+      this.colDateYear.GroupFormat.FormatString = "yyyy";
+      this.colDateYear.GroupFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colDateYear.GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.DateYear;
+      this.colDateYear.Name = "colDateYear";
+      this.colDateYear.Visible = true;
+      this.colDateYear.VisibleIndex = 3;
+      // 
+      // colDateMonth
+      // 
+      this.colDateMonth.Caption = "Month";
+      this.colDateMonth.DisplayFormat.FormatString = "MM- MMMM";
+      this.colDateMonth.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colDateMonth.FieldName = "colDateMonth";
+      this.colDateMonth.GroupFormat.FormatString = "MM- MMMM";
+      this.colDateMonth.GroupFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colDateMonth.GroupInterval = DevExpress.XtraGrid.ColumnGroupInterval.Value;
+      this.colDateMonth.Name = "colDateMonth";
+      this.colDateMonth.SortMode = DevExpress.XtraGrid.ColumnSortMode.Custom;
+      this.colDateMonth.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
+      this.colDateMonth.Visible = true;
+      this.colDateMonth.VisibleIndex = 1;
+      // 
+      // colTotal
+      // 
+      this.colTotal.AppearanceCell.Options.UseTextOptions = true;
+      this.colTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+      this.colTotal.DisplayFormat.FormatString = "c2";
+      this.colTotal.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colTotal.FieldName = "Total";
+      this.colTotal.MaxWidth = 90;
+      this.colTotal.MinWidth = 90;
+      this.colTotal.Name = "colTotal";
+      this.colTotal.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", "{0:c2}")});
+      this.colTotal.Visible = true;
+      this.colTotal.VisibleIndex = 1;
+      this.colTotal.Width = 90;
+      // 
+      // barManager1
+      // 
+      this.barManager1.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
+            this.bar1});
+      this.barManager1.DockControls.Add(this.barDockControlTop);
+      this.barManager1.DockControls.Add(this.barDockControlBottom);
+      this.barManager1.DockControls.Add(this.barDockControlLeft);
+      this.barManager1.DockControls.Add(this.barDockControlRight);
+      this.barManager1.Form = this;
+      this.barManager1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.tbbSave,
+            this.tbbItems,
+            this.tbbMerchants,
+            this.tbbBrands,
+            this.tbbNewReceipt});
+      this.barManager1.MaxItemId = 5;
+      // 
+      // bar1
+      // 
+      this.bar1.BarName = "Tools";
+      this.bar1.DockCol = 0;
+      this.bar1.DockRow = 0;
+      this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
+      this.bar1.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSave, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbBrands, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbItems, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbMerchants, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbNewReceipt, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+      this.bar1.OptionsBar.AllowQuickCustomization = false;
+      this.bar1.OptionsBar.DisableClose = true;
+      this.bar1.OptionsBar.DisableCustomization = true;
+      this.bar1.OptionsBar.DrawDragBorder = false;
+      this.bar1.OptionsBar.UseWholeRow = true;
+      this.bar1.Text = "Tools";
+      // 
+      // tbbSave
+      // 
+      this.tbbSave.Caption = "Save";
+      this.tbbSave.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbSave.Glyph")));
+      this.tbbSave.Id = 0;
+      this.tbbSave.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbSave.LargeGlyph")));
+      this.tbbSave.Name = "tbbSave";
+      this.tbbSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSave_ItemClick);
+      // 
+      // tbbBrands
+      // 
+      this.tbbBrands.Caption = "Brands";
+      this.tbbBrands.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbBrands.Glyph")));
+      this.tbbBrands.Id = 3;
+      this.tbbBrands.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbBrands.LargeGlyph")));
+      this.tbbBrands.Name = "tbbBrands";
+      this.tbbBrands.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbBrands_ItemClick);
+      // 
+      // tbbItems
+      // 
+      this.tbbItems.Caption = "Items";
+      this.tbbItems.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbItems.Glyph")));
+      this.tbbItems.Id = 1;
+      this.tbbItems.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbItems.LargeGlyph")));
+      this.tbbItems.Name = "tbbItems";
+      this.tbbItems.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbItems_ItemClick);
+      // 
+      // tbbMerchants
+      // 
+      this.tbbMerchants.Caption = "Merchants";
+      this.tbbMerchants.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbMerchants.Glyph")));
+      this.tbbMerchants.Id = 2;
+      this.tbbMerchants.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbMerchants.LargeGlyph")));
+      this.tbbMerchants.Name = "tbbMerchants";
+      this.tbbMerchants.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbMerchants_ItemClick);
+      // 
+      // tbbNewReceipt
+      // 
+      this.tbbNewReceipt.Caption = "New Receipt";
+      this.tbbNewReceipt.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbNewReceipt.Glyph")));
+      this.tbbNewReceipt.Id = 4;
+      this.tbbNewReceipt.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbNewReceipt.LargeGlyph")));
+      this.tbbNewReceipt.Name = "tbbNewReceipt";
+      this.tbbNewReceipt.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbNewReceipt_ItemClick);
+      // 
+      // barDockControlTop
+      // 
+      this.barDockControlTop.CausesValidation = false;
+      this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
+      this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
+      this.barDockControlTop.Size = new System.Drawing.Size(587, 31);
+      // 
+      // barDockControlBottom
+      // 
+      this.barDockControlBottom.CausesValidation = false;
+      this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+      this.barDockControlBottom.Location = new System.Drawing.Point(0, 476);
+      this.barDockControlBottom.Size = new System.Drawing.Size(587, 0);
+      // 
+      // barDockControlLeft
+      // 
+      this.barDockControlLeft.CausesValidation = false;
+      this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
+      this.barDockControlLeft.Location = new System.Drawing.Point(0, 31);
+      this.barDockControlLeft.Size = new System.Drawing.Size(0, 445);
+      // 
+      // barDockControlRight
+      // 
+      this.barDockControlRight.CausesValidation = false;
+      this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
+      this.barDockControlRight.Location = new System.Drawing.Point(587, 31);
+      this.barDockControlRight.Size = new System.Drawing.Size(0, 445);
+      // 
+      // layoutControl1
+      // 
+      this.layoutControl1.Controls.Add(this.gridReceipts);
+      this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.layoutControl1.Location = new System.Drawing.Point(0, 31);
+      this.layoutControl1.Name = "layoutControl1";
+      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(622, 278, 250, 350);
+      this.layoutControl1.Root = this.layoutControlGroup1;
+      this.layoutControl1.Size = new System.Drawing.Size(587, 445);
+      this.layoutControl1.TabIndex = 4;
+      this.layoutControl1.Text = "layoutControl1";
+      // 
+      // layoutControlGroup1
+      // 
+      this.layoutControlGroup1.CustomizationFormText = "layoutControlGroup1";
+      this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+      this.layoutControlGroup1.GroupBordersVisible = false;
+      this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlGroup2});
+      this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup1.Name = "layoutControlGroup1";
+      this.layoutControlGroup1.Size = new System.Drawing.Size(587, 445);
+      this.layoutControlGroup1.Text = "layoutControlGroup1";
+      this.layoutControlGroup1.TextVisible = false;
+      // 
+      // layoutControlGroup2
+      // 
+      this.layoutControlGroup2.CustomizationFormText = "Groups";
+      this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+      this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup2.Name = "layoutControlGroup2";
+      this.layoutControlGroup2.Size = new System.Drawing.Size(567, 425);
+      this.layoutControlGroup2.Text = "Groups";
+      // 
+      // layoutControlItem1
+      // 
+      this.layoutControlItem1.Control = this.gridReceipts;
+      this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+      this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlItem1.Name = "layoutControlItem1";
+      this.layoutControlItem1.Size = new System.Drawing.Size(543, 382);
+      this.layoutControlItem1.Text = "layoutControlItem1";
+      this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem1.TextToControlDistance = 0;
+      this.layoutControlItem1.TextVisible = false;
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(550, 471);
-      this.Controls.Add(this.tableLayoutPanel1);
-      this.Controls.Add(this.LeftRebar1);
-      this.Controls.Add(this.RightRebar1);
-      this.Controls.Add(this.TopRebar1);
-      this.Controls.Add(this.BottomRebar1);
-      this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+      this.ClientSize = new System.Drawing.Size(587, 476);
+      this.Controls.Add(this.layoutControl1);
+      this.Controls.Add(this.barDockControlLeft);
+      this.Controls.Add(this.barDockControlRight);
+      this.Controls.Add(this.barDockControlBottom);
+      this.Controls.Add(this.barDockControlTop);
       this.Name = "MainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-      this.Text = "Receipt Entry";
-      this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-      this.Load += new System.EventHandler(this.MainForm_Load);
-      ((System.ComponentModel.ISupportInitialize)(this.uiCommandManager)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.BottomRebar1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.uiCommandBar)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.LeftRebar1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.RightRebar1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.TopRebar1)).EndInit();
-      this.TopRebar1.ResumeLayout(false);
+      this.Text = "ReceiptEntry";
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptItems)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboNamedItems)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.namedItemSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).EndInit();
-      this.tableLayoutPanel1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.receiptSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchants)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.merchantSource)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+      this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
       this.ResumeLayout(false);
 
     }
 
     #endregion
 
-    private Janus.Windows.UI.CommandBars.UICommandManager uiCommandManager;
-    private Janus.Windows.UI.CommandBars.UIRebar BottomRebar1;
-    private Janus.Windows.UI.CommandBars.UICommandBar uiCommandBar;
-    private Janus.Windows.UI.CommandBars.UICommand tbbSave;
-    private Janus.Windows.UI.CommandBars.UICommand Separator1;
-    private Janus.Windows.UI.CommandBars.UICommand tbbAddReceipt;
-    private Janus.Windows.UI.CommandBars.UICommand tbbEditReceipt;
-    private Janus.Windows.UI.CommandBars.UICommand SaveCommand;
-    private Janus.Windows.UI.CommandBars.UICommand AddReceiptCommand;
-    private Janus.Windows.UI.CommandBars.UICommand EditReceiptCommand;
-    private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-    private Janus.Windows.GridEX.GridEX gridReceipts;
-    private Janus.Windows.UI.CommandBars.UIRebar LeftRebar1;
-    private Janus.Windows.UI.CommandBars.UIRebar RightRebar1;
-    private Janus.Windows.UI.CommandBars.UIRebar TopRebar1;
-    private Janus.Windows.UI.CommandBars.UICommand tbbRemoveReceipt;
-    private Janus.Windows.UI.CommandBars.UICommand RemoveReceiptCommand;
-    private Janus.Windows.UI.CommandBars.UICommand tbbMerchantsDatabase;
-    private Janus.Windows.UI.CommandBars.UICommand tbbItemsDatabase;
-    private Janus.Windows.UI.CommandBars.UICommand ItemsDatabaseCommand;
-    private Janus.Windows.UI.CommandBars.UICommand MerchantDatabaseCommand;
-    private Janus.Windows.UI.CommandBars.UICommand Separator2;
-    private Janus.Windows.UI.CommandBars.UICommand Separator3;
-    private System.Windows.Forms.ProgressBar progStatus;
-    private Janus.Windows.UI.CommandBars.UICommand tbbStatistics;
-    private Janus.Windows.UI.CommandBars.UICommand StatisticsCommand;
-    private Janus.Windows.UI.CommandBars.UICommand tbbSearch;
-    private Janus.Windows.UI.CommandBars.UICommand SearchCommand;
+    private DevExpress.XtraBars.BarManager barManager1;
+    private DevExpress.XtraBars.Bar bar1;
+    private DevExpress.XtraBars.BarDockControl barDockControlTop;
+    private DevExpress.XtraBars.BarDockControl barDockControlBottom;
+    private DevExpress.XtraBars.BarDockControl barDockControlLeft;
+    private DevExpress.XtraBars.BarDockControl barDockControlRight;
+    private DevExpress.XtraBars.BarButtonItem tbbSave;
+    private DevExpress.XtraBars.BarButtonItem tbbItems;
+    private DevExpress.XtraBars.BarButtonItem tbbMerchants;
+    private DevExpress.XtraBars.BarButtonItem tbbBrands;
+    private DevExpress.XtraBars.BarButtonItem tbbNewReceipt;
+    private DevExpress.XtraLayout.LayoutControl layoutControl1;
+    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+    private DevExpress.XtraGrid.GridControl gridReceipts;
+    private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceipts;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
+    private System.Windows.Forms.BindingSource receiptSource;
+    private DevExpress.XtraGrid.Columns.GridColumn colID;
+    private DevExpress.XtraGrid.Columns.GridColumn colMerchantID;
+    private DevExpress.XtraGrid.Columns.GridColumn colDateYear;
+    private DevExpress.XtraGrid.Columns.GridColumn colTax;
+    private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboMerchants;
+    private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceiptItems;
+    private DevExpress.XtraGrid.Columns.GridColumn colItemID;
+    private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboNamedItems;
+    private DevExpress.XtraGrid.Columns.GridColumn colQuantity;
+    private DevExpress.XtraGrid.Columns.GridColumn colPricePerItem;
+    private System.Windows.Forms.BindingSource merchantSource;
+    private System.Windows.Forms.BindingSource namedItemSource;
+    private DevExpress.XtraGrid.Columns.GridColumn colDateMonth;
+    private DevExpress.XtraGrid.Columns.GridColumn colTotal;
+
+
 
   }
 }

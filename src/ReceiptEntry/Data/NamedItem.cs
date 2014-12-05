@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
   [DataContract(Name = "NamedItem", Namespace = SaveFile.Namespace)]
-  public class NamedItem : IExtensibleDataObject, INameIDItem
+  public class NamedItem : ExtensibleDataObject
   {
-    public static NamedItem Empty { get { return new NamedItem { ID = "NamedItemEmpty", Name = "[Empty]" }; } }
-
-    public ExtensionDataObject ExtensionData { get; set; }
-
     [DataMember(Order = 0)]
-    public string ID { get; set; }
-
+    public string BrandID { get; set; }
     [DataMember(Order = 1)]
+    public string CategoryID { get; set; }
+    [DataMember(Order = 2)]
+    public string ID { get; set; }
+    [DataMember(Order = 3)]
     public string Name { get; set; }
+    [DataMember(Order = 4)]
+    public decimal Size { get; set; }
+    [DataMember(Order = 5)]
+    public Measurement Measurement { get; set; }
   }
 }

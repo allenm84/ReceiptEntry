@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Janus.Windows.Common;
-using System.IO;
+using DevExpress.UserSkins;
+using DevExpress.Skins;
+using DevExpress.LookAndFeel;
 
 namespace ReceiptEntry
 {
@@ -17,7 +18,12 @@ namespace ReceiptEntry
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
-      SingleInstanceApplicationController.Run(new MainForm());
+
+      SkinManager.EnableFormSkins();
+      SkinManager.Default.RegisterAssembly(typeof(Office2010BlackBlue).Assembly);
+      UserLookAndFeel.Default.SetSkinStyle("Office2010BlackBlue");
+
+      Application.Run(new MainForm());
     }
   }
 }
