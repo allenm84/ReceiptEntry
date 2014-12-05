@@ -1,61 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
   [DataContract(Name = "Receipt", Namespace = SaveFile.Namespace)]
-  public class Receipt : IExtensibleDataObject
+  public class Receipt : ExtensibleDataObject
   {
-    public ExtensionDataObject ExtensionData { get; set; }
-
-    [DataMember(Order = 0)]
+    [DataMember]
     public string ID { get; set; }
-
-    [DataMember(Order = 1)]
+    [DataMember]
     public string MerchantID { get; set; }
-
-    [DataMember(Order = 2)]
+    [DataMember]
     public DateTime Date { get; set; }
-
-    [DataMember(Order = 3)]
+    [DataMember]
     public List<ReceiptItem> Items { get; set; }
-
-    [DataMember(Order = 4)]
+    [DataMember]
     public decimal Tax { get; set; }
-
-    [DataMember(Order = 5)]
-    public string PaidByID { get; set; }
 
     public decimal Total
     {
-      get { return Items.Sum(i => i.Price) + Tax; }
-    }
-
-    [IgnoreDataMember]
-    private Merchant mLinkedMerchant;
-    public Merchant LinkedMerchant
-    {
-      get { return LinkRef.Get(MerchantID, SaveFile.Instance.Merchants, m => m.ID, ref mLinkedMerchant) ?? Merchant.Empty; }
-    }
-
-    [IgnoreDataMember]
-    private PaidBy mLinkedPaidBy;
-    public PaidBy LinkedPaidBy
-    {
-      get { return LinkRef.Get(PaidByID, SaveFile.Instance.PaidBys, p => p.ID, ref mLinkedPaidBy) ?? PaidBy.Empty; }
-    }
-
-    public string Name
-    {
-      get { return LinkedMerchant.Name; }
-    }
-
-    public string PaidByName
-    {
-      get { return LinkedPaidBy.Name; }
+      get
+      {
+        decimal total = Tax;
+        if (Items != null)
+        {
+          total += Items.Sum(i => i.Total);
+        }
+        return total;
+      }
     }
   }
 }

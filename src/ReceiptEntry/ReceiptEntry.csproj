@@ -5,55 +5,56 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{950F1533-EB2D-40F9-B84C-EFA149F74345}</ProjectGuid>
+    <ProjectGuid>{9F4B1A73-842C-46EF-9D52-45C7B54D1A8F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ReceiptEntry</RootNamespace>
     <AssemblyName>ReceiptEntry</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;JanusGridEx</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;JanusGridEx</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Janus.Data.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
-    <Reference Include="Janus.Windows.CalendarCombo.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL" />
-    <Reference Include="Janus.Windows.Common.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
-    <Reference Include="Janus.Windows.GridEX.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
-    <Reference Include="Janus.Windows.UI.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="DevExpress.BonusSkins.v14.1" />
+    <Reference Include="DevExpress.Data.v14.1" />
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v14.1" />
+    <Reference Include="DevExpress.Sparkline.v14.1.Core" />
+    <Reference Include="DevExpress.XtraBars.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v14.1" />
+    <Reference Include="DevExpress.XtraGrid.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v14.1, Version=14.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Office2010BlackBlue">
+      <HintPath>..\..\..\Downloads\DevExpress\Office2010BlackBlue\Office2010BlackBlue.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Design" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -61,85 +62,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Extensions\Extensions\Arithmetic.cs">
-      <Link>Extensions\Arithmetic.cs</Link>
+    <Compile Include="..\..\CategoryHelper\CategoryHelper\Data\CategoryNode.cs">
+      <Link>External\CategoryNode.cs</Link>
     </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Array.cs">
-      <Link>Extensions\Array.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Collections.cs">
-      <Link>Extensions\Collections.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Controls.cs">
-      <Link>Extensions\Controls.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\DataContract.cs">
-      <Link>Extensions\DataContract.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\DateTime.cs">
-      <Link>Extensions\DateTime.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Delegates.cs">
-      <Link>Extensions\Delegates.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Drawing.cs">
-      <Link>Extensions\Drawing.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Evaluation.cs">
-      <Link>Extensions\Evaluation.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\IO.cs">
-      <Link>Extensions\IO.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Janus.cs">
-      <Link>Extensions\Janus.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Random.cs">
-      <Link>Extensions\Random.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Reflection.cs">
-      <Link>Extensions\Reflection.cs</Link>
-    </Compile>
-    <Compile Include="..\..\Extensions\Extensions\Strings.cs">
-      <Link>Extensions\Strings.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Algorithms\Levenshtein.cs">
-      <Link>References\Levenshtein.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Dropbox.cs">
-      <Link>References\Dropbox.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Duid.cs">
-      <Link>References\Duid.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Tuplex.cs">
-      <Link>References\Tuplex.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Windows\Winforms\DoWork.cs">
-      <Link>References\DoWork.cs</Link>
-    </Compile>
-    <Compile Include="..\..\References\References\Windows\Winforms\SingleInstanceApplication.cs">
-      <Link>References\SingleInstanceApplication.cs</Link>
-    </Compile>
-    <Compile Include="Categories\MerchantCategory.cs" />
-    <Compile Include="Categories\NamedItemCategory.cs" />
-    <Compile Include="Categories\PurchasesCategory.cs" />
-    <Compile Include="Categories\StatisticsCategory.cs" />
-    <Compile Include="Data\INameIDItem.cs" />
-    <Compile Include="Data\Options.cs" />
-    <Compile Include="Data\PaidBy.cs" />
-    <Compile Include="Data\SaveFile.cs" />
-    <Compile Include="Dialogs\DataSelectionDialog.cs">
+    <Compile Include="Data\Brand.cs" />
+    <Compile Include="Data\Measurement.cs" />
+    <Compile Include="Data\ReceiptItem.cs" />
+    <Compile Include="Dialogs\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\DataSelectionDialog.Designer.cs">
-      <DependentUpon>DataSelectionDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\NameEntryDialog.cs">
+    <Compile Include="Data\ExtensibleDataObject.cs" />
+    <Compile Include="Dialogs\EditReceiptItemDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\NameEntryDialog.Designer.cs">
-      <DependentUpon>NameEntryDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\EditReceiptItemDialog.Designer.cs">
+      <DependentUpon>EditReceiptItemDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditNamedItemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditNamedItemDialog.Designer.cs">
+      <DependentUpon>EditNamedItemDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditMerchantDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditMerchantDialog.Designer.cs">
+      <DependentUpon>EditMerchantDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditBrandDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditBrandDialog.Designer.cs">
+      <DependentUpon>EditBrandDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\EditReceiptDialog.cs">
       <SubType>Form</SubType>
@@ -147,73 +105,36 @@
     <Compile Include="Dialogs\EditReceiptDialog.Designer.cs">
       <DependentUpon>EditReceiptDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\EditReceiptItemDialog.cs">
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="External\Categories.cs" />
+    <Compile Include="Dialogs\FromTotalDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\EditReceiptItemDialog.Designer.cs">
-      <DependentUpon>EditReceiptItemDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\FromTotalDialog.Designer.cs">
+      <DependentUpon>FromTotalDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Merchant.cs" />
-    <Compile Include="Data\NamedItem.cs" />
-    <Compile Include="Library\Common.cs" />
-    <Compile Include="Library\Creator.cs" />
-    <Compile Include="Library\LinkRef.cs" />
-    <Compile Include="Library\ReceiptLink.cs" />
-    <Compile Include="Library\SearchResult.cs" />
-    <Compile Include="Library\SearchResultType.cs" />
-    <Compile Include="Library\Textex.cs" />
+    <Compile Include="Library\GridViewFeatures.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\MerchantDatabaseDialog.cs">
+    <Compile Include="Data\Merchant.cs" />
+    <Compile Include="Data\NamedItem.cs" />
+    <Compile Include="Library\Pool.cs" />
+    <Compile Include="Dialogs\NamedItemsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Dialogs\MerchantDatabaseDialog.Designer.cs">
-      <DependentUpon>MerchantDatabaseDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\NamedItemDatabaseDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\NamedItemDatabaseDialog.Designer.cs">
-      <DependentUpon>NamedItemDatabaseDialog.cs</DependentUpon>
+    <Compile Include="Dialogs\NamedItemsDialog.Designer.cs">
+      <DependentUpon>NamedItemsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Receipt.cs" />
-    <Compile Include="Data\ReceiptItem.cs" />
-    <Compile Include="Dialogs\QuantityCalculatorDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\QuantityCalculatorDialog.Designer.cs">
-      <DependentUpon>QuantityCalculatorDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Library\SystemManager.cs" />
-    <Compile Include="Dialogs\StatisticsDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\StatisticsDialog.Designer.cs">
-      <DependentUpon>StatisticsDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SearchDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SearchDialog.Designer.cs">
-      <DependentUpon>SearchDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SearchResultDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SearchResultDialog.Designer.cs">
-      <DependentUpon>SearchResultDialog.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Dialogs\DataSelectionDialog.resx">
-      <DependentUpon>DataSelectionDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\NameEntryDialog.resx">
-      <DependentUpon>NameEntryDialog.cs</DependentUpon>
+    <Compile Include="Data\SaveFile.cs" />
+    <EmbeddedResource Include="Dialogs\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditReceiptDialog.resx">
       <DependentUpon>EditReceiptDialog.cs</DependentUpon>
@@ -221,38 +142,34 @@
     <EmbeddedResource Include="Dialogs\EditReceiptItemDialog.resx">
       <DependentUpon>EditReceiptItemDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SearchDialog.resx">
-      <DependentUpon>SearchDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\EditNamedItemDialog.resx">
+      <DependentUpon>EditNamedItemDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\StatisticsDialog.resx">
-      <DependentUpon>StatisticsDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\EditMerchantDialog.resx">
+      <DependentUpon>EditMerchantDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditBrandDialog.resx">
+      <DependentUpon>EditBrandDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FromTotalDialog.resx">
+      <DependentUpon>FromTotalDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\MerchantDatabaseDialog.resx">
-      <DependentUpon>MerchantDatabaseDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\NamedItemDatabaseDialog.resx">
-      <DependentUpon>NamedItemDatabaseDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Dialogs\NamedItemsDialog.resx">
+      <DependentUpon>NamedItemsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
-    <EmbeddedResource Include="Properties\Strings.resx">
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Strings.Designer.cs">
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Dialogs\QuantityCalculatorDialog.resx">
-      <DependentUpon>QuantityCalculatorDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SearchResultDialog.resx">
-      <DependentUpon>SearchResultDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -269,9 +186,10 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)..\bin\" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)..\..\Programs\$(ProjectName)\" /Y
+xcopy "$(TargetDir)*.dll" "$(SolutionDir)..\..\Programs\$(ProjectName)\" /Y</PostBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
