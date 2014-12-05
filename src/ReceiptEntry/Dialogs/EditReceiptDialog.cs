@@ -1,101 +1,121 @@
-﻿using DevExpress.XtraEditors;
-using DevExpress.XtraEditors.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
 namespace ReceiptEntry
 {
   public partial class EditReceiptDialog : BaseForm
   {
-    private bool cancelClose = false;
     private Receipt receipt;
+    private ReceiptItemGridViewHelper gridViewHelper;
+
+    public bool ShowEditOrder { get; set; }
 
     public EditReceiptDialog(Receipt receipt)
     {
       this.receipt = receipt;
       InitializeComponent();
 
-      merchantSource.DataSource = SaveFile.Merchants;
-      namedItemSource.DataSource = SaveFile.Items;
+      gridViewHelper = new ReceiptItemGridViewHelper(gridViewItems);
+      gridViewHelper.ShowCodeColumn = receipt.ShowCodeColumn;
+      
+      chkShowCode.Checked = gridViewHelper.ShowCodeColumn;
+      chkShowCode.CheckedChanged += chkShowCode_CheckedChanged;
 
-      cboMerchants.EditValue = receipt.MerchantID;
-      dteDate.DateTime = receipt.Date;
+      merchantSource.DataSource = Database.Merchants;
+      merchantTypeSource.DataSource = Database.MerchantTypes;
       receiptItemSource.DataSource = receipt.Items;
-      numTax.Value = receipt.Tax;
+
+      dtDate.DataBindings.Add("EditValue", receipt, "Date");
+      cboMerchant.DataBindings.Add("EditValue", receipt, "MerchantID");
+      numTax.DataBindings.Add("EditValue", receipt, "Tax");
 
       receiptItemSource.ListChanged += receiptItemSource_ListChanged;
     }
 
-    private void UpdateButtons()
+    private void chkShowCode_CheckedChanged(object sender, EventArgs e)
     {
-      int selectionCount = gridViewItems.SelectedRowsCount;
-      btnEdit.Enabled = selectionCount == 1;
-      btnRemove.Enabled = selectionCount > 0;
-      btnClear.Enabled = receiptItemSource.Count > 0;
-      UpdateTotal();
+      receipt.ShowCodeColumn = chkShowCode.Checked;
+      gridViewHelper.ShowCodeColumn = receipt.ShowCodeColumn;
     }
 
-    private void EditItemByRowHandle(int rowHandle)
+    private void UpdateItemOrder()
     {
-      EditItemByRowValue(gridViewItems.GetRow(rowHandle));
+      using (var dlg = new SelectReceiptItemEditOrderDialog())
+      {
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          receipt.EditOrder = dlg.GetSelection();
+        }
+      }
     }
 
-    private void EditItemByRowValue(object value)
+    private void EditByRowHandle(int rowHandle)
     {
-      EditItemByItem(value as ReceiptItem);
+      var row = gridViewItems.GetRow(rowHandle);
+      EditByItem(row as ReceiptItem);
     }
 
-    private void EditItemByItem(ReceiptItem item)
+    private void EditByItem(ReceiptItem item)
     {
       if (item == null) return;
-      var copy = item.Duplicate();
-      using (var dlg = new EditReceiptItemDialog(copy))
+      using (var dlg = new EditReceiptItemDialog(receipt.EditOrder))
       {
         dlg.Text = "Edit Item";
+        dlg.Read(item);
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
           var index = receiptItemSource.IndexOf(item);
-          receiptItemSource[index] = copy;
+          receiptItemSource[index] = dlg.Flush();
         }
       }
     }
 
     private void UpdateTotal()
     {
-      numTotal.Value = numTax.Value + (receiptItemSource
+      numTotal.Value = numTax.Value + receiptItemSource
         .Cast<ReceiptItem>()
-        .Sum(i => (i.Quantity * i.PricePerItem)));
+        .Sum(i => i.Price);
     }
 
-    private void receiptItemSource_ListChanged(object sender, ListChangedEventArgs e)
+    private void UpdateButtons()
     {
+      btnEdit.Enabled = gridViewItems.SelectedRowsCount == 1;
+      btnRemove.Enabled = gridViewItems.SelectedRowsCount > 0;
+      btnClear.Enabled = receiptItemSource.Count > 0;
+      btnDuplicate.Enabled = gridViewItems.SelectedRowsCount == 1;
+    }
+
+    protected override void OnLoad(EventArgs e)
+    {
+      base.OnLoad(e);
+      UpdateTotal();
+
+      if (ShowEditOrder)
+      {
+        UpdateItemOrder();
+      }
+
       UpdateButtons();
     }
 
-    private void cboMerchants_AddNewValue(object sender, AddNewValueEventArgs e)
+    private void cboMerchant_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
     {
-      var merchant = new Merchant
-      {
-        ID = Pool.ID,
-        IsGrocery = false,
-        Name = cboMerchants.GetSearchText(),
-      };
-
-      using (var dlg = new EditMerchantDialog(merchant))
+      using (var dlg = new EditMerchantDialog())
       {
         dlg.Text = "Add Merchant";
+        dlg.SetMerchantName(cboMerchantView.FindFilterText);
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
+          var merchant = dlg.Flush();
           merchantSource.Add(merchant);
           e.NewValue = merchant.ID;
-          e.Cancel = false;
         }
         else
         {
@@ -104,9 +124,39 @@ namespace ReceiptEntry
       }
     }
 
-    private void gridViewItems_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+    private void btnAdd_Click(object sender, EventArgs e)
     {
-      UpdateButtons();
+      using (var dlg = new EditReceiptItemDialog(receipt.EditOrder))
+      {
+        dlg.Text = "Add Receipt Item";
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          var index = receiptItemSource.Add(dlg.Flush());
+          var handle = gridViewItems.GetRowHandle(index);
+          gridViewItems.MakeRowVisible(handle);
+        }
+      }
+    }
+
+    private void btnEdit_Click(object sender, EventArgs e)
+    {
+      EditByItem(gridViewItems.GetFocusedRow() as ReceiptItem);
+    }
+
+    private void btnRemove_Click(object sender, EventArgs e)
+    {
+      var result = XtraMessageBox.Show(this, "Are you sure you want to remove the selected items?", "Confirm", 
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (result == System.Windows.Forms.DialogResult.No) return;
+      gridViewItems.DeleteSelectedRows();
+    }
+
+    private void btnClear_Click(object sender, EventArgs e)
+    {
+      var result = XtraMessageBox.Show(this, "Are you sure you want to clear all the items?", "Confirm",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (result == System.Windows.Forms.DialogResult.No) return;
+      receiptItemSource.Clear();
     }
 
     private void gridItems_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -114,83 +164,65 @@ namespace ReceiptEntry
       if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
       {
         var info = gridViewItems.CalcHitInfo(e.Location);
-        if ((info.InRow || info.InRowCell) && !info.InGroupRow)
+        if (info.InRowCell || info.InRow)
         {
-          EditItemByRowHandle(info.RowHandle);
+          EditByRowHandle(info.RowHandle);
         }
       }
     }
 
-    private void btnAdd_Click(object sender, EventArgs e)
+    private void receiptItemSource_ListChanged(object sender, ListChangedEventArgs e)
     {
-      var item = new ReceiptItem
-      {
-        ItemID = null,
-        PricePerItem = 0,
-        Quantity = 0,
-      };
-
-      using (var dlg = new EditReceiptItemDialog(item))
-      {
-        dlg.Text = "Add Item";
-        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-        {
-          receiptItemSource.Add(item);
-        }
-      }
-    }
-
-    private void btnEdit_Click(object sender, EventArgs e)
-    {
-      EditItemByRowValue(gridViewItems.GetFocusedRow());
-    }
-
-    private void btnRemove_Click(object sender, EventArgs e)
-    {
-      var result = XtraMessageBox.Show(this,
-        "Are you sure you want to remove the selected items",
-        "Remove", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      gridViewItems.DeleteSelectedRows();
-    }
-
-    private void btnClear_Click(object sender, EventArgs e)
-    {
-      var result = XtraMessageBox.Show(this,
-        "Are you sure you want to clear all the items",
-        "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      receiptItemSource.Clear();
-    }
-
-    protected override void OnFormClosing(FormClosingEventArgs e)
-    {
-      if (cancelClose)
-      {
-        cancelClose = false;
-        e.Cancel = true;
-      }
-      base.OnFormClosing(e);
-    }
-
-    private void btnOK_Click(object sender, EventArgs e)
-    {
-      receipt.Date = dteDate.DateTime.Date;
-      receipt.MerchantID = cboMerchants.EditValue as string;
-      receipt.Tax = numTax.Value;
-
-      if (string.IsNullOrWhiteSpace(receipt.MerchantID))
-      {
-        cancelClose = true;
-        XtraMessageBox.Show(this,
-          "Please select a merchant", "Invalid",
-          MessageBoxButtons.OK, MessageBoxIcon.Error);
-      }
+      UpdateTotal();
+      UpdateButtons();
     }
 
     private void numTax_ValueChanged(object sender, EventArgs e)
     {
       UpdateTotal();
     }
+
+    private void okCancelButtons1_OKClick(object sender, EventArgs e)
+    {
+      if (string.IsNullOrWhiteSpace(cboMerchant.EditValue as string))
+      {
+        cancelClose = true;
+        XtraMessageBox.Show(this, "Please select a merchant", "Error", 
+          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return;
+      }
+    }
+
+    private void gridViewItems_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
+    {
+      UpdateButtons();
+    }
+
+    private void btnDuplicate_Click(object sender, EventArgs e)
+    {
+      var item = gridViewItems.GetFocusedRow() as ReceiptItem;
+      if (item == null) return;
+
+      using (var dlg = new DuplicateAmountDialog())
+      {
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          gridViewItems.BeginDataUpdate();
+
+          int amt = dlg.Amount;
+          int index = -1;
+
+          for (int i = 0; i < amt; ++i)
+          {
+            index = receiptItemSource.Add(item.Duplicate());
+          }
+
+          gridViewItems.EndDataUpdate();
+
+          var handle = gridViewItems.GetRowHandle(index);
+          gridViewItems.MakeRowVisible(handle);
+        }
+      }
+    }    
   }
 }

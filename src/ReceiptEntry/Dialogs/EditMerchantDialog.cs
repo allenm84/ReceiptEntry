@@ -12,21 +12,51 @@ namespace ReceiptEntry
 {
   public partial class EditMerchantDialog : BaseForm
   {
-    private Merchant merchant;
-
-    public EditMerchantDialog(Merchant merchant)
+    public EditMerchantDialog()
     {
-      this.merchant = merchant;
-
       InitializeComponent();
-      txtName.Text = merchant.Name;
-      chkIsGroceryStore.Checked = merchant.IsGrocery;
+      merchantTypeBindingSource.DataSource = Database.MerchantTypes;
     }
 
-    private void btnOK_Click(object sender, EventArgs e)
+    public void SetMerchantName(string name)
     {
-      merchant.Name = txtName.Text;
-      merchant.IsGrocery = chkIsGroceryStore.Checked;
+      txtName.Text = name;
+    }
+
+    public void Read(Merchant merchant)
+    {
+      SetMerchantName(merchant.Name);
+      cboMerchantType.EditValue = merchant.MerchantTypeID;
+    }
+
+    public Merchant Flush()
+    {
+      return new Merchant
+      {
+        ID = Database.NewID(),
+        MerchantTypeID = (string)cboMerchantType.EditValue,
+        Name = txtName.Text,
+      };
+    }
+
+    private void searchLookUpEdit1_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
+    {
+      using (var dlg = new EditTextDialog())
+      {
+        dlg.Text = "Add Merchant Type";
+        dlg.Caption = "Name:";
+        dlg.Value = searchLookUpEdit1View.FindFilterText;
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          var type = new MerchantType { ID = Database.NewID(), Name = dlg.Value };
+          merchantTypeBindingSource.Add(type);
+          e.NewValue = type.ID;
+        }
+        else
+        {
+          e.Cancel = true;
+        }
+      }
     }
   }
 }

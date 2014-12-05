@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "Merchant", Namespace = SaveFile.Namespace)]
+  [DataContract(Name = "Merchant", Namespace = Database.Namespace)]
   public class Merchant : ExtensibleDataObject
   {
-    [DataMember]
+    [DataMember(Order = 0)]
     public string ID { get; set; }
-    [DataMember]
+    [DataMember(Order = 1)]
+    public string MerchantTypeID { get; set; }
+    [DataMember(Order = 2)]
     public string Name { get; set; }
-    [DataMember]
-    public bool IsGrocery { get; set; }
   }
 }
