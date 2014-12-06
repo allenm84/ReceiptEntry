@@ -83,6 +83,7 @@
       this.lstMerchants.StyleController = this.layoutControl1;
       this.lstMerchants.TabIndex = 5;
       this.lstMerchants.SelectedIndexChanged += new System.EventHandler(this.lstMerchants_SelectedIndexChanged);
+      this.lstMerchants.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstMerchants_KeyDown);
       this.lstMerchants.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstMerchants_MouseDoubleClick);
       // 
       // okCancelButtons1

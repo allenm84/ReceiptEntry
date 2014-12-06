@@ -114,7 +114,7 @@ namespace ReceiptEntry
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
     {
       var merchants = Merchants.Select(m => m.Duplicate());
-      using (var dlg = new MerchantListDialog(merchants))
+      using (var dlg = new MerchantListDialog(merchants, Receipts.ToArray()))
       {
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {

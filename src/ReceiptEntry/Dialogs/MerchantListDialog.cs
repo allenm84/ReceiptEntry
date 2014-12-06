@@ -19,8 +19,11 @@ namespace ReceiptEntry
       get { return list; }
     }
 
-    public MerchantListDialog(IEnumerable<Merchant> merchants)
+    private Receipt[] receipts;
+
+    public MerchantListDialog(IEnumerable<Merchant> merchants, Receipt[] receipts)
     {
+      this.receipts = receipts;
       InitializeComponent();
 
       list = new BindingList<Merchant>();
@@ -45,6 +48,26 @@ namespace ReceiptEntry
     private void UpdateButtons()
     {
       editorButtons.UpdateButtons(lstMerchants.SelectedItems.Count, list.Count);
+    }
+
+    private void SanitizeReceipts()
+    {
+      Merchant unassigned = null;
+
+      foreach (var r in receipts)
+      {
+        if (list.Count == 0 || !list.Any(m => m.ID == r.MerchantID))
+        {
+          if (unassigned == null)
+          {
+            unassigned = new Merchant();
+            unassigned.Name = "[Empty]";
+            unassigned.ID = ID.Gen();
+            list.Add(unassigned);
+          }
+          r.MerchantID = unassigned.ID;
+        }
+      }
     }
 
     private void DoEditItem(Merchant merchant)
@@ -103,11 +126,41 @@ namespace ReceiptEntry
       var result = XtraMessageBox.Show(this, "Are you sure you want to remove the selected merchants?", "Remove",
         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       if (result == System.Windows.Forms.DialogResult.No) return;
+      var message = "{0} is being used by {1} receipts. In order to remove {0}, you must select a replacement merchant. If you do not select a replacement, then {0} will not be removed";
 
       var items = lstMerchants.SelectedItems.OfType<Merchant>().ToArray();
       lstMerchants.BeginUpdate();
-      foreach (var item in items)
-        list.Remove(item);
+      foreach (var merchant in items)
+      {
+        var matches = receipts.Where(r => r.MerchantID == merchant.ID).ToArray();
+        if (matches.Length > 0)
+        {
+          var text = string.Format(message, merchant.Name, matches.Length);
+          using (var dlg = new SelectMerchantDialog(Merchants.Exclude(merchant), text))
+          {
+            dlg.Text = "Select Replacement Merchant";
+            result = dlg.ShowDialog(this);
+            if (result == System.Windows.Forms.DialogResult.OK)
+            {
+              string id = dlg.SelectedMerchantID;
+              foreach (var match in matches)
+              {
+                match.MerchantID = id;
+              }
+            }
+            else
+            {
+              XtraMessageBox.Show(this, string.Format("{0} will not be removed", merchant.Name), "Remove", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+              continue;
+            }
+          }
+        }
+
+        list.Remove(merchant);
+      }
+
+      SanitizeReceipts();
       lstMerchants.EndUpdate();
     }
 
@@ -117,6 +170,7 @@ namespace ReceiptEntry
         MessageBoxButtons.YesNo, MessageBoxIcon.Question);
       if (result == System.Windows.Forms.DialogResult.No) return;
       list.Clear();
+      SanitizeReceipts();
     }
 
     private void lstMerchants_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -128,6 +182,14 @@ namespace ReceiptEntry
     private void lstMerchants_SelectedIndexChanged(object sender, EventArgs e)
     {
       UpdateButtons();
+    }
+
+    private void lstMerchants_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Delete)
+      {
+        editorButtons.Remove();
+      }
     }
   }
 }

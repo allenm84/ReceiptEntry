@@ -133,9 +133,16 @@
     <Compile Include="Editors\QuantityEditor.Designer.cs">
       <DependentUpon>QuantityEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\SelectMerchantDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\SelectMerchantDialog.Designer.cs">
+      <DependentUpon>SelectMerchantDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="Extensions\DataExtensions.cs" />
     <Compile Include="Extensions\DevExpressExtensions.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\IWorkerExtensions.cs" />
     <Compile Include="Library\ButtonProxy.cs" />
     <Compile Include="Library\GridViewFeatures.cs" />
@@ -191,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\QuantityEditor.resx">
       <DependentUpon>QuantityEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\SelectMerchantDialog.resx">
+      <DependentUpon>SelectMerchantDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

@@ -49,5 +49,13 @@ namespace ReceiptEntry
       btnRemove.Enabled = selectionCount > 0;
       btnClear.Enabled = totalCount > 0;
     }
+
+    public void Remove()
+    {
+      if (btnRemove.Enabled)
+      {
+        btnRemove.PerformClick();
+      }
+    }
   }
 }
