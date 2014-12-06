@@ -189,7 +189,7 @@ namespace ReceiptEntry
         var result = XtraMessageBox.Show(this, 
           string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine),
           "Remove", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-        if (result == System.Windows.Forms.DialogResult.No) return;
+        if (result == System.Windows.Forms.DialogResult.Cancel) return;
         gridViewReceipts.DeleteSelectedRows();
       }
     }
