@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 
 namespace ReceiptEntry
@@ -176,6 +177,18 @@ namespace ReceiptEntry
         {
           EditByRowHandle(info.RowHandle);
         }
+      }
+    }
+
+    private void gridReceipts_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Delete)
+      {
+        var result = XtraMessageBox.Show(this, 
+          string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine),
+          "Remove", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+        if (result == System.Windows.Forms.DialogResult.No) return;
+        gridViewReceipts.DeleteSelectedRows();
       }
     }
   }
