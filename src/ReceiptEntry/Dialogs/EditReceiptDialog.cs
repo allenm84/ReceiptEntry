@@ -187,6 +187,9 @@ namespace ReceiptEntry
           MessageBoxButtons.OK, MessageBoxIcon.Information);
         return;
       }
+
+      // flush the items
+      receipt.Items = receiptItemSource.OfType<ReceiptItem>().ToArray();
     }
 
     private void gridViewItems_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
