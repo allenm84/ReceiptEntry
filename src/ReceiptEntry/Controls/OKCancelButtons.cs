@@ -15,37 +15,6 @@ namespace ReceiptEntry
 {
   public partial class OKCancelButtons : XtraUserControl
   {
-    private class ButtonProxy : IButtonControl
-    {
-      private SimpleButton button;
-
-      public ButtonProxy(SimpleButton button)
-      {
-        this.button = button;
-      }
-
-      DialogResult IButtonControl.DialogResult
-      {
-        get { return button.DialogResult; }
-        set { button.DialogResult = value; }
-      }
-
-      void IButtonControl.NotifyDefault(bool value)
-      {
-        button.NotifyDefault(value);
-      }
-
-      void IButtonControl.PerformClick()
-      {
-        button.PerformClick();
-      }
-
-      public static implicit operator SimpleButton(ButtonProxy proxy)
-      {
-        return proxy.button;
-      }
-    }
-
     private ButtonProxy okButton;
     private ButtonProxy cancelButton;
 

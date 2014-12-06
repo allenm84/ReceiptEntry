@@ -23,7 +23,7 @@ namespace ReceiptEntry
     {
       InitializeComponent();
       InitializeDCF();
-
+      MinimumSize = Size;
       features = new GridViewFeatures(gridViewReceipts);
       features.AddAlignGroupSummariesToColumns();
     }

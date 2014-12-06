@@ -79,7 +79,21 @@
     <Compile Include="Data\ReceiptItem.cs" />
     <Compile Include="Data\SaveFile.cs" />
     <Compile Include="Data\Unit.cs" />
+    <Compile Include="Controls\EditorButtons.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EditorButtons.Designer.cs">
+      <DependentUpon>EditorButtons.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditTextDialog.Designer.cs">
+      <DependentUpon>EditTextDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\BindingListExtensions.cs" />
     <Compile Include="Extensions\IWorkerExtensions.cs" />
+    <Compile Include="Library\ButtonProxy.cs" />
     <Compile Include="Library\GridViewFeatures.cs" />
     <Compile Include="Library\ID.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
@@ -108,6 +122,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EditorButtons.resx">
+      <DependentUpon>EditorButtons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditTextDialog.resx">
+      <DependentUpon>EditTextDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

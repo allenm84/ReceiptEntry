@@ -339,6 +339,7 @@
       this.Controls.Add(this.barDockControlBottom);
       this.Controls.Add(this.barDockControlTop);
       this.Name = "MainForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "ReceiptEntry";
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
