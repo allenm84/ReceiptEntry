@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -23,5 +24,44 @@ namespace Shopping
 
     [DataMember(Order = 0)]
     public List<ShoppingListItem> Items { get; set; }
+  }
+
+  public static class ShoppingListAccessor
+  {
+    static readonly string filepath;
+    static readonly DataContractSerializer dcs;
+
+    static ShoppingListAccessor()
+    {
+      var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+      filepath = Path.Combine(profile, @"Dropbox\Paige\[data]\shoppingItems.xml");
+      dcs = new DataContractSerializer(typeof(ShoppingList));
+    }
+
+    public static IEnumerable<ShoppingListItem> Items
+    {
+      get
+      {
+        if (!File.Exists(filepath))
+        {
+          yield break;
+        }
+
+        using (var stream = File.OpenRead(filepath))
+        {
+          var items =  (dcs.ReadObject(stream) as ShoppingList).Items;
+          foreach (var item in items)
+            yield return item;
+        }
+      }
+      set
+      {
+        using (var stream = File.Create(filepath))
+        {
+          var list = new ShoppingList { Items = value.ToList() };
+          dcs.WriteObject(stream, list);
+        }
+      }
+    }
   }
 }

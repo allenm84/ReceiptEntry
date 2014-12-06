@@ -65,23 +65,18 @@ namespace ReceiptEntry
       }
 
       gridViewReceipts.BeginDataUpdate();
-
-      foreach (var m in saveFile.Merchants)
-      {
-        merchantSource.Add(m);
-      }
-      foreach (var r in saveFile.Receipts)
-      {
-        receiptSource.Add(r);
-      }
-
+      merchantSource.Set(saveFile.Merchants);
+      receiptSource.Set(saveFile.Receipts);
       gridViewReceipts.EndDataUpdate();
     }
 
+    private IEnumerable<Merchant> Merchants { get { return merchantSource.OfType<Merchant>(); } }
+    private IEnumerable<Receipt> Receipts { get { return receiptSource.OfType<Receipt>(); } }
+
     private void Flush()
     {
-      saveFile.Merchants = merchantSource.OfType<Merchant>().ToList();
-      saveFile.Receipts = receiptSource.OfType<Receipt>().ToList();
+      saveFile.Merchants = Merchants.ToList();
+      saveFile.Receipts = Receipts.ToList();
     }
 
     protected override void OnLoad(EventArgs e)
@@ -118,21 +113,13 @@ namespace ReceiptEntry
 
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
     {
-      var merchants = saveFile.Merchants.Select(m => m.Duplicate());
+      var merchants = Merchants.Select(m => m.Duplicate());
       using (var dlg = new MerchantListDialog(merchants))
       {
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
           gridViewReceipts.BeginDataUpdate();
-          cboMerchants.BeginUpdate();
-
-          merchantSource.Clear();
-          foreach (var m in dlg.Merchants)
-          {
-            merchantSource.Add(m);
-          }
-
-          cboMerchants.EndUpdate();
+          merchantSource.Set(dlg.Merchants);
           gridViewReceipts.EndDataUpdate();
         }
       }
@@ -145,7 +132,18 @@ namespace ReceiptEntry
 
     private void tbbNewReceipt_ItemClick(object sender, ItemClickEventArgs e)
     {
+      var receipt = new Receipt();
+      receipt.Date = DateTime.Today;
+      receipt.Items = new ReceiptItem[0];
 
+      using (var dlg = new EditReceiptDialog(receipt, merchantSource))
+      {
+        dlg.Text = "Add Receipt";
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          receiptSource.Add(receipt);
+        }
+      }
     }
   }
 }

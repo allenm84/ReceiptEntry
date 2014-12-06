@@ -4,11 +4,19 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ReceiptEntry
 {
-  public static class BindingListExtensions
+  public static class BindingExtensions
   {
+    public static void Set<T>(this BindingSource source, IEnumerable<T> values)
+    {
+      source.Clear();
+      foreach (T v in values)
+        source.Add(v);
+    }
+
     public static void Insert<T>(this BindingList<T> list, T item, Func<T, T, int> compare)
     {
       int comparison, i;
