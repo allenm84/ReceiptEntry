@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
+using Shopping;
 
 namespace ReceiptEntry
 {
@@ -27,6 +28,7 @@ namespace ReceiptEntry
       MinimumSize = Size;
       features = new GridViewFeatures(gridViewReceipts);
       features.AddAlignGroupSummariesToColumns();
+      ShoppingListAccessor.Init();
     }
 
     public void SetIsWorking(bool working)

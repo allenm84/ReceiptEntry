@@ -10,6 +10,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using Shopping;
 
 namespace ReceiptEntry
 {
@@ -115,7 +116,15 @@ namespace ReceiptEntry
       {
         if (e.Column.FieldName == "ItemName")
         {
-          e.Value = item.Name;
+          var shopping = ShoppingListAccessor.CachedItems.SingleOrDefault(i => i.ID == item.ShoppingListItemID);
+          if (shopping != null)
+          {
+            e.Value = shopping.Name;
+          }
+          else
+          {
+            e.Value = item.Name;
+          }
         }
         else if (e.Column.FieldName == "ItemQuantity")
         {
