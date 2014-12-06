@@ -22,6 +22,7 @@ namespace ReceiptEntry
       this.receipt = receipt;
       InitializeComponent();
 
+      numTax.SetMinMax();
       gridViewHelper = new ReceiptItemGridViewHelper(gridViewItems);
 
       merchantSource.DataSource = merchants;

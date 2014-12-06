@@ -12,6 +12,12 @@ namespace ReceiptEntry
 {
   public static class DevExpressExtensions
   {
+    public static void SetMinMax(this SpinEdit edit)
+    {
+      edit.Properties.MinValue = decimal.MinValue + 1;
+      edit.Properties.MaxValue = decimal.MaxValue - 1;
+    }
+
     public static void FillWithEnum<T>(this LookUpEdit lookUp, Func<T, string> getText = null)
     {
       lookUp.Properties.FillWithEnum(getText);

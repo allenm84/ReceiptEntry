@@ -79,6 +79,27 @@ namespace ReceiptEntry
       saveFile.Receipts = Receipts.ToList();
     }
 
+    private void EditByRowHandle(int handle)
+    {
+      EditByItem(gridViewReceipts.GetRow(handle) as Receipt);
+    }
+
+    private void EditByItem(Receipt receipt)
+    {
+      if (receipt == null) return;
+
+      var copy = receipt.Duplicate();
+      using (var dlg = new EditReceiptDialog(copy, merchantSource))
+      {
+        dlg.Text = "Edit Receipt";
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          var index = receiptSource.IndexOf(receipt);
+          receiptSource[index] = copy;
+        }
+      }
+    }
+
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
@@ -142,6 +163,18 @@ namespace ReceiptEntry
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
           receiptSource.Add(receipt);
+        }
+      }
+    }
+
+    private void gridReceipts_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+      {
+        var info = gridViewReceipts.CalcHitInfo(e.Location);
+        if (!info.InGroupRow && (info.InRowCell || info.InRow))
+        {
+          EditByRowHandle(info.RowHandle);
         }
       }
     }

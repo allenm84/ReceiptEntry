@@ -189,6 +189,7 @@
       this.gridReceipts.TabIndex = 4;
       this.gridReceipts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceipts});
+      this.gridReceipts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridReceipts_MouseDoubleClick);
       // 
       // receiptSource
       // 

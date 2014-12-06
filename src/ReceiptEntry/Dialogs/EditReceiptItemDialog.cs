@@ -73,6 +73,7 @@ namespace ReceiptEntry
           {
             numPrice = new SpinEdit();
             numPrice.Name = "numPrice";
+            numPrice.SetMinMax();
             return numPrice;
           }
         case ReceiptItemProperty.ShoppingListItemID:
