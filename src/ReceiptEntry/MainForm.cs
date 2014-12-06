@@ -45,13 +45,11 @@ namespace ReceiptEntry
 
     private SaveFile CreateNewSaveFile()
     {
-      //return new SaveFile
-      //{
-      //  Merchants = new List<Merchant>(),
-      //  Receipts = new List<Receipt>(),
-      //};
-
-      return ReceiptEntryMerge.Merge();
+      return new SaveFile
+      {
+        Merchants = new List<Merchant>(),
+        Receipts = new List<Receipt>(),
+      };
     }
 
     private async void LoadSaveFile()
@@ -82,7 +80,8 @@ namespace ReceiptEntry
 
     private void Flush()
     {
-      
+      saveFile.Merchants = merchantSource.OfType<Merchant>().ToList();
+      saveFile.Receipts = receiptSource.OfType<Receipt>().ToList();
     }
 
     protected override void OnLoad(EventArgs e)
@@ -119,7 +118,24 @@ namespace ReceiptEntry
 
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
     {
+      var merchants = saveFile.Merchants.Select(m => m.Duplicate());
+      using (var dlg = new MerchantListDialog(merchants))
+      {
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          gridViewReceipts.BeginDataUpdate();
+          cboMerchants.BeginUpdate();
 
+          merchantSource.Clear();
+          foreach (var m in dlg.Merchants)
+          {
+            merchantSource.Add(m);
+          }
+
+          cboMerchants.EndUpdate();
+          gridViewReceipts.EndDataUpdate();
+        }
+      }
     }
 
     private void tbbShoppingListItems_ItemClick(object sender, ItemClickEventArgs e)

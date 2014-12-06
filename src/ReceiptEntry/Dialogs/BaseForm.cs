@@ -13,9 +13,21 @@ namespace ReceiptEntry
 {
   public partial class BaseForm : XtraForm
   {
+    protected bool cancelClose = false;
+
     public BaseForm()
     {
       InitializeComponent();
+    }
+
+    protected override void OnFormClosing(FormClosingEventArgs e)
+    {
+      if (cancelClose)
+      {
+        e.Cancel = true;
+        cancelClose = false;
+      }
+      base.OnFormClosing(e);
     }
   }
 }

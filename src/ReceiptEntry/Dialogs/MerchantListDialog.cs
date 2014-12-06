@@ -7,12 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors;
 
 namespace ReceiptEntry
 {
   public partial class MerchantListDialog : BaseForm
   {
     private BindingList<Merchant> list;
+    public IEnumerable<Merchant> Merchants
+    {
+      get { return list; }
+    }
 
     public MerchantListDialog(IEnumerable<Merchant> merchants)
     {
@@ -21,7 +26,7 @@ namespace ReceiptEntry
       list = new BindingList<Merchant>();
       foreach (var m in merchants)
       {
-        list.Add(m);
+        list.Insert(m, CompareMerchants);
       }
       list.ListChanged += list_ListChanged;
 
@@ -32,6 +37,11 @@ namespace ReceiptEntry
       UpdateButtons();
     }
 
+    private int CompareMerchants(Merchant a, Merchant b)
+    {
+      return string.Compare(a.Name, b.Name);
+    }
+
     private void UpdateButtons()
     {
       editorButtons.UpdateButtons(lstMerchants.SelectedItems.Count, list.Count);
@@ -40,15 +50,23 @@ namespace ReceiptEntry
     private void DoEditItem(Merchant merchant)
     {
       if (merchant == null) return;
-      using (var dlg = new EditTextDialog())
+      using (var dlg = new EditMerchantDialog())
       {
         dlg.Text = "Edit Merchant";
-        dlg.Prompt = "Name:";
-        dlg.Value = merchant.Name;
+        dlg.MerchantName = merchant.Name;
+        dlg.Selection = merchant.Values;
+
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
-          merchant.Name = dlg.Value;
-          list.ResetItem(merchant);
+          string name = dlg.MerchantName;
+          if (name != merchant.Name)
+          {
+            list.Remove(merchant);
+            merchant.Name = name;
+            list.Insert(merchant, CompareMerchants);
+            lstMerchants.SelectedItem = merchant;
+          }
+          merchant.Values = dlg.Selection.ToArray();
         }
       }
     }
@@ -60,17 +78,17 @@ namespace ReceiptEntry
 
     private void editorButtons_AddClick(object sender, EventArgs e)
     {
-      using (var dlg = new EditTextDialog())
+      using (var dlg = new EditMerchantDialog())
       {
         dlg.Text = "Add Merchant";
-        dlg.Prompt = "Name:";
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
-          list.Add(new Merchant
+          list.Insert(new Merchant
           {
             ID = ID.Gen(),
-            Name = dlg.Value,
-          });
+            Name = dlg.MerchantName,
+            Values = dlg.Selection.ToArray(),
+          }, CompareMerchants);
         }
       }
     }
@@ -82,12 +100,23 @@ namespace ReceiptEntry
 
     private void editorButtons_RemoveClick(object sender, EventArgs e)
     {
+      var result = XtraMessageBox.Show(this, "Are you sure you want to remove the selected merchants?", "Remove",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (result == System.Windows.Forms.DialogResult.No) return;
 
+      var items = lstMerchants.SelectedItems.OfType<Merchant>().ToArray();
+      lstMerchants.BeginUpdate();
+      foreach (var item in items)
+        list.Remove(item);
+      lstMerchants.EndUpdate();
     }
 
     private void editorButtons_ClearClick(object sender, EventArgs e)
     {
-
+      var result = XtraMessageBox.Show(this, "Are you sure you want to clear all merchants?", "Clear",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+      if (result == System.Windows.Forms.DialogResult.No) return;
+      list.Clear();
     }
 
     private void lstMerchants_MouseDoubleClick(object sender, MouseEventArgs e)

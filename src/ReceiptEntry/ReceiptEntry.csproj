@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -91,13 +91,21 @@
     <Compile Include="Dialogs\EditTextDialog.Designer.cs">
       <DependentUpon>EditTextDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EditMerchantDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\EditMerchantDialog.Designer.cs">
+      <DependentUpon>EditMerchantDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\BindingListExtensions.cs" />
+    <Compile Include="Extensions\DataExtensions.cs" />
     <Compile Include="Extensions\IWorkerExtensions.cs" />
     <Compile Include="Library\ButtonProxy.cs" />
     <Compile Include="Library\GridViewFeatures.cs" />
     <Compile Include="Library\ID.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
     <Compile Include="Library\DataContractFile.cs" />
+    <Compile Include="Library\OrderedPropertyItem.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\EditTextDialog.resx">
       <DependentUpon>EditTextDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\EditMerchantDialog.resx">
+      <DependentUpon>EditMerchantDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
