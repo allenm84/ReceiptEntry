@@ -32,8 +32,7 @@ namespace ReceiptEntry
       if (string.IsNullOrWhiteSpace(SelectedMerchantID))
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please select a merchant", "Error", 
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please select a merchant");
         return;
       }
     }

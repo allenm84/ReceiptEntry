@@ -123,11 +123,10 @@ namespace ReceiptEntry
 
     private void editorButtons_RemoveClick(object sender, EventArgs e)
     {
-      var result = XtraMessageBox.Show(this, "Are you sure you want to remove the selected merchants?", "Remove",
-        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      var message = "{0} is being used by {1} receipts. In order to remove {0}, you must select a replacement merchant. If you do not select a replacement, then {0} will not be removed";
+      if (!MessageHelper.Confirm(this, "Are you sure you want to remove the selected merchants?"))
+        return;
 
+      var message = "{0} is being used by {1} receipts. In order to remove {0}, you must select a replacement merchant. If you do not select a replacement, then {0} will not be removed";
       var items = lstMerchants.SelectedItems.OfType<Merchant>().ToArray();
       lstMerchants.BeginUpdate();
       foreach (var merchant in items)
@@ -139,8 +138,7 @@ namespace ReceiptEntry
           using (var dlg = new SelectMerchantDialog(Merchants.Exclude(merchant), text))
           {
             dlg.Text = "Select Replacement Merchant";
-            result = dlg.ShowDialog(this);
-            if (result == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
             {
               string id = dlg.SelectedMerchantID;
               foreach (var match in matches)
@@ -150,8 +148,7 @@ namespace ReceiptEntry
             }
             else
             {
-              XtraMessageBox.Show(this, string.Format("{0} will not be removed", merchant.Name), "Remove", 
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+              MessageHelper.Inform(this, string.Format("{0} will not be removed", merchant.Name));
               continue;
             }
           }
@@ -166,11 +163,11 @@ namespace ReceiptEntry
 
     private void editorButtons_ClearClick(object sender, EventArgs e)
     {
-      var result = XtraMessageBox.Show(this, "Are you sure you want to clear all merchants?", "Clear",
-        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      list.Clear();
-      SanitizeReceipts();
+      if (MessageHelper.Confirm(this, "Are you sure you want to clear all merchants?"))
+      {
+        list.Clear();
+        SanitizeReceipts();
+      }
     }
 
     private void lstMerchants_MouseDoubleClick(object sender, MouseEventArgs e)

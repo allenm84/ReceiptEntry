@@ -149,6 +149,7 @@
     <Compile Include="Library\ID.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
     <Compile Include="Library\DataContractFile.cs" />
+    <Compile Include="Library\MessageHelper.cs" />
     <Compile Include="Library\OrderedPropertyItem.cs" />
     <Compile Include="Library\ReceiptItemGridViewHelper.cs" />
     <Compile Include="MainForm.cs">

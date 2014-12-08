@@ -29,89 +29,41 @@ namespace Shopping
 
   public static class ShoppingListAccessor
   {
+    private class slades { ~slades() { SaveItems(); } }
+
+    static readonly slades des = new slades();
     static readonly string filepath;
     static readonly DataContractSerializer dcs;
-    static readonly FileSystemWatcher watcher;
-    static readonly SynchronizationContext context;
-    static int ticks = 0;
+    static readonly Lazy<ShoppingList> lzList;
 
     static ShoppingListAccessor()
     {
       var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-      filepath = Path.Combine(profile, @"Dropbox\Paige\[data]\shoppingItems.xml");
+      filepath = Path.Combine(profile, @"Dropbox\Downloads\[data]\shoppingItems.xml");
       dcs = new DataContractSerializer(typeof(ShoppingList));
-      context = SynchronizationContext.Current;
-
-      var info = new FileInfo(filepath);
-      watcher = new FileSystemWatcher(info.Directory.FullName, info.Name);
-      watcher.EnableRaisingEvents = true;
-      watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.Attributes;
-      watcher.Changed += watcher_Changed;
-      ReadList();
+      lzList = new Lazy<ShoppingList>(ReadList, true);
     }
 
-    public static void Init()
-    {
-      ticks = Environment.TickCount;
-      if (ticks > 0)
-      {
-        ticks = 0;
-      }
-    }
-
-    static ShoppingList cachedList;
-    static void watcher_Changed(object sender, FileSystemEventArgs e)
-    {
-      try
-      {
-        context.Post((x) => ReadList(), null);
-      }
-      catch
-      {
-        // let it happen....
-      }
-    }
-
-    private static void ReadList()
+    static ShoppingList ReadList()
     {
       using (var stream = File.OpenRead(filepath))
       {
-        cachedList = dcs.ReadObject(stream) as ShoppingList;
+        return dcs.ReadObject(stream) as ShoppingList;
       }
     }
 
-    public static IEnumerable<ShoppingListItem> CachedItems
+    static void SaveItems()
     {
-      get 
-      { 
-        return cachedList.Items; 
+      using (var stream = File.Create(filepath))
+      {
+        dcs.WriteObject(stream, lzList.Value);
       }
     }
 
     public static IEnumerable<ShoppingListItem> Items
     {
-      get
-      {
-        if (!File.Exists(filepath))
-        {
-          yield break;
-        }
-
-        using (var stream = File.OpenRead(filepath))
-        {
-          var items =  (dcs.ReadObject(stream) as ShoppingList).Items;
-          foreach (var item in items)
-            yield return item;
-        }
-      }
-      set
-      {
-        using (var stream = File.Create(filepath))
-        {
-          var list = new ShoppingList { Items = value.ToList() };
-          dcs.WriteObject(stream, list);
-        }
-      }
+      get { return lzList.Value.Items; }
+      set { lzList.Value.Items = (value ?? new ShoppingListItem[0]).ToList(); }
     }
   }
 }

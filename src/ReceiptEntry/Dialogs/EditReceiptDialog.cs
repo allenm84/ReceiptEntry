@@ -141,18 +141,18 @@ namespace ReceiptEntry
 
     private void btnRemove_Click(object sender, EventArgs e)
     {
-      var result = XtraMessageBox.Show(this, "Are you sure you want to remove the selected items?", "Confirm", 
-        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      gridViewItems.DeleteSelectedRows();
+      if (MessageHelper.Confirm(this, "Are you sure you want to remove the selected items?"))
+      {
+        gridViewItems.DeleteSelectedRows();
+      }
     }
 
     private void btnClear_Click(object sender, EventArgs e)
     {
-      var result = XtraMessageBox.Show(this, "Are you sure you want to clear all the items?", "Confirm",
-        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-      if (result == System.Windows.Forms.DialogResult.No) return;
-      receiptItemSource.Clear();
+      if (MessageHelper.Confirm(this, "Are you sure you want to clear all the items?"))
+      {
+        receiptItemSource.Clear();
+      }
     }
 
     private void gridItems_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -183,8 +183,7 @@ namespace ReceiptEntry
       if (string.IsNullOrWhiteSpace(cboMerchant.EditValue as string))
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please select a merchant", "Error", 
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please select a merchant");
         return;
       }
 

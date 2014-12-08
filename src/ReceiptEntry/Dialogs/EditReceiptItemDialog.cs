@@ -149,24 +149,21 @@ namespace ReceiptEntry
       if (string.IsNullOrWhiteSpace(txtName.Text))
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please enter a name for the item.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please enter a name for the item.");
         return;
       }
 
       if (aliasEditor != null && !aliasEditor.IsValid())
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please select a friendly name. You can also un-check the checkbox.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please select a friendly name. You can also un-check the checkbox.");
         return;
       }
 
       if (codeEditor != null && !codeEditor.IsValid())
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please enter the code. You can also un-check the checkbox.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please enter the code. You can also un-check the checkbox.", "Error");
         return;
       }
 
@@ -175,17 +172,16 @@ namespace ReceiptEntry
         if (!quantityEditor.IsValid())
         {
           cancelClose = true;
-          XtraMessageBox.Show(this, "Please select a unit for the quantity. You can also un-check the checkbox.", "Error",
-            MessageBoxButtons.OK, MessageBoxIcon.Information);
+          MessageHelper.Error(this, "Please select a unit for the quantity. You can also un-check the checkbox.");
           return;
         }
 
         if (quantityEditor.QuantityEnabled && quantityEditor.Amount == 0m)
         {
-          var result = XtraMessageBox.Show(this, "Are you sure you meant 0 for the quantity?", "Quantity",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-          if (result == System.Windows.Forms.DialogResult.Yes) return;
-          cancelClose = true;
+          if (!MessageHelper.Confirm(this, "Are you sure you meant 0 for the quantity?"))
+          {
+            cancelClose = true;
+          }
           return;
         }
       }

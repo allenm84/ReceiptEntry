@@ -116,7 +116,7 @@ namespace ReceiptEntry
       {
         if (e.Column.FieldName == "ItemName")
         {
-          var shopping = ShoppingListAccessor.CachedItems.SingleOrDefault(i => i.ID == item.ShoppingListItemID);
+          var shopping = ShoppingListAccessor.Items.SingleOrDefault(i => i.ID == item.ShoppingListItemID);
           if (shopping != null)
           {
             e.Value = shopping.Name;

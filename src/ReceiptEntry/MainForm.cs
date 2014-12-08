@@ -26,9 +26,9 @@ namespace ReceiptEntry
       InitializeComponent();
       InitializeDCF();
       MinimumSize = Size;
+
       features = new GridViewFeatures(gridViewReceipts);
       features.AddAlignGroupSummariesToColumns();
-      ShoppingListAccessor.Init();
     }
 
     public void SetIsWorking(bool working)
@@ -186,11 +186,10 @@ namespace ReceiptEntry
     {
       if (e.KeyCode == Keys.Delete)
       {
-        var result = XtraMessageBox.Show(this, 
-          string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine),
-          "Remove", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-        if (result == System.Windows.Forms.DialogResult.Cancel) return;
-        gridViewReceipts.DeleteSelectedRows();
+        if (MessageHelper.Confirm(this, string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine)))
+        {
+          gridViewReceipts.DeleteSelectedRows();
+        }
       }
     }
   }
