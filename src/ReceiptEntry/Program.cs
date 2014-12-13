@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
+using System.Threading;
 
 namespace ReceiptEntry
 {
@@ -16,13 +17,25 @@ namespace ReceiptEntry
     [STAThread]
     static void Main()
     {
+      Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+      Application.ThreadException += Application_ThreadException;
+
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
       BonusSkins.Register();
       SkinManager.EnableFormSkins();
       UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
-      Application.Run(new MainForm());
+
+      using (var form = new MainForm())
+      {
+        Application.Run(form);
+      }
+    }
+
+    static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+    {
+      MessageBox.Show(e.Exception.ToString());
     }
   }
 }
