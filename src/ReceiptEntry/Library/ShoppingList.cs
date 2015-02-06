@@ -38,8 +38,13 @@ namespace Shopping
 
     static ShoppingListAccessor()
     {
-      var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-      filepath = Path.Combine(profile, @"Dropbox\Downloads\[data]\shoppingItems.xml");
+      string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+      string dbPath = System.IO.Path.Combine(appDataPath, "Dropbox\\host.db");
+      string[] lines = System.IO.File.ReadAllLines(dbPath);
+      byte[] dbBase64Text = Convert.FromBase64String(lines[1]);
+      string dropbox = System.Text.ASCIIEncoding.ASCII.GetString(dbBase64Text);
+
+      filepath = Path.Combine(dropbox, @"Downloads\[data]\shoppingItems.xml");
       dcs = new DataContractSerializer(typeof(ShoppingList));
       lzList = new Lazy<ShoppingList>(ReadList, true);
     }
