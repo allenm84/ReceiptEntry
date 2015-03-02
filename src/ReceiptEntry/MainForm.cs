@@ -15,7 +15,7 @@ using Shopping;
 
 namespace ReceiptEntry
 {
-  public partial class MainForm : BaseForm, IWorker
+  public partial class MainForm : BaseForm, IWorker, IReceiptDisplay
   {
     private DataContractFile<SaveFile> dcf;
     private SaveFile saveFile;
@@ -73,8 +73,14 @@ namespace ReceiptEntry
       gridViewReceipts.EndDataUpdate();
     }
 
-    private IEnumerable<Merchant> Merchants { get { return merchantSource.OfType<Merchant>(); } }
-    private IEnumerable<Receipt> Receipts { get { return receiptSource.OfType<Receipt>(); } }
+    public IEnumerable<Merchant> Merchants { get { return merchantSource.OfType<Merchant>(); } }
+    public IEnumerable<Receipt> Receipts { get { return receiptSource.OfType<Receipt>(); } }
+
+    public void SelectReceipt(Receipt receipt)
+    {
+      int handle = gridViewReceipts.GetRowHandle(receiptSource.IndexOf(receipt));
+      EditByRowHandle(handle);
+    }
 
     private void Flush()
     {
@@ -189,6 +195,18 @@ namespace ReceiptEntry
         if (MessageHelper.Confirm(this, string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine)))
         {
           gridViewReceipts.DeleteSelectedRows();
+        }
+      }
+    }
+
+    private void tbbSearch_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      using (var dlg = new SearchOptionsDialog())
+      {
+        dlg.Text = "Search...";
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          SearchResultsDialog.Run(this, this, dlg.CreateOptions());
         }
       }
     }

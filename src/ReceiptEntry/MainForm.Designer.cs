@@ -53,6 +53,7 @@
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.tbbSearch = new DevExpress.XtraBars.BarButtonItem();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
@@ -79,8 +80,9 @@
             this.tbbSave,
             this.tbbMerchants,
             this.tbbShoppingListItems,
-            this.tbbNewReceipt});
-      this.barManager1.MaxItemId = 4;
+            this.tbbNewReceipt,
+            this.tbbSearch});
+      this.barManager1.MaxItemId = 5;
       // 
       // bar1
       // 
@@ -92,7 +94,8 @@
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSave, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbMerchants, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbShoppingListItems, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbNewReceipt, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbNewReceipt, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.tbbSearch, true)});
       this.bar1.OptionsBar.AllowQuickCustomization = false;
       this.bar1.OptionsBar.DisableClose = true;
       this.bar1.OptionsBar.DisableCustomization = true;
@@ -141,14 +144,14 @@
       this.barDockControlTop.CausesValidation = false;
       this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
       this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-      this.barDockControlTop.Size = new System.Drawing.Size(454, 31);
+      this.barDockControlTop.Size = new System.Drawing.Size(478, 31);
       // 
       // barDockControlBottom
       // 
       this.barDockControlBottom.CausesValidation = false;
       this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
       this.barDockControlBottom.Location = new System.Drawing.Point(0, 464);
-      this.barDockControlBottom.Size = new System.Drawing.Size(454, 0);
+      this.barDockControlBottom.Size = new System.Drawing.Size(478, 0);
       // 
       // barDockControlLeft
       // 
@@ -161,7 +164,7 @@
       // 
       this.barDockControlRight.CausesValidation = false;
       this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-      this.barDockControlRight.Location = new System.Drawing.Point(454, 31);
+      this.barDockControlRight.Location = new System.Drawing.Point(478, 31);
       this.barDockControlRight.Size = new System.Drawing.Size(0, 433);
       // 
       // layoutControl1
@@ -171,7 +174,7 @@
       this.layoutControl1.Location = new System.Drawing.Point(0, 31);
       this.layoutControl1.Name = "layoutControl1";
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(454, 433);
+      this.layoutControl1.Size = new System.Drawing.Size(478, 433);
       this.layoutControl1.TabIndex = 4;
       this.layoutControl1.Text = "layoutControl1";
       // 
@@ -185,7 +188,7 @@
       this.gridReceipts.Name = "gridReceipts";
       this.gridReceipts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cboMerchants});
-      this.gridReceipts.Size = new System.Drawing.Size(406, 366);
+      this.gridReceipts.Size = new System.Drawing.Size(430, 366);
       this.gridReceipts.TabIndex = 4;
       this.gridReceipts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceipts});
@@ -304,7 +307,7 @@
             this.layoutControlGroup2});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "layoutControlGroup1";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(454, 433);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(478, 433);
       this.layoutControlGroup1.Text = "layoutControlGroup1";
       this.layoutControlGroup1.TextVisible = false;
       // 
@@ -315,7 +318,7 @@
             this.layoutControlItem1});
       this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup2.Name = "layoutControlGroup2";
-      this.layoutControlGroup2.Size = new System.Drawing.Size(434, 413);
+      this.layoutControlGroup2.Size = new System.Drawing.Size(458, 413);
       this.layoutControlGroup2.Text = "Receipts";
       // 
       // layoutControlItem1
@@ -324,17 +327,26 @@
       this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(410, 370);
+      this.layoutControlItem1.Size = new System.Drawing.Size(434, 370);
       this.layoutControlItem1.Text = "layoutControlItem1";
       this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem1.TextToControlDistance = 0;
       this.layoutControlItem1.TextVisible = false;
       // 
+      // tbbSearch
+      // 
+      this.tbbSearch.Caption = "barButtonItem1";
+      this.tbbSearch.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbSearch.Glyph")));
+      this.tbbSearch.Id = 4;
+      this.tbbSearch.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbSearch.LargeGlyph")));
+      this.tbbSearch.Name = "tbbSearch";
+      this.tbbSearch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSearch_ItemClick);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(454, 464);
+      this.ClientSize = new System.Drawing.Size(478, 464);
       this.Controls.Add(this.layoutControl1);
       this.Controls.Add(this.barDockControlLeft);
       this.Controls.Add(this.barDockControlRight);
@@ -383,6 +395,7 @@
     private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboMerchants;
     private System.Windows.Forms.BindingSource merchantSource;
     private DevExpress.XtraGrid.Columns.GridColumn colDateMonth;
+    private DevExpress.XtraBars.BarButtonItem tbbSearch;
 
 
   }
