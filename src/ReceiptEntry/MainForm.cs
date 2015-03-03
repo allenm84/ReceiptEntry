@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,16 +20,12 @@ namespace ReceiptEntry
   {
     private DataContractFile<SaveFile> dcf;
     private SaveFile saveFile;
-    private GridViewFeatures features;
 
     public MainForm()
     {
       InitializeComponent();
       InitializeDCF();
       MinimumSize = Size;
-
-      features = new GridViewFeatures(gridViewReceipts);
-      features.AddAlignGroupSummariesToColumns();
     }
 
     public void SetIsWorking(bool working)
@@ -67,66 +64,19 @@ namespace ReceiptEntry
         });
       }
 
-      gridViewReceipts.BeginDataUpdate();
-      merchantSource.Set(saveFile.Merchants);
-      receiptSource.Set(saveFile.Receipts);
-      gridViewReceipts.EndDataUpdate();
+      gridReceipts.SetData(saveFile.Merchants, saveFile.Receipts);
     }
-
-    private IEnumerable<Merchant> Merchants { get { return merchantSource.OfType<Merchant>(); } }
-    private IEnumerable<Receipt> Receipts { get { return receiptSource.OfType<Receipt>(); } }
 
     private void Flush()
     {
-      saveFile.Merchants = Merchants.ToList();
-      saveFile.Receipts = Receipts.ToList();
-    }
-
-    private void EditByRowHandle(int handle)
-    {
-      EditByItem(gridViewReceipts.GetRow(handle) as Receipt);
-    }
-
-    private void EditByItem(Receipt receipt)
-    {
-      if (receipt == null) return;
-
-      var copy = receipt.Duplicate();
-      using (var dlg = new EditReceiptDialog(copy, merchantSource))
-      {
-        dlg.Text = "Edit Receipt";
-        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-        {
-          var index = receiptSource.IndexOf(receipt);
-          receiptSource[index] = copy;
-        }
-      }
+      saveFile.Merchants = gridReceipts.Merchants.ToList();
+      saveFile.Receipts = gridReceipts.Receipts.ToList();
     }
 
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
       LoadSaveFile();
-    }
-
-    private void gridViewReceipts_CustomColumnGroup(object sender, CustomColumnSortEventArgs e)
-    {
-      if (e.Column == colDateMonth)
-      {
-        var r1 = e.RowObject1 as Receipt;
-        var r2 = e.RowObject2 as Receipt;
-        e.Result = r1.Date.Month.CompareTo(r2.Date.Month);
-        e.Handled = true;
-      }
-    }
-
-    private void gridViewReceipts_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
-    {
-      if (e.Column == colDateMonth)
-      {
-        var value = e.Row as Receipt;
-        e.Value = value.Date.Date;
-      }
     }
 
     private void tbbSave_ItemClick(object sender, ItemClickEventArgs e)
@@ -137,14 +87,14 @@ namespace ReceiptEntry
 
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
     {
-      var merchants = Merchants.Select(m => m.Duplicate());
-      using (var dlg = new MerchantListDialog(merchants, Receipts.ToArray()))
+      var merchants = gridReceipts.Merchants.Select(m => m.Duplicate());
+      var receipts = gridReceipts.Receipts.ToArray();
+
+      using (var dlg = new MerchantListDialog(merchants, receipts))
       {
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
-          gridViewReceipts.BeginDataUpdate();
-          merchantSource.Set(dlg.Merchants);
-          gridViewReceipts.EndDataUpdate();
+          gridReceipts.Set(dlg.Merchants);
         }
       }
     }
@@ -156,40 +106,36 @@ namespace ReceiptEntry
 
     private void tbbNewReceipt_ItemClick(object sender, ItemClickEventArgs e)
     {
-      var receipt = new Receipt();
-      receipt.Date = DateTime.Today;
-      receipt.Items = new ReceiptItem[0];
+      gridReceipts.AddNewReceipt();
+    }
 
-      using (var dlg = new EditReceiptDialog(receipt, merchantSource))
+    private void tbbSearch_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      var receipts = new BindingList<Receipt>();
+      receipts.ListChanged += receipts_ListChanged;
+
+      var merchants = gridReceipts.MerchantSource;
+      using (var dlg = new SearchOptionsDialog())
       {
-        dlg.Text = "Add Receipt";
+        dlg.Text = "Search...";
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
-          receiptSource.Add(receipt);
+          SearchResultsDialog.Run(this, 
+            dlg.CreateOptions(),
+            gridReceipts.Receipts,
+            merchants,
+            receipts);
         }
       }
     }
 
-    private void gridReceipts_MouseDoubleClick(object sender, MouseEventArgs e)
+    private void receipts_ListChanged(object sender, ListChangedEventArgs e)
     {
-      if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
+      if (e.ListChangedType == ListChangedType.ItemDeleted)
       {
-        var info = gridViewReceipts.CalcHitInfo(e.Location);
-        if (!info.InGroupRow && (info.InRowCell || info.InRow))
-        {
-          EditByRowHandle(info.RowHandle);
-        }
-      }
-    }
-
-    private void gridReceipts_KeyDown(object sender, KeyEventArgs e)
-    {
-      if (e.KeyCode == Keys.Delete)
-      {
-        if (MessageHelper.Confirm(this, string.Format("Are you sure you want to delete the selected receipts?{0}NOTE: If you selected a year, or a month, all of the receipts underneath will be deleted.", Environment.NewLine)))
-        {
-          gridViewReceipts.DeleteSelectedRows();
-        }
+        var list = sender as IList;
+        var item = list[e.NewIndex];
+        gridReceipts.ReceiptSource.Remove(item);
       }
     }
   }

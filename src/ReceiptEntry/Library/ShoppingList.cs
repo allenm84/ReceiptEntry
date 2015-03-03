@@ -70,5 +70,10 @@ namespace Shopping
       get { return lzList.Value.Items; }
       set { lzList.Value.Items = (value ?? new ShoppingListItem[0]).ToList(); }
     }
+
+    public static ShoppingListItem GetItem(string id)
+    {
+      return Items.SingleOrDefault(s => s.ID == id);
+    }
   }
 }
