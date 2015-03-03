@@ -20,97 +20,69 @@ namespace ReceiptEntry
       public double Score { get; set; }
     }
 
-    private readonly IReceiptDisplay display;
     private readonly SearchOptions options;
+    private readonly Receipt[] pool;
+    private bool cancelSearch = false;
 
-    private int currentIndex = 0;
-    private Receipt[] receipts = null;
-
-    private int previousResultIndex = -1;
-    private int resultIndex = 0;
-    private List<Receipt> results = new List<Receipt>();
-
-    public SearchResultsDialog(SearchOptions options, IReceiptDisplay display)
+    public SearchResultsDialog(SearchOptions options, IEnumerable<Receipt> pool, object merchantSource, object receiptSource)
     {
       this.options = options;
-      this.display = display;
-      this.receipts = display.Receipts.ToArray();
+      this.pool = pool.ToArray();
+
       InitializeComponent();
-      NextResultAsync();
+      receiptGridControl1.Bind(merchantSource, receiptSource);
+
+      BeginSearch(new Progress<Receipt>(AddResult));
     }
 
-    private void LoadResult(Receipt r)
+    private void SetIsWorking(bool working)
     {
-      display.SelectReceipt(r);
-      UpdateButtons();
+      UseWaitCursor = working;
+      layoutControlItem1.Visibility = working
+        ? LayoutVisibility.Always
+        : LayoutVisibility.Never;
     }
 
-    private void UpdateButtons()
+    private async void BeginSearch(IProgress<Receipt> progress)
     {
-      btnNext.Enabled = (resultIndex < (results.Count - 1)) || (currentIndex < receipts.Length);
-      btnPrevious.Enabled = resultIndex > 0;
-    }
+      receiptGridControl1.BeginDataUpdate();
 
-    private async void NextResultAsync()
-    {
-      await Task.Yield();
-      NextResult();
-    }
-
-    private void NextResult()
-    {
-      if (resultIndex < results.Count)
+      SetIsWorking(true);
+      await Task.Run(() =>
       {
-        LoadResult(results[resultIndex++]);
-      }
-      else
-      {
-        bool found = false;
-        for (; !found && currentIndex < receipts.Length; ++currentIndex)
+        foreach (var r in pool)
         {
-          found = IsMatch(receipts[currentIndex]);
-        }
-
-        if (found)
-        {
-          var r = receipts[currentIndex];
-          previousResultIndex = results.Count;
-          results.Add(r);
-          LoadResult(r);
-          resultIndex = results.Count;
-        }
-        else
-        {
-          if (results.Count == 0)
+          if (cancelSearch)
           {
-            MessageHelper.Inform(this, "No results found!");
-            Close();
+            break;
           }
-          else
+
+          if (IsMatch(r))
           {
-            MessageHelper.Inform(this, "Reached the end of the receipts. You can hit Back/Next to cycle through the results.");
+            progress.Report(r);
+            Application.DoEvents();
           }
         }
+      });
+
+      receiptGridControl1.EndDataUpdate();
+
+      if (cancelSearch)
+      {
+        return;
       }
+
+      int count = receiptGridControl1.ReceiptSource.Count;
+      Text = string.Format("Found {0} receipt{1} matching '{2}'", count, count == 1 ? "" : "s", options.Text);
+      SetIsWorking(false);
     }
 
-    private void PreviousResult()
+    private void AddResult(Receipt r)
     {
-      if (resultIndex == results.Count)
-      {
-        resultIndex = previousResultIndex;
-      }
-      else
-      {
-        --resultIndex;
-      }
+      if (IsDisposed || Disposing)
+        return;
 
-      resultIndex = Math.Max(-1, resultIndex);
-
-      if (resultIndex > -1)
-      {
-        LoadResult(results[resultIndex]);
-      }
+      receiptGridControl1.ReceiptSource.Add(r);
     }
 
     private TextScore CreateCandidate(string pattern, string input)
@@ -151,44 +123,45 @@ namespace ReceiptEntry
 
       foreach (var candidate in candidates)
       {
-        if (string.Equals(candidate.Text, text, StringComparison.InvariantCultureIgnoreCase))
+        if (options.IncludeExact)
         {
-          return true;
+          if (string.Equals(candidate.Text, text, StringComparison.InvariantCultureIgnoreCase))
+          {
+            return true;
+          }
         }
-
-        if (
-          candidate.Text.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1 ||
-          text.IndexOf(candidate.Text, StringComparison.InvariantCultureIgnoreCase) > -1)
+        else
         {
-          return true;
-        }
+          if (
+            candidate.Text.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1 ||
+            text.IndexOf(candidate.Text, StringComparison.InvariantCultureIgnoreCase) > -1)
+          {
+            return true;
+          }
 
-        if (options.IncludeSimilar && candidate.Score > 0.85)
-        {
-          return true;
+          if (options.IncludeSimilar && candidate.Score > 0.85)
+          {
+            return true;
+          }
         }
       }
 
       return false;
     }
 
-    private void btnPrevious_Click(object sender, EventArgs e)
+    protected override void OnFormClosed(FormClosedEventArgs e)
     {
-      PreviousResult();
+      cancelSearch = true;
+      base.OnFormClosed(e);
     }
 
-    private void btnNext_Click(object sender, EventArgs e)
+    public static void Run(Form owner, SearchOptions options, IEnumerable<Receipt> pool, object merchantSource, object receiptSource)
     {
-      NextResult();
-    }
-
-    public static void Run(IWin32Window owner, IReceiptDisplay display, SearchOptions options)
-    {
-      using (SearchResultsDialog dlg = new SearchResultsDialog(options, display))
-      {
-        dlg.Text = "Search Results";
-        dlg.ShowDialog(owner);
-      }
+      var dlg = new SearchResultsDialog(options, pool, merchantSource, receiptSource);
+      dlg.Text = "Search Results";
+      dlg.StartPosition = FormStartPosition.Manual;
+      dlg.Location = new Point(owner.Location.X + (owner.Width - dlg.Width) / 2, owner.Location.Y + (owner.Height - dlg.Height) / 2);
+      dlg.Show(owner);
     }
   }
 }

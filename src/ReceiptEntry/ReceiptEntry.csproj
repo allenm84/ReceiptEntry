@@ -144,7 +144,6 @@
     <Compile Include="Extensions\DevExpressExtensions.cs" />
     <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\IWorkerExtensions.cs" />
-    <Compile Include="Interfaces\IReceiptDisplay.cs" />
     <Compile Include="Library\ButtonProxy.cs" />
     <Compile Include="Library\GridViewFeatures.cs" />
     <Compile Include="Dialogs\SearchResultsDialog.cs">
@@ -154,6 +153,12 @@
       <DependentUpon>SearchResultsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Objects\SearchOptions.cs" />
+    <Compile Include="Controls\ReceiptGridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ReceiptGridControl.Designer.cs">
+      <DependentUpon>ReceiptGridControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\ID.cs" />
     <Compile Include="Interfaces\IWorker.cs" />
     <Compile Include="Library\DataContractFile.cs" />
@@ -239,6 +244,9 @@
     </Compile>
     <EmbeddedResource Include="Dialogs\SearchOptionsDialog.resx">
       <DependentUpon>SearchOptionsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ReceiptGridControl.resx">
+      <DependentUpon>ReceiptGridControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -29,52 +29,49 @@
     private void InitializeComponent()
     {
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-      this.btnPrevious = new DevExpress.XtraEditors.SimpleButton();
-      this.btnNext = new DevExpress.XtraEditors.SimpleButton();
+      this.receiptGridControl1 = new ReceiptEntry.ReceiptGridControl();
+      this.marqueeProgressBarControl1 = new DevExpress.XtraEditors.MarqueeProgressBarControl();
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+      this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
       // 
-      this.layoutControl1.Controls.Add(this.btnPrevious);
-      this.layoutControl1.Controls.Add(this.btnNext);
+      this.layoutControl1.Controls.Add(this.receiptGridControl1);
+      this.layoutControl1.Controls.Add(this.marqueeProgressBarControl1);
       this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.layoutControl1.Location = new System.Drawing.Point(0, 0);
       this.layoutControl1.Name = "layoutControl1";
       this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(816, 190, 250, 350);
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(304, 47);
+      this.layoutControl1.Size = new System.Drawing.Size(411, 404);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
       // 
-      // btnPrevious
+      // receiptGridControl1
       // 
-      this.btnPrevious.Location = new System.Drawing.Point(12, 12);
-      this.btnPrevious.Name = "btnPrevious";
-      this.btnPrevious.Size = new System.Drawing.Size(76, 22);
-      this.btnPrevious.StyleController = this.layoutControl1;
-      this.btnPrevious.TabIndex = 6;
-      this.btnPrevious.Text = "< Previous";
-      this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+      this.receiptGridControl1.Location = new System.Drawing.Point(24, 43);
+      this.receiptGridControl1.Name = "receiptGridControl1";
+      this.receiptGridControl1.Size = new System.Drawing.Size(363, 315);
+      this.receiptGridControl1.TabIndex = 5;
       // 
-      // btnNext
+      // marqueeProgressBarControl1
       // 
-      this.btnNext.Location = new System.Drawing.Point(216, 12);
-      this.btnNext.Name = "btnNext";
-      this.btnNext.Size = new System.Drawing.Size(76, 22);
-      this.btnNext.StyleController = this.layoutControl1;
-      this.btnNext.TabIndex = 5;
-      this.btnNext.Text = "Next >";
-      this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+      this.marqueeProgressBarControl1.EditValue = 0;
+      this.marqueeProgressBarControl1.Location = new System.Drawing.Point(12, 374);
+      this.marqueeProgressBarControl1.Name = "marqueeProgressBarControl1";
+      this.marqueeProgressBarControl1.Size = new System.Drawing.Size(387, 18);
+      this.marqueeProgressBarControl1.StyleController = this.layoutControl1;
+      this.marqueeProgressBarControl1.TabIndex = 4;
       // 
       // layoutControlGroup1
       // 
@@ -82,70 +79,63 @@
       this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
       this.layoutControlGroup1.GroupBordersVisible = false;
       this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem2,
-            this.layoutControlItem3,
-            this.emptySpaceItem1});
+            this.layoutControlItem1,
+            this.layoutControlGroup2});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "Root";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(304, 47);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(411, 404);
       this.layoutControlGroup1.Text = "Root";
       this.layoutControlGroup1.TextVisible = false;
       // 
+      // layoutControlItem1
+      // 
+      this.layoutControlItem1.Control = this.marqueeProgressBarControl1;
+      this.layoutControlItem1.CustomizationFormText = "layoutControlItem1";
+      this.layoutControlItem1.Location = new System.Drawing.Point(0, 362);
+      this.layoutControlItem1.Name = "layoutControlItem1";
+      this.layoutControlItem1.Size = new System.Drawing.Size(391, 22);
+      this.layoutControlItem1.Text = "layoutControlItem1";
+      this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem1.TextToControlDistance = 0;
+      this.layoutControlItem1.TextVisible = false;
+      // 
+      // layoutControlGroup2
+      // 
+      this.layoutControlGroup2.CustomizationFormText = "Search Results";
+      this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem2});
+      this.layoutControlGroup2.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup2.Name = "layoutControlGroup2";
+      this.layoutControlGroup2.Size = new System.Drawing.Size(391, 362);
+      this.layoutControlGroup2.Text = "Search Results";
+      // 
       // layoutControlItem2
       // 
-      this.layoutControlItem2.Control = this.btnNext;
+      this.layoutControlItem2.Control = this.receiptGridControl1;
       this.layoutControlItem2.CustomizationFormText = "layoutControlItem2";
-      this.layoutControlItem2.Location = new System.Drawing.Point(204, 0);
-      this.layoutControlItem2.MaxSize = new System.Drawing.Size(80, 26);
-      this.layoutControlItem2.MinSize = new System.Drawing.Size(80, 26);
+      this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem2.Name = "layoutControlItem2";
-      this.layoutControlItem2.Size = new System.Drawing.Size(80, 27);
-      this.layoutControlItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+      this.layoutControlItem2.Size = new System.Drawing.Size(367, 319);
       this.layoutControlItem2.Text = "layoutControlItem2";
       this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem2.TextToControlDistance = 0;
       this.layoutControlItem2.TextVisible = false;
       // 
-      // layoutControlItem3
-      // 
-      this.layoutControlItem3.Control = this.btnPrevious;
-      this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlItem3.MaxSize = new System.Drawing.Size(80, 26);
-      this.layoutControlItem3.MinSize = new System.Drawing.Size(80, 26);
-      this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(80, 27);
-      this.layoutControlItem3.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-      this.layoutControlItem3.Text = "layoutControlItem3";
-      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem3.TextToControlDistance = 0;
-      this.layoutControlItem3.TextVisible = false;
-      // 
-      // emptySpaceItem1
-      // 
-      this.emptySpaceItem1.AllowHotTrack = false;
-      this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-      this.emptySpaceItem1.Location = new System.Drawing.Point(80, 0);
-      this.emptySpaceItem1.Name = "emptySpaceItem1";
-      this.emptySpaceItem1.Size = new System.Drawing.Size(193, 27);
-      this.emptySpaceItem1.Text = "emptySpaceItem1";
-      this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-      // 
       // SearchResultsDialog
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(304, 47);
+      this.ClientSize = new System.Drawing.Size(411, 404);
       this.Controls.Add(this.layoutControl1);
-      this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
       this.Name = "SearchResultsDialog";
       this.Text = "SearchResultsDialog";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.marqueeProgressBarControl1.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -154,10 +144,10 @@
 
     private DevExpress.XtraLayout.LayoutControl layoutControl1;
     private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-    private DevExpress.XtraEditors.SimpleButton btnPrevious;
-    private DevExpress.XtraEditors.SimpleButton btnNext;
+    private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgressBarControl1;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+    private ReceiptGridControl receiptGridControl1;
+    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-    private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
   }
 }

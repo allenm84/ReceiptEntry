@@ -39,5 +39,13 @@ namespace ReceiptEntry
     {
       list.ResetItem(list.IndexOf(item));
     }
+
+    public static void AddRange<T>(this BindingList<T> list, IEnumerable<T> items)
+    {
+      foreach (T item in items)
+      {
+        list.Add(item);
+      }
+    }
   }
 }
