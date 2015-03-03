@@ -23,9 +23,9 @@ namespace ReceiptEntry
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
 
-      BonusSkins.Register();
       SkinManager.EnableFormSkins();
-      UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
+      SkinManager.Default.RegisterAssembly(typeof(Office2010BlackBlue).Assembly);
+      UserLookAndFeel.Default.SetSkinStyle("Office2010BlackBlue");
 
       using (var form = new MainForm())
       {
