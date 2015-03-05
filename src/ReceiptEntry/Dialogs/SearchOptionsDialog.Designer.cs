@@ -29,6 +29,7 @@
     private void InitializeComponent()
     {
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.chkIncludeExact = new DevExpress.XtraEditors.CheckEdit();
       this.chkSearchItemCode = new DevExpress.XtraEditors.CheckEdit();
       this.okCancelButtons1 = new ReceiptEntry.OKCancelButtons();
       this.chkIncludeSimilar = new DevExpress.XtraEditors.CheckEdit();
@@ -38,11 +39,11 @@
       this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.chkIncludeExact = new DevExpress.XtraEditors.CheckEdit();
       this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.chkIncludeExact.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.chkSearchItemCode.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.chkIncludeSimilar.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText.Properties)).BeginInit();
@@ -51,9 +52,8 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.chkIncludeExact.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
@@ -71,6 +71,16 @@
       this.layoutControl1.Size = new System.Drawing.Size(284, 203);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
+      // 
+      // chkIncludeExact
+      // 
+      this.chkIncludeExact.Location = new System.Drawing.Point(24, 83);
+      this.chkIncludeExact.Name = "chkIncludeExact";
+      this.chkIncludeExact.Properties.Caption = "Include Only Exact Matches";
+      this.chkIncludeExact.Size = new System.Drawing.Size(236, 19);
+      this.chkIncludeExact.StyleController = this.layoutControl1;
+      this.chkIncludeExact.TabIndex = 8;
+      this.chkIncludeExact.CheckedChanged += new System.EventHandler(this.chkIncludeExact_CheckedChanged);
       // 
       // chkSearchItemCode
       // 
@@ -102,11 +112,13 @@
       // 
       // txtSearchText
       // 
+      this.txtSearchText.EnterMoveNextControl = true;
       this.txtSearchText.Location = new System.Drawing.Point(12, 28);
       this.txtSearchText.Name = "txtSearchText";
       this.txtSearchText.Size = new System.Drawing.Size(260, 20);
       this.txtSearchText.StyleController = this.layoutControl1;
       this.txtSearchText.TabIndex = 4;
+      this.txtSearchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearchText_KeyDown);
       // 
       // layoutControlGroup1
       // 
@@ -170,28 +182,6 @@
       this.layoutControlItem4.TextToControlDistance = 0;
       this.layoutControlItem4.TextVisible = false;
       // 
-      // layoutControlItem3
-      // 
-      this.layoutControlItem3.Control = this.okCancelButtons1;
-      this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 152);
-      this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(264, 31);
-      this.layoutControlItem3.Text = "layoutControlItem3";
-      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem3.TextToControlDistance = 0;
-      this.layoutControlItem3.TextVisible = false;
-      // 
-      // chkIncludeExact
-      // 
-      this.chkIncludeExact.Location = new System.Drawing.Point(24, 83);
-      this.chkIncludeExact.Name = "chkIncludeExact";
-      this.chkIncludeExact.Properties.Caption = "Include Only Exact Matches";
-      this.chkIncludeExact.Size = new System.Drawing.Size(236, 19);
-      this.chkIncludeExact.StyleController = this.layoutControl1;
-      this.chkIncludeExact.TabIndex = 8;
-      this.chkIncludeExact.CheckedChanged += new System.EventHandler(this.chkIncludeExact_CheckedChanged);
-      // 
       // layoutControlItem5
       // 
       this.layoutControlItem5.Control = this.chkIncludeExact;
@@ -203,6 +193,18 @@
       this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem5.TextToControlDistance = 0;
       this.layoutControlItem5.TextVisible = false;
+      // 
+      // layoutControlItem3
+      // 
+      this.layoutControlItem3.Control = this.okCancelButtons1;
+      this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
+      this.layoutControlItem3.Location = new System.Drawing.Point(0, 152);
+      this.layoutControlItem3.Name = "layoutControlItem3";
+      this.layoutControlItem3.Size = new System.Drawing.Size(264, 31);
+      this.layoutControlItem3.Text = "layoutControlItem3";
+      this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem3.TextToControlDistance = 0;
+      this.layoutControlItem3.TextVisible = false;
       // 
       // SearchOptionsDialog
       // 
@@ -219,6 +221,7 @@
       this.Text = "SearchReceiptOptionsDialog";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.chkIncludeExact.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.chkSearchItemCode.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.chkIncludeSimilar.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText.Properties)).EndInit();
@@ -227,9 +230,8 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.chkIncludeExact.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
       this.ResumeLayout(false);
 
     }

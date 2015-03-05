@@ -14,23 +14,30 @@ namespace ReceiptEntry
 {
   public partial class SearchResultsDialog : BaseForm
   {
+    static ulong searchID = 0;
+
     private class TextScore
     {
       public string Text { get; set; }
       public double Score { get; set; }
+      public ReceiptItem Item { get; set; }
     }
 
+    private readonly string searchResultID;
     private readonly SearchOptions options;
     private readonly Receipt[] pool;
     private bool cancelSearch = false;
 
     public SearchResultsDialog(SearchOptions options, IEnumerable<Receipt> pool, object merchantSource, object receiptSource)
     {
+      this.searchResultID = (searchID++).ToString();
+
       this.options = options;
       this.pool = pool.ToArray();
 
       InitializeComponent();
       receiptGridControl1.Bind(merchantSource, receiptSource);
+      receiptGridControl1.SearchResultID = searchResultID;
 
       BeginSearch(new Progress<Receipt>(AddResult));
     }
@@ -85,12 +92,13 @@ namespace ReceiptEntry
       receiptGridControl1.ReceiptSource.Add(r);
     }
 
-    private TextScore CreateCandidate(string pattern, string input)
+    private TextScore CreateCandidate(string pattern, string input, ReceiptItem item)
     {
       return new TextScore
       {
         Score = Levenshtein.Distance(pattern, input),
         Text = input,
+        Item = item,
       };
     }
 
@@ -101,17 +109,17 @@ namespace ReceiptEntry
 
       foreach (var item in receipt.Items)
       {
-        candidates.Add(CreateCandidate(text, item.Name ?? ""));
+        candidates.Add(CreateCandidate(text, item.Name ?? "", item));
 
         var shoppingListItem = ShoppingListAccessor.GetItem(item.ShoppingListItemID);
         if (shoppingListItem != null)
         {
-          candidates.Add(CreateCandidate(text, shoppingListItem.Name));
+          candidates.Add(CreateCandidate(text, shoppingListItem.Name, item));
         }
 
         if (options.SearchItemCode && !string.IsNullOrWhiteSpace(item.Code))
         {
-          candidates.Add(CreateCandidate(text, item.Code));
+          candidates.Add(CreateCandidate(text, item.Code, item));
         }
       }
 
@@ -127,6 +135,7 @@ namespace ReceiptEntry
         {
           if (string.Equals(candidate.Text, text, StringComparison.InvariantCultureIgnoreCase))
           {
+            candidate.Item.SearchIDs.Add(searchResultID);
             return true;
           }
         }
@@ -136,11 +145,13 @@ namespace ReceiptEntry
             candidate.Text.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1 ||
             text.IndexOf(candidate.Text, StringComparison.InvariantCultureIgnoreCase) > -1)
           {
+            candidate.Item.SearchIDs.Add(searchResultID);
             return true;
           }
 
           if (options.IncludeSimilar && candidate.Score > 0.85)
           {
+            candidate.Item.SearchIDs.Add(searchResultID);
             return true;
           }
         }

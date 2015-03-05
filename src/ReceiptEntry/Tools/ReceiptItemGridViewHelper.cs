@@ -103,6 +103,7 @@ namespace ReceiptEntry
       gridViewItems.OptionsCustomization.AllowFilter = false;
       gridViewItems.OptionsCustomization.AllowGroup = false;
       gridViewItems.OptionsCustomization.AllowQuickHideColumns = false;
+      gridViewItems.OptionsDetail.EnableMasterViewMode = false;
       gridViewItems.OptionsSelection.EnableAppearanceFocusedCell = false;
       gridViewItems.OptionsSelection.MultiSelect = true;
       gridViewItems.OptionsView.ShowGroupPanel = false;

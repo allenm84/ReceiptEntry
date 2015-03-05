@@ -16,14 +16,21 @@ namespace ReceiptEntry
     private Receipt receipt;
     private ReceiptItemGridViewHelper gridViewHelper;
     private ReceiptItemProperty[] currentEditOrder;
+    private readonly string matchingID;
 
-    public EditReceiptDialog(Receipt receipt, IList merchants)
+    public EditReceiptDialog(Receipt receipt, IList merchants, string id)
     {
+      this.matchingID = id;
       this.receipt = receipt;
       InitializeComponent();
 
       numTax.SetMinMax();
       gridViewHelper = new ReceiptItemGridViewHelper(gridViewItems);
+
+      if (!string.IsNullOrWhiteSpace(matchingID))
+      {
+        gridViewItems.CustomDrawCell += gridViewItems_CustomDrawCell;
+      }
 
       merchantSource.DataSource = merchants;
       receiptItemSource.Set(receipt.Items);
@@ -34,6 +41,16 @@ namespace ReceiptEntry
 
       receiptItemSource.ListChanged += receiptItemSource_ListChanged;
       cboMerchant.EditValueChanged += cboMerchant_EditValueChanged;
+    }
+
+    private void gridViewItems_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+    {
+      var item = gridViewItems.GetRow(e.RowHandle) as ReceiptItem;
+      if (item != null && item.SearchIDs.Contains(matchingID))
+      {
+        var font = e.Appearance.Font;
+        e.Appearance.Font = new Font(font, FontStyle.Bold);
+      }
     }
 
     private void cboMerchant_EditValueChanged(object sender, EventArgs e)
