@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace ReceiptEntry
 {
@@ -21,6 +22,9 @@ namespace ReceiptEntry
 
     public BindingSource MerchantSource { get { return merchantSource; } }
     public BindingSource ReceiptSource { get { return receiptSource; } }
+
+    public GridView View { get { return gridViewReceipts; } }
+    public string SearchResultID { get; set; }
 
     public ReceiptGridControl()
     {
@@ -84,7 +88,7 @@ namespace ReceiptEntry
       if (receipt == null) return;
 
       var copy = receipt.Duplicate();
-      using (var dlg = new EditReceiptDialog(copy, merchantSource))
+      using (var dlg = new EditReceiptDialog(copy, merchantSource, SearchResultID))
       {
         dlg.Text = "Edit Receipt";
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
@@ -101,7 +105,7 @@ namespace ReceiptEntry
       receipt.Date = DateTime.Today;
       receipt.Items = new ReceiptItem[0];
 
-      using (var dlg = new EditReceiptDialog(receipt, merchantSource))
+      using (var dlg = new EditReceiptDialog(receipt, merchantSource, SearchResultID))
       {
         dlg.Text = "Add Receipt";
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)

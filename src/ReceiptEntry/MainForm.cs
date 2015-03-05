@@ -60,11 +60,28 @@ namespace ReceiptEntry
         {
           SaveFile data;
           dcf.TryRead(out data);
-          return data ?? CreateNewSaveFile();
+          return Sanitize(data ?? CreateNewSaveFile());
         });
       }
 
       gridReceipts.SetData(saveFile.Merchants, saveFile.Receipts);
+    }
+
+    private SaveFile Sanitize(SaveFile file)
+    {
+      foreach (var r in file.Receipts)
+      {
+        foreach (var i in r.Items)
+        {
+          if (i.SearchIDs != null)
+          {
+            i.SearchIDs.Clear();
+            i.SearchIDs = null;
+          }
+          i.SearchIDs = new List<string>();
+        }
+      }
+      return file;
     }
 
     private void Flush()

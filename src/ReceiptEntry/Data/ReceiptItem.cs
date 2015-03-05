@@ -20,5 +20,7 @@ namespace ReceiptEntry
     public string Code { get; set; }
     [DataMember(Order = 4)]
     public Quantity Quantity { get; set; }
+    [DataMember(Order = 5)]
+    public List<string> SearchIDs { get; set; }
   }
 }

@@ -74,5 +74,14 @@ namespace ReceiptEntry
         chkIncludeExact.Checked = false;
       }
     }
+
+    private void txtSearchText_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        e.Handled = true;
+        okCancelButtons1.OK.PerformClick();
+      }
+    }
   }
 }
