@@ -17,28 +17,23 @@ namespace ReceiptEntry
   {
     private TextEdit txtName;
     private SpinEdit numPrice;
-    private FriendlyNameEditor aliasEditor;
+    private ShoppingListItemEditor aliasEditor;
     private CodeEditor codeEditor;
     private QuantityEditor quantityEditor;
 
-    public EditReceiptItemDialog(string[] order)
+    public EditReceiptItemDialog(ReceiptItemProperty[] order)
     {
       InitializeComponent();
       InitializeLayout(order);
     }
 
-    private void InitializeLayout(string[] order)
+    private void InitializeLayout(ReceiptItemProperty[] order)
     {
-      IEnumerable<PropertyInfo> props;
-      if (order == null)
+      var props = Enum.GetValues(typeof(ReceiptItemProperty)).OfType<ReceiptItemProperty>();
+      if(order != null && order.Length > 0)
       {
-        props = TypeProperties.ReceiptItemProperties.Select(p => p);
-      }
-      else
-      {
-        props = TypeProperties.ReceiptItemProperties
-          .Select(p => new { Property = p, ID = p.GetCustomAttribute<PropertyIDAttribute>().ID })
-          .Select(a => new { Property = a.Property, ID = a.ID, Index = Array.IndexOf(order, a.ID) })
+        props = props
+          .Select(p => new { Property = p, Index = Array.IndexOf(order, p) })
           .Where(a => a.Index > -1)
           .OrderBy(a => a.Index)
           .Select(a => a.Property);
@@ -47,12 +42,11 @@ namespace ReceiptEntry
       int layoutItemSize = 0;
       foreach (var prop in props)
       {
-        var attr = prop.GetCustomAttribute<PropertyIDAttribute>();
-        var control = CreateControl(prop, attr);
+        var control = CreateControl(prop);
 
         var li = layoutControlGroup2.AddItem();
-        li.Name = "Layout" + prop.Name;
-        li.Text = attr.Display + ":";
+        li.Name = "Layout" + prop;
+        li.Text = prop.GetDisplay() + ":";
         li.Control = control;
 
         var height = control.Height + layoutControlGroup2.Padding.Bottom;
@@ -65,35 +59,36 @@ namespace ReceiptEntry
       Height = 132 + layoutItemSize;
     }
 
-    private Control CreateControl(PropertyInfo prop, PropertyIDAttribute attr)
+    private Control CreateControl(ReceiptItemProperty prop)
     {
-      switch (attr.ID)
+      switch (prop)
       {
-        case "Name":
+        case ReceiptItemProperty.Name:
           {
             txtName = new TextEdit();
             txtName.Name = "txtName";
             return txtName;
           }
-        case "Price":
+        case ReceiptItemProperty.Price:
           {
             numPrice = new SpinEdit();
             numPrice.Name = "numPrice";
+            numPrice.SetMinMax();
             return numPrice;
           }
-        case "AliasID":
+        case ReceiptItemProperty.ShoppingListItemID:
           {
-            aliasEditor = new FriendlyNameEditor();
+            aliasEditor = new ShoppingListItemEditor();
             aliasEditor.Name = "aliasEditor";
             return aliasEditor;
           }
-        case "Code":
+        case ReceiptItemProperty.Code:
           {
             codeEditor = new CodeEditor();
             codeEditor.Name = "codeEditor";
             return codeEditor;
           }
-        case "Quantity":
+        case ReceiptItemProperty.Quantity:
           {
             quantityEditor = new QuantityEditor();
             quantityEditor.Name = "quantityEditor";
@@ -107,10 +102,10 @@ namespace ReceiptEntry
     {
       txtName.Text = item.Name;
       numPrice.Value = item.Price;
-      if (aliasEditor != null && !string.IsNullOrWhiteSpace(item.AliasID))
+      if (aliasEditor != null && !string.IsNullOrWhiteSpace(item.ShoppingListItemID))
       {
         aliasEditor.AliasEnabled = true;
-        aliasEditor.AliasValue = item.AliasID;
+        aliasEditor.AliasValue = item.ShoppingListItemID;
       }
       if (codeEditor != null && !string.IsNullOrWhiteSpace(item.Code))
       {
@@ -132,7 +127,7 @@ namespace ReceiptEntry
       item.Price = numPrice.Value;
       if (aliasEditor != null && aliasEditor.AliasEnabled)
       {
-        item.AliasID = (string)aliasEditor.AliasValue;
+        item.ShoppingListItemID = (string)aliasEditor.AliasValue;
       }
       if (codeEditor != null && codeEditor.CodeEnabled)
       {
@@ -149,35 +144,26 @@ namespace ReceiptEntry
       return item;
     }
 
-    protected override void OnLoad(EventArgs e)
-    {
-      base.OnLoad(e);
-      //layoutControl1.BestFit();
-    }
-
     private void okCancelButtons1_OKClick(object sender, EventArgs e)
     {
       if (string.IsNullOrWhiteSpace(txtName.Text))
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please enter a name for the item.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please enter a name for the item.");
         return;
       }
 
       if (aliasEditor != null && !aliasEditor.IsValid())
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please select a friendly name. You can also un-check the checkbox.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please select a friendly name. You can also un-check the checkbox.");
         return;
       }
 
       if (codeEditor != null && !codeEditor.IsValid())
       {
         cancelClose = true;
-        XtraMessageBox.Show(this, "Please enter the code. You can also un-check the checkbox.", "Error",
-          MessageBoxButtons.OK, MessageBoxIcon.Information);
+        MessageHelper.Error(this, "Please enter the code. You can also un-check the checkbox.", "Error");
         return;
       }
 
@@ -186,17 +172,16 @@ namespace ReceiptEntry
         if (!quantityEditor.IsValid())
         {
           cancelClose = true;
-          XtraMessageBox.Show(this, "Please select a unit for the quantity. You can also un-check the checkbox.", "Error",
-            MessageBoxButtons.OK, MessageBoxIcon.Information);
+          MessageHelper.Error(this, "Please select a unit for the quantity. You can also un-check the checkbox.");
           return;
         }
 
         if (quantityEditor.QuantityEnabled && quantityEditor.Amount == 0m)
         {
-          var result = XtraMessageBox.Show(this, "Are you sure you meant 0 for the quantity?", "Quantity",
-            MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-          if (result == System.Windows.Forms.DialogResult.Yes) return;
-          cancelClose = true;
+          if (!MessageHelper.Confirm(this, "Are you sure you meant 0 for the quantity?"))
+          {
+            cancelClose = true;
+          }
           return;
         }
       }

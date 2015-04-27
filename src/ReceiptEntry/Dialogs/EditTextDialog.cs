@@ -12,10 +12,10 @@ namespace ReceiptEntry
 {
   public partial class EditTextDialog : BaseForm
   {
-    public string Caption
+    public string Prompt
     {
-      get { return layoutControlItem2.Text; }
-      set { layoutControlItem2.Text = value; }
+      get { return layoutControlItem1.Text; }
+      set { layoutControlItem1.Text = value; }
     }
 
     public string Value

@@ -29,7 +29,7 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+      DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
       this.btnDuplicate = new DevExpress.XtraEditors.SimpleButton();
       this.numTotal = new DevExpress.XtraEditors.SpinEdit();
@@ -38,10 +38,8 @@
       this.cboMerchant = new DevExpress.XtraEditors.SearchLookUpEdit();
       this.merchantSource = new System.Windows.Forms.BindingSource(this.components);
       this.lookUpMerchantTypes = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
-      this.merchantTypeSource = new System.Windows.Forms.BindingSource(this.components);
       this.cboMerchantView = new DevExpress.XtraGrid.Views.Grid.GridView();
       this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
-      this.colMerchantTypeID = new DevExpress.XtraGrid.Columns.GridColumn();
       this.btnClear = new DevExpress.XtraEditors.SimpleButton();
       this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
       this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
@@ -64,8 +62,6 @@
       this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.chkShowCode = new DevExpress.XtraEditors.CheckEdit();
-      this.layoutControlItem12 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numTotal.Properties)).BeginInit();
@@ -73,7 +69,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.cboMerchant.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.merchantSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.lookUpMerchantTypes)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.merchantTypeSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.cboMerchantView)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridItems)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.receiptItemSource)).BeginInit();
@@ -94,13 +89,10 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.chkShowCode.Properties)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
       // 
-      this.layoutControl1.Controls.Add(this.chkShowCode);
       this.layoutControl1.Controls.Add(this.btnDuplicate);
       this.layoutControl1.Controls.Add(this.numTotal);
       this.layoutControl1.Controls.Add(this.okCancelButtons1);
@@ -141,7 +133,7 @@
       this.numTotal.Location = new System.Drawing.Point(64, 321);
       this.numTotal.Name = "numTotal";
       this.numTotal.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, false, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject2, "", null, null, true)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo, "", -1, true, false, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, null, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, "", null, null, true)});
       this.numTotal.Properties.DisplayFormat.FormatString = "c2";
       this.numTotal.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
       this.numTotal.Properties.ReadOnly = true;
@@ -205,20 +197,14 @@
       this.lookUpMerchantTypes.AutoHeight = false;
       this.lookUpMerchantTypes.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.lookUpMerchantTypes.DataSource = this.merchantTypeSource;
       this.lookUpMerchantTypes.DisplayMember = "Name";
       this.lookUpMerchantTypes.Name = "lookUpMerchantTypes";
       this.lookUpMerchantTypes.ValueMember = "ID";
       // 
-      // merchantTypeSource
-      // 
-      this.merchantTypeSource.DataSource = typeof(ReceiptEntry.MerchantType);
-      // 
       // cboMerchantView
       // 
       this.cboMerchantView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colName,
-            this.colMerchantTypeID});
+            this.colName});
       this.cboMerchantView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
       this.cboMerchantView.Name = "cboMerchantView";
       this.cboMerchantView.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -235,18 +221,9 @@
       this.colName.Visible = true;
       this.colName.VisibleIndex = 0;
       // 
-      // colMerchantTypeID
-      // 
-      this.colMerchantTypeID.Caption = "Type";
-      this.colMerchantTypeID.ColumnEdit = this.lookUpMerchantTypes;
-      this.colMerchantTypeID.FieldName = "MerchantTypeID";
-      this.colMerchantTypeID.Name = "colMerchantTypeID";
-      this.colMerchantTypeID.Visible = true;
-      this.colMerchantTypeID.VisibleIndex = 1;
-      // 
       // btnClear
       // 
-      this.btnClear.Location = new System.Drawing.Point(375, 198);
+      this.btnClear.Location = new System.Drawing.Point(375, 175);
       this.btnClear.Name = "btnClear";
       this.btnClear.Size = new System.Drawing.Size(74, 24);
       this.btnClear.StyleController = this.layoutControl1;
@@ -256,7 +233,7 @@
       // 
       // btnRemove
       // 
-      this.btnRemove.Location = new System.Drawing.Point(375, 170);
+      this.btnRemove.Location = new System.Drawing.Point(375, 147);
       this.btnRemove.Name = "btnRemove";
       this.btnRemove.Size = new System.Drawing.Size(74, 24);
       this.btnRemove.StyleController = this.layoutControl1;
@@ -266,7 +243,7 @@
       // 
       // btnEdit
       // 
-      this.btnEdit.Location = new System.Drawing.Point(375, 142);
+      this.btnEdit.Location = new System.Drawing.Point(375, 119);
       this.btnEdit.Name = "btnEdit";
       this.btnEdit.Size = new System.Drawing.Size(74, 24);
       this.btnEdit.StyleController = this.layoutControl1;
@@ -276,7 +253,7 @@
       // 
       // btnAdd
       // 
-      this.btnAdd.Location = new System.Drawing.Point(375, 114);
+      this.btnAdd.Location = new System.Drawing.Point(375, 91);
       this.btnAdd.Name = "btnAdd";
       this.btnAdd.Size = new System.Drawing.Size(74, 24);
       this.btnAdd.StyleController = this.layoutControl1;
@@ -288,10 +265,10 @@
       // 
       this.gridItems.Cursor = System.Windows.Forms.Cursors.Default;
       this.gridItems.DataSource = this.receiptItemSource;
-      this.gridItems.Location = new System.Drawing.Point(24, 114);
+      this.gridItems.Location = new System.Drawing.Point(24, 91);
       this.gridItems.MainView = this.gridViewItems;
       this.gridItems.Name = "gridItems";
-      this.gridItems.Size = new System.Drawing.Size(347, 167);
+      this.gridItems.Size = new System.Drawing.Size(347, 190);
       this.gridItems.TabIndex = 8;
       this.gridItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -362,8 +339,7 @@
             this.layoutControlItem6,
             this.layoutControlItem7,
             this.emptySpaceItem1,
-            this.layoutControlItem11,
-            this.layoutControlItem12});
+            this.layoutControlItem11});
       this.layoutControlGroup2.Location = new System.Drawing.Point(0, 48);
       this.layoutControlGroup2.Name = "layoutControlGroup2";
       this.layoutControlGroup2.Size = new System.Drawing.Size(453, 237);
@@ -373,9 +349,9 @@
       // 
       this.layoutControlItem3.Control = this.gridItems;
       this.layoutControlItem3.CustomizationFormText = "layoutControlItem3";
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 23);
+      this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(351, 171);
+      this.layoutControlItem3.Size = new System.Drawing.Size(351, 194);
       this.layoutControlItem3.Text = "layoutControlItem3";
       this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem3.TextToControlDistance = 0;
@@ -385,7 +361,7 @@
       // 
       this.layoutControlItem4.Control = this.btnAdd;
       this.layoutControlItem4.CustomizationFormText = "layoutControlItem4";
-      this.layoutControlItem4.Location = new System.Drawing.Point(351, 23);
+      this.layoutControlItem4.Location = new System.Drawing.Point(351, 0);
       this.layoutControlItem4.MaxSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem4.MinSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem4.Name = "layoutControlItem4";
@@ -400,7 +376,7 @@
       // 
       this.layoutControlItem5.Control = this.btnEdit;
       this.layoutControlItem5.CustomizationFormText = "layoutControlItem5";
-      this.layoutControlItem5.Location = new System.Drawing.Point(351, 51);
+      this.layoutControlItem5.Location = new System.Drawing.Point(351, 28);
       this.layoutControlItem5.MaxSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem5.MinSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem5.Name = "layoutControlItem5";
@@ -415,7 +391,7 @@
       // 
       this.layoutControlItem6.Control = this.btnRemove;
       this.layoutControlItem6.CustomizationFormText = "layoutControlItem6";
-      this.layoutControlItem6.Location = new System.Drawing.Point(351, 79);
+      this.layoutControlItem6.Location = new System.Drawing.Point(351, 56);
       this.layoutControlItem6.MaxSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem6.MinSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem6.Name = "layoutControlItem6";
@@ -430,7 +406,7 @@
       // 
       this.layoutControlItem7.Control = this.btnClear;
       this.layoutControlItem7.CustomizationFormText = "layoutControlItem7";
-      this.layoutControlItem7.Location = new System.Drawing.Point(351, 107);
+      this.layoutControlItem7.Location = new System.Drawing.Point(351, 84);
       this.layoutControlItem7.MaxSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem7.MinSize = new System.Drawing.Size(78, 28);
       this.layoutControlItem7.Name = "layoutControlItem7";
@@ -445,9 +421,9 @@
       // 
       this.emptySpaceItem1.AllowHotTrack = false;
       this.emptySpaceItem1.CustomizationFormText = "emptySpaceItem1";
-      this.emptySpaceItem1.Location = new System.Drawing.Point(351, 135);
+      this.emptySpaceItem1.Location = new System.Drawing.Point(351, 112);
       this.emptySpaceItem1.Name = "emptySpaceItem1";
-      this.emptySpaceItem1.Size = new System.Drawing.Size(78, 31);
+      this.emptySpaceItem1.Size = new System.Drawing.Size(78, 54);
       this.emptySpaceItem1.Text = "emptySpaceItem1";
       this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
       // 
@@ -511,27 +487,6 @@
       this.layoutControlItem9.Text = "Total:";
       this.layoutControlItem9.TextSize = new System.Drawing.Size(49, 13);
       // 
-      // chkShowCode
-      // 
-      this.chkShowCode.Location = new System.Drawing.Point(24, 91);
-      this.chkShowCode.Name = "chkShowCode";
-      this.chkShowCode.Properties.Caption = "Show Code column";
-      this.chkShowCode.Size = new System.Drawing.Size(425, 19);
-      this.chkShowCode.StyleController = this.layoutControl1;
-      this.chkShowCode.TabIndex = 19;
-      // 
-      // layoutControlItem12
-      // 
-      this.layoutControlItem12.Control = this.chkShowCode;
-      this.layoutControlItem12.CustomizationFormText = "layoutControlItem12";
-      this.layoutControlItem12.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlItem12.Name = "layoutControlItem12";
-      this.layoutControlItem12.Size = new System.Drawing.Size(429, 23);
-      this.layoutControlItem12.Text = "layoutControlItem12";
-      this.layoutControlItem12.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem12.TextToControlDistance = 0;
-      this.layoutControlItem12.TextVisible = false;
-      // 
       // EditReceiptDialog
       // 
       this.AcceptButton = this.okCancelButtons1.OK;
@@ -549,7 +504,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.cboMerchant.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.merchantSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.lookUpMerchantTypes)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.merchantTypeSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.cboMerchantView)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridItems)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.receiptItemSource)).EndInit();
@@ -570,8 +524,6 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.chkShowCode.Properties)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem12)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -598,11 +550,9 @@
     private DevExpress.XtraGrid.Views.Grid.GridView cboMerchantView;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
     private System.Windows.Forms.BindingSource merchantSource;
-    private System.Windows.Forms.BindingSource merchantTypeSource;
     private System.Windows.Forms.BindingSource receiptItemSource;
     private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit lookUpMerchantTypes;
     private DevExpress.XtraGrid.Columns.GridColumn colName;
-    private DevExpress.XtraGrid.Columns.GridColumn colMerchantTypeID;
     private DevExpress.XtraEditors.SpinEdit numTax;
     private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
@@ -612,8 +562,6 @@
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
     private DevExpress.XtraEditors.SimpleButton btnDuplicate;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem11;
-    private DevExpress.XtraEditors.CheckEdit chkShowCode;
-    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem12;
 
   }
 }

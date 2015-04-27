@@ -1,149 +1,158 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
+using Shopping;
 
 namespace ReceiptEntry
 {
-  public partial class MainForm : BaseForm
+  public partial class MainForm : BaseForm, IWorker
   {
-    private ReceiptItemGridViewHelper gridViewHelper;
-    private GridViewFeatures features;
+    private DataContractFile<SaveFile> dcf;
+    private SaveFile saveFile;
 
     public MainForm()
     {
       InitializeComponent();
-
-      gridViewHelper = new ReceiptItemGridViewHelper(gridViewReceiptItems);
-      gridViewReceiptItems.OptionsView.ShowColumnHeaders = false;
-      gridViewReceiptItems.OptionsView.ShowIndicator = false;
-      gridViewReceiptItems.OptionsView.ShowHorizontalLines = DevExpress.Utils.DefaultBoolean.False;
-      gridViewReceiptItems.OptionsView.ShowVerticalLines = DevExpress.Utils.DefaultBoolean.False;
-
-      features = new GridViewFeatures(gridViewReceipts);
-      features.AddAlignGroupSummariesToColumns();
+      InitializeDCF();
+      MinimumSize = Size;
     }
 
-    private async void LoadDatabase()
+    public void SetIsWorking(bool working)
     {
-      Enabled = false;
-      
-      await Task.Run(() => Database.Load());
-      merchantSource.DataSource = Database.Merchants;
-      receiptSource.DataSource = Database.Receipts;
-
-      Enabled = true;
-    }
-
-    private async void DoSave()
-    {
-      tbbSave.Enabled = false;
-      await Task.Run(() => Database.Save());
-      tbbSave.Enabled = true;
-    }
-
-    private void EditReceiptByRowHandle(int rowHandle)
-    {
-      EditReceiptByItem(gridViewReceipts.GetRow(rowHandle) as Receipt);
-    }
-
-    private void EditReceiptByItem(Receipt receipt)
-    {
-      if (receipt == null) return;
-      var copy = receipt.Duplicate();
-      using (var dlg = new EditReceiptDialog(copy))
+      Cursor = working ? Cursors.WaitCursor : Cursors.Default;
+      foreach (BarItem item in barManager1.Items)
       {
-        dlg.Text = "Edit Receipt";
-        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        item.Enabled = !working;
+      }
+    }
+
+    private void InitializeDCF()
+    {
+      string filepath = Path.Combine(Application.StartupPath, "receipts.xml");
+      dcf = new DataContractFile<SaveFile>(filepath);
+    }
+
+    private SaveFile CreateNewSaveFile()
+    {
+      return new SaveFile
+      {
+        Merchants = new List<Merchant>(),
+        Receipts = new List<Receipt>(),
+      };
+    }
+
+    private async void LoadSaveFile()
+    {
+      using (this.BeginWork())
+      {
+        saveFile = await Task.Run(() =>
         {
-          var index = receiptSource.IndexOf(receipt);
-          receiptSource[index] = copy;
+          SaveFile data;
+          dcf.TryRead(out data);
+          return Sanitize(data ?? CreateNewSaveFile());
+        });
+      }
+
+      gridReceipts.SetData(saveFile.Merchants, saveFile.Receipts);
+    }
+
+    private SaveFile Sanitize(SaveFile file)
+    {
+      foreach (var r in file.Receipts)
+      {
+        foreach (var i in r.Items)
+        {
+          if (i.SearchIDs != null)
+          {
+            i.SearchIDs.Clear();
+            i.SearchIDs = null;
+          }
+          i.SearchIDs = new List<string>();
         }
       }
+      return file;
+    }
+
+    private void Flush()
+    {
+      saveFile.Merchants = gridReceipts.Merchants.ToList();
+      saveFile.Receipts = gridReceipts.Receipts.ToList();
     }
 
     protected override void OnLoad(EventArgs e)
     {
       base.OnLoad(e);
-      LoadDatabase();
+      LoadSaveFile();
     }
 
     private void tbbSave_ItemClick(object sender, ItemClickEventArgs e)
     {
-      DoSave();
-    }
-
-    private void tbbMerchantTypes_ItemClick(object sender, ItemClickEventArgs e)
-    {
-
+      Flush();
+      dcf.Write(saveFile);
     }
 
     private void tbbMerchants_ItemClick(object sender, ItemClickEventArgs e)
     {
+      var merchants = gridReceipts.Merchants.Select(m => m.Duplicate());
+      var receipts = gridReceipts.Receipts.ToArray();
 
+      using (var dlg = new MerchantListDialog(merchants, receipts))
+      {
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          gridReceipts.Set(dlg.Merchants);
+        }
+      }
     }
 
-    private void tbbFriendlyNames_ItemClick(object sender, ItemClickEventArgs e)
+    private void tbbShoppingListItems_ItemClick(object sender, ItemClickEventArgs e)
     {
 
     }
 
     private void tbbNewReceipt_ItemClick(object sender, ItemClickEventArgs e)
     {
-      var receipt = new Receipt
-      {
-        Date = DateTime.Today,
-        Items = new BindingList<ReceiptItem>(),
-        MerchantID = null,
-        Tax = 0,
-      };
+      gridReceipts.AddNewReceipt();
+    }
 
-      using (var dlg = new EditReceiptDialog(receipt))
+    private void tbbSearch_ItemClick(object sender, ItemClickEventArgs e)
+    {
+      var receipts = new BindingList<Receipt>();
+      receipts.ListChanged += receipts_ListChanged;
+
+      var merchants = gridReceipts.MerchantSource;
+      using (var dlg = new SearchOptionsDialog())
       {
-        dlg.ShowEditOrder = true;
+        dlg.Text = "Search...";
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
-          receiptSource.Add(receipt);
+          SearchResultsDialog.Run(this, 
+            dlg.CreateOptions(),
+            gridReceipts.Receipts,
+            merchants,
+            receipts);
         }
       }
     }
 
-    private void gridViewReceipts_CustomColumnGroup(object sender, CustomColumnSortEventArgs e)
+    private void receipts_ListChanged(object sender, ListChangedEventArgs e)
     {
-      if (e.Column == colDateMonth)
+      if (e.ListChangedType == ListChangedType.ItemDeleted)
       {
-        var r1 = e.RowObject1 as Receipt;
-        var r2 = e.RowObject2 as Receipt;
-        e.Result = r1.Date.Month.CompareTo(r2.Date.Month);
-        e.Handled = true;
-      }
-    }
-
-    private void gridViewReceipts_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
-    {
-      if (e.Column == colDateMonth)
-      {
-        var value = e.Row as Receipt;
-        e.Value = value.Date.Date;
-      }
-    }
-
-    private void gridReceipts_MouseDoubleClick(object sender, MouseEventArgs e)
-    {
-      if ((e.Button & System.Windows.Forms.MouseButtons.Left) != 0)
-      {
-        var info = gridViewReceipts.CalcHitInfo(e.Location);
-        if ((info.InRow || info.InRowCell) && !info.InGroupRow)
-        {
-          EditReceiptByRowHandle(info.RowHandle);
-        }
+        var list = sender as IList;
+        var item = list[e.NewIndex];
+        gridReceipts.ReceiptSource.Remove(item);
       }
     }
   }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry
 {
-  [DataContract(Name = "ExtensibleDataObject", Namespace = Database.Namespace)]
+  [DataContract(Name = "ExtensibleDataObject", Namespace = SaveFile.Namespace)]
   public abstract class ExtensibleDataObject : IExtensibleDataObject
   {
     ExtensionDataObject IExtensibleDataObject.ExtensionData { get; set; }

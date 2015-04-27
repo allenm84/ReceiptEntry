@@ -101,7 +101,7 @@
       // 
       // itemAliasSource
       // 
-      this.itemAliasSource.DataSource = typeof(ReceiptEntry.ItemAlias);
+      this.itemAliasSource.DataSource = typeof(Shopping.ShoppingListItem);
       // 
       // EditReceiptItemDialog
       // 

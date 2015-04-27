@@ -10,23 +10,12 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using Shopping;
 
 namespace ReceiptEntry
 {
   public class ReceiptItemGridViewHelper
   {
-    static ReceiptItemName[] transforms;
-    static ReceiptItemGridViewHelper()
-    {
-      transforms = new ReceiptItemName[]
-      {
-        new UseAlias(),
-        new UseNameProperty(),
-        new UseCodeProperty(),
-        new UseUnknown(),
-      };
-    }
-
     private GridView gridViewItems;
     private GridColumn colItemName;
     private GridColumn colCode;
@@ -114,6 +103,7 @@ namespace ReceiptEntry
       gridViewItems.OptionsCustomization.AllowFilter = false;
       gridViewItems.OptionsCustomization.AllowGroup = false;
       gridViewItems.OptionsCustomization.AllowQuickHideColumns = false;
+      gridViewItems.OptionsDetail.EnableMasterViewMode = false;
       gridViewItems.OptionsSelection.EnableAppearanceFocusedCell = false;
       gridViewItems.OptionsSelection.MultiSelect = true;
       gridViewItems.OptionsView.ShowGroupPanel = false;
@@ -127,12 +117,15 @@ namespace ReceiptEntry
       {
         if (e.Column.FieldName == "ItemName")
         {
-          string name = null;
-          for (int i = 0; string.IsNullOrWhiteSpace(name) && i < transforms.Length; ++i)
+          var shopping = ShoppingListAccessor.GetItem(item.ShoppingListItemID);
+          if (shopping != null)
           {
-            name = transforms[i].RetrieveName(item);
+            e.Value = shopping.Name;
           }
-          e.Value = name;
+          else
+          {
+            e.Value = item.Name;
+          }
         }
         else if (e.Column.FieldName == "ItemQuantity")
         {
