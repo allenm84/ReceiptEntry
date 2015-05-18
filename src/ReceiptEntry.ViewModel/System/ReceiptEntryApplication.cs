@@ -22,7 +22,7 @@ namespace ReceiptEntry.ViewModel
 
     internal static ReceiptItemNameViewModel SelectReceiptItemName(ReceiptItemNameViewModel[] names, string name, string alias)
     {
-      
+      throw new NotImplementedException();
     }
   }
 }
