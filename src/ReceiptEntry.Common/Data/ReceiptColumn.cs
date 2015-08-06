@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.Model
 {
-  [DataContract(Name = "BaseIDName", Namespace = SaveFile.Namespace)]
-  public abstract class BaseIDName : ExtensibleDataObject
+  [DataContract(Name = "ReceiptColumn", Namespace = SaveFile.Namespace)]
+  public class ReceiptColumn : ExtensibleDataObject
   {
     [DataMember(Order = 0)]
     public string ID { get; set; }
 
     [DataMember(Order = 1)]
     public string Name { get; set; }
+
+    [DataMember(Order = 2)]
+    public ReceiptColumnType Type { get; set; }
   }
 }

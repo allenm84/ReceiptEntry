@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReceiptEntry.Model
+namespace ReceiptEntry.Services
 {
   public class DataContractFile<T> where T : class
   {

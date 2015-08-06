@@ -40,19 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\HelpfulName.cs" />
     <Compile Include="Data\Merchant.cs" />
-    <Compile Include="Data\ReceiptCharge.cs" />
+    <Compile Include="Data\ReceiptColumn.cs" />
+    <Compile Include="Data\ReceiptColumnReference.cs" />
+    <Compile Include="Data\ReceiptColumnType.cs" />
     <Compile Include="Data\ReceiptItem.cs" />
-    <Compile Include="Data\ReceiptItemName.cs" />
     <Compile Include="Data\ReceiptTax.cs" />
-    <Compile Include="Data\ReceiptDebit.cs" />
-    <Compile Include="Data\ReceiptDiscount.cs" />
-    <Compile Include="Tools\DataContractFile.cs" />
     <Compile Include="Data\BaseIDName.cs" />
     <Compile Include="Data\ExtensibleDataObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\Receipt.cs" />
     <Compile Include="Data\SaveFile.cs" />
+    <Compile Include="Services\ISaveFileService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

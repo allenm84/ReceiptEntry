@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.Model
 {
-  [DataContract(Name = "ReceiptDebit", Namespace = SaveFile.Namespace)]
-  public class ReceiptDebit : ReceiptCharge
+  [DataContract(Name = "HelpfulName", Namespace = SaveFile.Namespace)]
+  public class HelpfulName : BaseIDName
   {
-    
   }
 }

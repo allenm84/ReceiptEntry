@@ -11,5 +11,17 @@ namespace ReceiptEntry.Model
   public class SaveFile : ExtensibleDataObject
   {
     public const string Namespace = "http://www.mapa.com/apps/receiptEntry/v5";
+
+    [DataMember(Order = 0)]
+    public HelpfulName[] Names { get; set; }
+
+    [DataMember(Order = 1)]
+    public Merchant[] Merchants { get; set; }
+
+    [DataMember(Order = 2)]
+    public ReceiptColumn[] Columns { get; set; }
+
+    [DataMember(Order = 3)]
+    public Receipt[] Receipts { get; set; }
   }
 }

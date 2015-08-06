@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.ViewModel
 {
-  public abstract class NotifyPropertyChanged : INotifyPropertyChanged
+  public abstract class BaseNotifyPropertyChanged : INotifyPropertyChanged
   {
     private bool mAllowPropertyChangedEvents = true;
 
@@ -24,9 +24,24 @@ namespace ReceiptEntry.ViewModel
       mAllowPropertyChangedEvents = true;
     }
 
-    protected virtual void FirePropertyChanged([CallerMemberName] string propertyName = "")
+    protected virtual bool BeforePropertyChanged(string propertyName)
+    {
+      return true;
+    }
+
+    protected virtual void AfterPropertyChanged(string propertyName)
+    {
+
+    }
+
+    protected void FirePropertyChanged([CallerMemberName] string propertyName = "")
     {
       if (!mAllowPropertyChangedEvents)
+      {
+        return;
+      }
+
+      if (!BeforePropertyChanged(propertyName))
       {
         return;
       }
@@ -36,6 +51,8 @@ namespace ReceiptEntry.ViewModel
       {
         changed(this, new PropertyChangedEventArgs(propertyName));
       }
+
+      AfterPropertyChanged(propertyName);
     }
   }
 }

@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.Model
 {
-  [DataContract(Name = "ReceiptDiscount", Namespace = SaveFile.Namespace)]
-  public class ReceiptDiscount : ReceiptCharge
+  [DataContract(Name = "ReceiptColumnType", Namespace = SaveFile.Namespace)]
+  public enum ReceiptColumnType
   {
-
+    [EnumMember]
+    Text,
+    [EnumMember]
+    Number,
+    [EnumMember]
+    Dollars,
   }
 }

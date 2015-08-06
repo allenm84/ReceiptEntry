@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.Model
 {
-  [DataContract(Name = "SaveFile", Namespace = SaveFile.Namespace)]
-  public class ReceiptItemName : BaseIDName
+  [DataContract(Name = "ReceiptColumnReference", Namespace = SaveFile.Namespace)]
+  public class ReceiptColumnReference : ExtensibleDataObject
   {
     [DataMember(Order = 0)]
-    public string Alias { get; set; }
+    public string ColumnID { get; set; }
   }
 }

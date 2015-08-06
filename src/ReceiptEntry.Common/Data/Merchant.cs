@@ -10,5 +10,7 @@ namespace ReceiptEntry.Model
   [DataContract(Name = "Merchant", Namespace = SaveFile.Namespace)]
   public class Merchant : BaseIDName
   {
+    [DataMember(Order = 0)]
+    public ReceiptColumnReference[] Columns { get; set; }
   }
 }
