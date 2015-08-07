@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,35 +11,44 @@ namespace ReceiptEntry.ViewModel
 {
   public abstract class BaseViewModel : BaseNotifyPropertyChanged
   {
-    private readonly Dictionary<string, object> mFields = new Dictionary<string, object>();
-
-    private Dictionary<string, object> mCurrentSnapshot;
-    protected void Snapshot()
+    protected static object DeepCopy(object obj)
     {
-      mCurrentSnapshot = mFields.ToDictionary(k => k.Key, v => v.Value);
-    }
-
-    protected void Commit()
-    {
-      mCurrentSnapshot = null;
-    }
-
-    protected void Cancel()
-    {
-      if (mCurrentSnapshot != null)
+      using (var stream = new MemoryStream())
       {
-        foreach (var kvp in mCurrentSnapshot)
-        {
-          PushValue(kvp.Key, kvp.Value);
-        }
+        var formatter = new BinaryFormatter();
+        formatter.Serialize(stream, obj);
+        stream.Position = 0;
+        return formatter.Deserialize(stream);
+      }
+    }
+
+    private readonly Dictionary<string, object> mFields = new Dictionary<string, object>();
+    private Dictionary<string, object> mAccepted;
+
+    protected void Accept()
+    {
+      mAccepted = mFields.ToDictionary(k => k.Key, v => DeepCopy(v.Value));
+      Commit();
+    }
+
+    protected virtual void Commit()
+    {
+      
+    }
+
+    protected void Reject()
+    {
+      foreach (var kvp in mAccepted)
+      {
+        PushValue(kvp.Key, kvp.Value);
       }
 
-      mCurrentSnapshot = null;
+      Rollback();
     }
 
-    protected virtual bool ValueChanged<T>(string key, T value)
+    protected virtual void Rollback()
     {
-      return !(GetField<T>(key).Equals(value));
+      
     }
 
     protected T GetField<T>([CallerMemberName] string key = "")
@@ -57,6 +68,11 @@ namespace ReceiptEntry.ViewModel
       {
         PushValue(key, value);
       }
+    }
+
+    private bool ValueChanged<T>(string key, T value)
+    {
+      return !(GetField<T>(key).Equals(value));
     }
 
     private void PushValue(string key, object value)

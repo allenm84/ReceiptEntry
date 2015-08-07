@@ -38,16 +38,16 @@
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-      this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.gridControl1 = new DevExpress.XtraGrid.GridControl();
       this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+      this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
       this.SuspendLayout();
       // 
@@ -133,17 +133,6 @@
       this.layoutControl1.TabIndex = 4;
       this.layoutControl1.Text = "layoutControl1";
       // 
-      // layoutControlGroup1
-      // 
-      this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
-      this.layoutControlGroup1.GroupBordersVisible = false;
-      this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem1});
-      this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
-      this.layoutControlGroup1.Name = "layoutControlGroup1";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(448, 426);
-      this.layoutControlGroup1.TextVisible = false;
-      // 
       // gridControl1
       // 
       this.gridControl1.Location = new System.Drawing.Point(12, 12);
@@ -159,6 +148,17 @@
       // 
       this.gridView1.GridControl = this.gridControl1;
       this.gridView1.Name = "gridView1";
+      // 
+      // layoutControlGroup1
+      // 
+      this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+      this.layoutControlGroup1.GroupBordersVisible = false;
+      this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+      this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlGroup1.Name = "layoutControlGroup1";
+      this.layoutControlGroup1.Size = new System.Drawing.Size(448, 426);
+      this.layoutControlGroup1.TextVisible = false;
       // 
       // layoutControlItem1
       // 
@@ -184,9 +184,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
       this.ResumeLayout(false);
 

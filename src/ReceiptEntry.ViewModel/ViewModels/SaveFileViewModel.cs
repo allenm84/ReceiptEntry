@@ -12,6 +12,12 @@ namespace ReceiptEntry.ViewModel
   {
     private readonly ISaveFileService mService;
 
+    private readonly ReceiptColumnListViewModel mColumns;
+    public ReceiptColumnListViewModel Columns
+    {
+      get { return mColumns; }
+    }
+
     private readonly MerchantListViewModel mMerchants;
     public MerchantListViewModel Merchants
     {
@@ -23,6 +29,8 @@ namespace ReceiptEntry.ViewModel
       mService = service;
 
       var saveFile = service.PullSaveFile();
+
+      mColumns = new ReceiptColumnListViewModel(this, saveFile.Columns);
       mMerchants = new MerchantListViewModel(this, saveFile.Merchants);
     }
   }

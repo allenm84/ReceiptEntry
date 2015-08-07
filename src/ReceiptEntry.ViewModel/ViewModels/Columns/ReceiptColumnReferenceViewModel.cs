@@ -24,7 +24,12 @@ namespace ReceiptEntry.ViewModel
     internal ReceiptColumnReferenceViewModel(string columnID)
     {
       ColumnID = columnID;
-      Snapshot();
+      Accept();
+    }
+
+    public ReceiptColumnReference ToColumnReference()
+    {
+      return new ReceiptColumnReference { ColumnID = ColumnID };
     }
   }
 }

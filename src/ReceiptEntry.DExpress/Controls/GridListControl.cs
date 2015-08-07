@@ -7,6 +7,7 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -130,30 +131,7 @@ namespace ReceiptEntry.DExpress
           }
         case GridListControlViewMode.List:
           {
-            gridViewItems.FocusRectStyle = DrawFocusRectStyle.RowFocus;
-
-            gridViewItems.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            gridViewItems.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
-            gridViewItems.OptionsBehavior.AllowIncrementalSearch = true;
-            gridViewItems.OptionsBehavior.Editable = false;
-            gridViewItems.OptionsBehavior.ReadOnly = true;
-
-            gridViewItems.OptionsCustomization.AllowColumnMoving = false;
-            gridViewItems.OptionsCustomization.AllowColumnResizing = false;
-            gridViewItems.OptionsCustomization.AllowRowSizing = false;
-
-            gridViewItems.OptionsDetail.EnableMasterViewMode = false;
-
-            gridViewItems.OptionsSelection.EnableAppearanceFocusedCell = false;
-            gridViewItems.OptionsSelection.EnableAppearanceFocusedRow = true;
-            gridViewItems.OptionsSelection.EnableAppearanceHideSelection = true;
-            gridViewItems.OptionsSelection.MultiSelect = true;
-            gridViewItems.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.RowSelect;
-            gridViewItems.OptionsSelection.UseIndicatorForSelection = false;
-
-            gridViewItems.OptionsView.ShowColumnHeaders = false;
-            gridViewItems.OptionsView.ShowGroupPanel = false;
-            gridViewItems.OptionsView.ShowIndicator = false;
+            gridViewItems.SetPropertiesToList();
             break;
           }
       }
@@ -300,6 +278,39 @@ namespace ReceiptEntry.DExpress
         var r = gridViewItems.GetRowHandle(i);
         yield return gridViewItems.GetRow(r) as T;
       }
+    }
+  }
+
+  public static class GridListControlExtensions
+  {
+    public static void SetPropertiesToList(this GridView gridView, bool multiselect = true, bool allowDelete = false)
+    {
+      gridView.FocusRectStyle = DrawFocusRectStyle.RowFocus;
+
+      gridView.OptionsBehavior.AllowAddRows = DefaultBoolean.False;
+      gridView.OptionsBehavior.AllowDeleteRows = allowDelete
+        ? DefaultBoolean.True
+        : DefaultBoolean.False;
+      gridView.OptionsBehavior.AllowIncrementalSearch = true;
+      gridView.OptionsBehavior.Editable = false;
+      gridView.OptionsBehavior.ReadOnly = true;
+
+      gridView.OptionsCustomization.AllowColumnMoving = false;
+      gridView.OptionsCustomization.AllowColumnResizing = false;
+      gridView.OptionsCustomization.AllowRowSizing = false;
+
+      gridView.OptionsDetail.EnableMasterViewMode = false;
+
+      gridView.OptionsSelection.EnableAppearanceFocusedCell = false;
+      gridView.OptionsSelection.EnableAppearanceFocusedRow = true;
+      gridView.OptionsSelection.EnableAppearanceHideSelection = true;
+      gridView.OptionsSelection.MultiSelect = multiselect;
+      gridView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.RowSelect;
+      gridView.OptionsSelection.UseIndicatorForSelection = false;
+
+      gridView.OptionsView.ShowColumnHeaders = false;
+      gridView.OptionsView.ShowGroupPanel = false;
+      gridView.OptionsView.ShowIndicator = false;
     }
   }
 

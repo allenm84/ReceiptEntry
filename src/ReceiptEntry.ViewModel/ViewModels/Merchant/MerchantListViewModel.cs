@@ -10,7 +10,9 @@ namespace ReceiptEntry.ViewModel
 {
   public class MerchantListViewModel
   {
-    protected readonly BindingList<MerchantViewModel> mMerchants;
+    private readonly SaveFileViewModel mParent;
+
+    private readonly BindingList<MerchantViewModel> mMerchants;
     public BindingList<MerchantViewModel> Merchants
     {
       get { return mMerchants; }
@@ -18,11 +20,18 @@ namespace ReceiptEntry.ViewModel
 
     internal MerchantListViewModel(SaveFileViewModel parent, IEnumerable<Merchant> merchants)
     {
+      mParent = parent;
+
       mMerchants = new BindingList<MerchantViewModel>();
       foreach (var merchant in merchants)
       {
-        mMerchants.Add(new MerchantViewModel(merchant));
+        mMerchants.Add(new MerchantViewModel(merchant, parent.Columns));
       }
+    }
+
+    public MerchantViewModel CreateMerchant()
+    {
+      return new MerchantViewModel(IDg.Next, "<New Merchant>", null, mParent.Columns);
     }
   }
 }
