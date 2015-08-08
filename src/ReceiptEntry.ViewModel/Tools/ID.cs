@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReceiptEntry.ViewModel
 {
-  public static class IDg
+  internal static class ID
   {
     public static string Next
     {

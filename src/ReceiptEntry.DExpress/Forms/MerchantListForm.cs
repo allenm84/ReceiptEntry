@@ -21,6 +21,7 @@ namespace ReceiptEntry.DExpress
       mMerchants = merchants;
       InitializeComponent();
       SetupMerchants();
+      CommandBinder.Bind(okCancelButtons1, merchants);
     }
 
     private void SetupMerchants()
@@ -29,7 +30,7 @@ namespace ReceiptEntry.DExpress
       lstMerchants.Mode = GridListControlViewMode.List;
       lstMerchants.AddColumn((MerchantViewModel v) => v.Name);
       lstMerchants.Editor = this;
-      lstMerchants.DataSource = mMerchants.Merchants;
+      lstMerchants.DataSource = mMerchants.Items;
     }
 
     public bool AllowEdit
@@ -41,7 +42,7 @@ namespace ReceiptEntry.DExpress
     {
       newValue = null;
 
-      var merchant = mMerchants.CreateMerchant();
+      var merchant = mMerchants.CreateItem();
       using (var dlg = new EditMerchantForm(merchant))
       {
         dlg.Text = "Add Merchant";
@@ -80,7 +81,7 @@ namespace ReceiptEntry.DExpress
 
     public int GetVisibleCount()
     {
-      return mMerchants.Merchants.Count;
+      return mMerchants.Items.Count;
     }
   }
 }

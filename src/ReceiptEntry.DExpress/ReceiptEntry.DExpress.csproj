@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v14.2" />
     <Reference Include="DevExpress.Data.v14.2" />
@@ -43,6 +46,9 @@
     <Reference Include="DevExpress.XtraGrid.v14.2, Version=14.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v14.2, Version=14.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v14.2, Version=14.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Office2010BlackBlue">
+      <HintPath>..\packages\Office2010BlackBlue.1.0.0\lib\Office2010BlackBlue.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -111,8 +117,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\ReceiptColumnListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReceiptColumnListForm.Designer.cs">
+      <DependentUpon>ReceiptColumnListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tools\CommandBinder.cs" />
     <Compile Include="Tools\DevExpressExtensions.cs" />
+    <Compile Include="Tools\GridViewDragAndDrop.cs" />
     <Compile Include="Tools\MessageHelper.cs" />
     <Compile Include="Tools\Yielder.cs" />
     <EmbeddedResource Include="Controls\EditorButtons.resx">
@@ -152,6 +165,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\ReceiptColumnListForm.resx">
+      <DependentUpon>ReceiptColumnListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -177,7 +194,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Editors\" />
+    <Content Include="App.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

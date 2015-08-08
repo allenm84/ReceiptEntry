@@ -47,7 +47,10 @@ namespace ReceiptEntry.ViewModel
 
     public void Execute(object parameter)
     {
-      execute(parameter);
+      if (CanExecute(parameter))
+      {
+        execute(parameter);
+      }
     }
   }
 }

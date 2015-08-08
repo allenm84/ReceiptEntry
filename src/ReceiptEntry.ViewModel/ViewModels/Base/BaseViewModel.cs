@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ReceiptEntry.ViewModel
 {
@@ -25,6 +26,50 @@ namespace ReceiptEntry.ViewModel
     private readonly Dictionary<string, object> mFields = new Dictionary<string, object>();
     private Dictionary<string, object> mAccepted;
 
+    private readonly DelegateCommand mAcceptCommand;
+    public ICommand AcceptCommand
+    {
+      get { return mAcceptCommand; }
+    }
+
+    private readonly DelegateCommand mRejectCommand;
+    public ICommand RejectCommand
+    {
+      get { return mRejectCommand; }
+    }
+
+    public BaseViewModel()
+    {
+      mAcceptCommand = new DelegateCommand(DoAccept, CanDoAccept);
+      mRejectCommand = new DelegateCommand(DoReject, CanDoReject);
+    }
+
+    protected void RefreshCommands()
+    {
+      RefreshAccept();
+      RefreshReject();
+    }
+
+    protected void RefreshAccept()
+    {
+      mAcceptCommand.FireCanExecuteChanged(this);
+    }
+
+    protected void RefreshReject()
+    {
+      mRejectCommand.FireCanExecuteChanged(this);
+    }
+
+    protected virtual bool CanDoAccept(object parameter)
+    {
+      return true;
+    }
+
+    private void DoAccept(object parameter)
+    {
+      Accept();
+    }
+
     protected void Accept()
     {
       mAccepted = mFields.ToDictionary(k => k.Key, v => DeepCopy(v.Value));
@@ -34,6 +79,16 @@ namespace ReceiptEntry.ViewModel
     protected virtual void Commit()
     {
       
+    }
+
+    protected virtual bool CanDoReject(object parameter)
+    {
+      return true;
+    }
+
+    private void DoReject(object parameter)
+    {
+      Reject();
     }
 
     protected void Reject()

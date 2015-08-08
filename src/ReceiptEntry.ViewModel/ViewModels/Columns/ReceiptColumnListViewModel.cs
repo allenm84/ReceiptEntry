@@ -8,26 +8,21 @@ using ReceiptEntry.Model;
 
 namespace ReceiptEntry.ViewModel
 {
-  public class ReceiptColumnListViewModel
+  public class ReceiptColumnListViewModel : BaseListViewModel<ReceiptColumnViewModel>
   {
-    protected readonly BindingList<ReceiptColumnViewModel> mColumns;
-    public BindingList<ReceiptColumnViewModel> Columns
-    {
-      get { return mColumns; }
-    }
-
     internal ReceiptColumnListViewModel(SaveFileViewModel parent, IEnumerable<ReceiptColumn> columns)
     {
-      mColumns = new BindingList<ReceiptColumnViewModel>();
       foreach (var column in columns)
       {
-        mColumns.Add(new ReceiptColumnViewModel(column));
+        mItems.Add(new ReceiptColumnViewModel(column));
       }
+
+      Accept();
     }
 
-    public ReceiptColumnViewModel CreateColumn()
+    public override ReceiptColumnViewModel CreateItem()
     {
-      return new ReceiptColumnViewModel(IDg.Next, "<New Column>", ReceiptColumnType.Text);
+      return new ReceiptColumnViewModel(ID.Next, "<New Column>", ReceiptColumnType.Text);
     }
   }
 }

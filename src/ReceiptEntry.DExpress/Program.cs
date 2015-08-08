@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevExpress.UserSkins;
 using DevExpress.Skins;
 using DevExpress.LookAndFeel;
+using System.Drawing;
 
 namespace ReceiptEntry.DExpress
 {
@@ -21,7 +22,13 @@ namespace ReceiptEntry.DExpress
 
       BonusSkins.Register();
       SkinManager.EnableFormSkins();
-      UserLookAndFeel.Default.SetSkinStyle("DevExpress Style");
+      SkinManager.Default.RegisterAssembly(typeof(Office2010BlackBlue).Assembly);
+      UserLookAndFeel.Default.SetSkinStyle("Office2010BlackBlue");
+
+      Skin skin = TabSkins.GetSkin(UserLookAndFeel.Default.ActiveLookAndFeel);
+      SkinElement element = skin[TabSkins.SkinTabPane];
+      element.Color.SolidImageCenterColor = SystemColors.Control;
+
       Application.Run(new MainForm());
     }
   }

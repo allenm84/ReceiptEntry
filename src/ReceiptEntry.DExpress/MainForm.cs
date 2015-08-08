@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ReceiptEntry.Model;
 using ReceiptEntry.Services;
 using ReceiptEntry.ViewModel;
+using System.Threading.Tasks;
 
 namespace ReceiptEntry.DExpress
 {
@@ -23,14 +24,33 @@ namespace ReceiptEntry.DExpress
       InitializeComponent();
       service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
       viewModel = new SaveFileViewModel(service);
+      lstReceipts.ShowEditorButtons = false;
     }
 
-    private void tbbMerchants_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void DoEditColumnList()
+    {
+      using (var dlg = new ReceiptColumnListForm(viewModel.Columns))
+      {
+        dlg.ShowDialog(this);
+      }
+    }
+
+    private void DoEditMerchantList()
     {
       using (var dlg = new MerchantListForm(viewModel.Merchants))
       {
         dlg.ShowDialog(this);
       }
+    }
+
+    private void tbbColumns_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      Yielder.Call(DoEditColumnList);
+    }
+
+    private void tbbMerchants_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      Yielder.Call(DoEditMerchantList);
     }
   }
 }

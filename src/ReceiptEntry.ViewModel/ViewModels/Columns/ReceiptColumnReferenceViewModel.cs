@@ -9,6 +9,18 @@ namespace ReceiptEntry.ViewModel
 {
   public class ReceiptColumnReferenceViewModel : BaseViewModel
   {
+    public bool IsSelected
+    {
+      get { return GetField<bool>(); }
+      set { SetField(value); }
+    }
+
+    public int Order
+    {
+      get { return GetField<int>(); }
+      set { SetField(value); }
+    }
+
     public string ColumnID
     {
       get { return GetField<string>(); }
@@ -27,7 +39,7 @@ namespace ReceiptEntry.ViewModel
       Accept();
     }
 
-    public ReceiptColumnReference ToColumnReference()
+    internal ReceiptColumnReference ToColumnReference()
     {
       return new ReceiptColumnReference { ColumnID = ColumnID };
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReceiptEntry.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,9 +12,21 @@ namespace ReceiptEntry.DExpress
 {
   public class CommandBinder
   {
+    static readonly List<WeakReference<CommandBinder>> sBinders = new List<WeakReference<CommandBinder>>();
+    static void Add(CommandBinder binder)
+    {
+      sBinders.Add(new WeakReference<CommandBinder>(binder));
+    }
+
     public static void Bind(Control control, ICommand command)
     {
-      new CommandBinder(control, command);
+      Add(new CommandBinder(control, command));
+    }
+
+    public static void Bind(OKCancelButtons okCancelButtons, BaseViewModel viewModel)
+    {
+      Add(new CommandBinder(okCancelButtons.GetOK(), viewModel.AcceptCommand));
+      Add(new CommandBinder(okCancelButtons.GetCancel(), viewModel.RejectCommand));
     }
 
     private Control control;
