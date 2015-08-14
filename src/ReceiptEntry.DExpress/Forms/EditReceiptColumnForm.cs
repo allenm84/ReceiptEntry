@@ -57,5 +57,14 @@ namespace ReceiptEntry.DExpress
     {
       UpdateExampleText();
     }
+
+    protected override bool ProcessDialogKey(Keys keyData)
+    {
+      if (keyData == Keys.Enter)
+      {
+        AcceptButton.PerformClick();
+      }
+      return base.ProcessDialogKey(keyData);
+    }
   }
 }

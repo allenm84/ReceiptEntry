@@ -22,14 +22,14 @@ using DevExpress.XtraLayout.Utils;
 
 namespace ReceiptEntry.DExpress
 {
-  public static class DevExpressExtensions
+  public static class name
   {
-    private static string Get<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
+    public static string of<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
     {
-      return GetPropertyInfo(propertyLambda).Name;
+      return info(propertyLambda).Name;
     }
 
-    private static PropertyInfo GetPropertyInfo<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
+    public static PropertyInfo info<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
     {
       if (propertyLambda == null)
         throw new ArgumentNullException("propertyLambda");
@@ -39,36 +39,54 @@ namespace ReceiptEntry.DExpress
       // make sure that we're actually accessing a property
       var member = body as MemberExpression;
       if (member == null)
-        throw new ArgumentException(string.Format("Expression '{0}' refers to a method, not a property.",
+        throw new ArgumentException(String.Format("Expression '{0}' refers to a method, not a property.",
           propertyLambda.ToString()));
 
       // and that its actually a property
       var propInfo = member.Member as PropertyInfo;
       if (propInfo == null)
-        throw new ArgumentException(string.Format("Expression '{0}' refers to a field, not a property.",
+        throw new ArgumentException(String.Format("Expression '{0}' refers to a field, not a property.",
           propertyLambda.ToString()));
 
       return propInfo;
     }
+  }
+
+  public static class DevExpressExtensions
+  {
+    public static Binding BindChecked<TSource>(this CheckEdit checkEdit, TSource value, Expression<Func<TSource, bool>> propertyLambda)
+    {
+      return checkEdit.DataBindings.Add("Checked", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+    }
+
+    public static Binding BindDate<TSource>(this DateEdit dateEdit, TSource value, Expression<Func<TSource, DateTime>> propertyLambda)
+    {
+      return dateEdit.DataBindings.Add("DateTime", value, propertyLambda.of());
+    }
+
+    public static Binding BindValue<TSource, TValue>(this SearchLookUpEdit lookUp, TSource value, Expression<Func<TSource, TValue>> propertyLambda)
+    {
+      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+    }
 
     public static Binding BindValue<TSource, TValue>(this LookUpEdit lookUp, TSource value, Expression<Func<TSource, TValue>> propertyLambda)
     {
-      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.Get());
+      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     public static Binding BindValue<TSource>(this SpinEdit spin, TSource value, Expression<Func<TSource, decimal>> propertyLambda)
     {
-      return spin.DataBindings.Add("Value", value, propertyLambda.Get());
+      return spin.DataBindings.Add("Value", value, propertyLambda.of());
     }
 
     public static Binding BindText<TSource>(this TextEdit text, TSource value, Expression<Func<TSource, string>> propertyLambda)
     {
-      return text.DataBindings.Add("Text", value, propertyLambda.Get());
+      return text.DataBindings.Add("Text", value, propertyLambda.of());
     }
 
     public static GridColumn AddVisible<TSource, TType>(this GridColumnCollection columns, Expression<Func<TSource, TType>> propertyLambda)
     {
-      return columns.AddVisible(Get(propertyLambda));
+      return columns.AddVisible(propertyLambda.of());
     }
 
     public static void ImmediateUpdate(this GridView view)

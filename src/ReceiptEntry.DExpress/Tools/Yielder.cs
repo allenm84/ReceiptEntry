@@ -8,10 +8,10 @@ namespace ReceiptEntry.DExpress
 {
   public static class Yielder
   {
-    public static async void Call(Action action)
+    public static async void Call(params Action[] actions)
     {
       await Task.Yield();
-      action();
+      Array.ForEach(actions, a => a());
     }
   }
 }

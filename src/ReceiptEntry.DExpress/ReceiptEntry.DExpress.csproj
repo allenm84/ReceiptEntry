@@ -79,6 +79,12 @@
     <Compile Include="Controls\OKCancelButtons.Designer.cs">
       <DependentUpon>OKCancelButtons.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EditReceiptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditReceiptForm.Designer.cs">
+      <DependentUpon>EditReceiptForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\EditReceiptColumnForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,12 @@
     <Compile Include="Forms\TextInputForm.Designer.cs">
       <DependentUpon>TextInputForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HelpfulNameListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HelpfulNameListForm.Designer.cs">
+      <DependentUpon>HelpfulNameListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +138,7 @@
     <Compile Include="Tools\CommandBinder.cs" />
     <Compile Include="Tools\DevExpressExtensions.cs" />
     <Compile Include="Tools\GridViewDragAndDrop.cs" />
+    <Compile Include="Tools\ListExtensions.cs" />
     <Compile Include="Tools\MessageHelper.cs" />
     <Compile Include="Tools\Yielder.cs" />
     <EmbeddedResource Include="Controls\EditorButtons.resx">
@@ -137,11 +150,17 @@
     <EmbeddedResource Include="Controls\OKCancelButtons.resx">
       <DependentUpon>OKCancelButtons.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditReceiptForm.resx">
+      <DependentUpon>EditReceiptForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditMerchantForm.resx">
       <DependentUpon>EditMerchantForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\EditReceiptColumnForm.resx">
       <DependentUpon>EditReceiptColumnForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HelpfulNameListForm.resx">
+      <DependentUpon>HelpfulNameListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\TextInputForm.resx">
       <DependentUpon>TextInputForm.cs</DependentUpon>
@@ -187,6 +206,10 @@
     <ProjectReference Include="..\ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractSerializerService.csproj">
       <Project>{738b9abc-be74-4c05-8c1d-b5d0d4202b27}</Project>
       <Name>ReceiptEntry.DataContractSerializerService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiptEntry.TestService\ReceiptEntry.TestService.csproj">
+      <Project>{c3bb7c00-4fc3-4355-8fa4-d10e547e1722}</Project>
+      <Name>ReceiptEntry.TestService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiptEntry.ViewModel\ReceiptEntry.ViewModel.csproj">
       <Project>{e2607037-caae-4d09-a92d-e209dad43967}</Project>

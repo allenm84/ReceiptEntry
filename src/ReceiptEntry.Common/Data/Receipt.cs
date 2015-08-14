@@ -20,12 +20,15 @@ namespace ReceiptEntry.Model
     public DateTime Date { get; set; }
 
     [DataMember(Order = 3)]
-    public ReceiptItem[] Items { get; set; }
+    public bool ShowHelpfulName { get; set; }
 
     [DataMember(Order = 4)]
-    public ReceiptTax[] Taxes { get; set; }
+    public ReceiptItem[] Items { get; set; }
 
     [DataMember(Order = 5)]
+    public ReceiptTax[] Taxes { get; set; }
+
+    [DataMember(Order = 6)]
     public decimal Total { get; set; }
   }
 }

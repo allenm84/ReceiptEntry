@@ -22,14 +22,22 @@ namespace ReceiptEntry.DExpress
     public MainForm()
     {
       InitializeComponent();
-      service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
+      //service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
+      service = new TestFileService();
       viewModel = new SaveFileViewModel(service);
-      lstReceipts.ShowEditorButtons = false;
     }
 
     private void DoEditColumnList()
     {
       using (var dlg = new ReceiptColumnListForm(viewModel.Columns))
+      {
+        dlg.ShowDialog(this);
+      }
+    }
+
+    private void DoEditHelpfulNameList()
+    {
+      using (var dlg = new HelpfulNameListForm(viewModel.Names))
       {
         dlg.ShowDialog(this);
       }
@@ -43,14 +51,46 @@ namespace ReceiptEntry.DExpress
       }
     }
 
+    private void DoAddReceipt()
+    {
+      var receipt = viewModel.Receipts.CreateItem();
+      using (var dlg = new EditReceiptForm(receipt))
+      {
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          bsReceipts.Add(receipt);
+        }
+      }
+    }
+
     private void tbbColumns_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       Yielder.Call(DoEditColumnList);
     }
 
+    private void tbbNames_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      Yielder.Call(DoEditHelpfulNameList);
+    }
+
     private void tbbMerchants_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       Yielder.Call(DoEditMerchantList);
+    }
+
+    private void tbbAddReceipt_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      Yielder.Call(DoAddReceipt);
+    }
+
+    private void tbbViewStats_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+
+    }
+
+    private void tbbSearch_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+
     }
   }
 }

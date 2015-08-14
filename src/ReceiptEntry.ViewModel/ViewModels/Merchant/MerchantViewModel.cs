@@ -262,11 +262,14 @@ namespace ReceiptEntry.ViewModel
 
       if (mOriginalColumns != null)
       {
+        int order = 1;
         foreach (var c in mOriginalColumns)
         {
           if (mColumnIDHashset.Add(c.ColumnID))
           {
-            mCurrentColumns.Add(new ReceiptColumnReferenceViewModel(c));
+            var column = new ReceiptColumnReferenceViewModel(c);
+            column.Order = (order++);
+            mCurrentColumns.Add(column);
           }
         }
       }

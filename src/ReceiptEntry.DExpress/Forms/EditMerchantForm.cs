@@ -121,7 +121,7 @@ namespace ReceiptEntry.DExpress
     private void gridCurrentColumns_DragDrop(object sender, DragEventArgs e)
     {
       var info = e.Data.GetData(typeof(GridHitInfo)) as GridHitInfo;
-      if (info != null)
+      if (info != null && info.View == gridViewAvailableColumns)
       {
         mMerchant.MoveSelectedToCurrentCommand.Execute(this);
       }

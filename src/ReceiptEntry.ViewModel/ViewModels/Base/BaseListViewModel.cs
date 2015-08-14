@@ -9,6 +9,12 @@ namespace ReceiptEntry.ViewModel
 {
   public abstract class BaseListViewModel<T> : BaseViewModel where T : BaseViewModel
   {
+    protected readonly SaveFileViewModel mParent;
+    internal SaveFileViewModel Parent
+    {
+      get { return mParent; }
+    }
+
     protected readonly BindingList<T> mItems = new BindingList<T>();
     public BindingList<T> Items
     {
@@ -16,6 +22,11 @@ namespace ReceiptEntry.ViewModel
     }
 
     protected T[] mCommittedItems;
+
+    public BaseListViewModel(SaveFileViewModel parent)
+    {
+      mParent = parent;
+    }
 
     protected override void Commit()
     {
@@ -34,6 +45,11 @@ namespace ReceiptEntry.ViewModel
         }
       }
       base.Rollback();
+    }
+
+    internal T Fetch(Func<T, bool> predicate)
+    {
+      return mItems.SingleOrDefault(predicate);
     }
 
     public abstract T CreateItem();

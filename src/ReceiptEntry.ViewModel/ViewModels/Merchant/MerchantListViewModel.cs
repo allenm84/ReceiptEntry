@@ -10,12 +10,9 @@ namespace ReceiptEntry.ViewModel
 {
   public class MerchantListViewModel : BaseListViewModel<MerchantViewModel>
   {
-    private readonly SaveFileViewModel mParent;
-
     internal MerchantListViewModel(SaveFileViewModel parent, IEnumerable<Merchant> merchants)
+      : base(parent)
     {
-      mParent = parent;
-
       foreach (var merchant in merchants)
       {
         mItems.Add(new MerchantViewModel(merchant, parent.Columns));

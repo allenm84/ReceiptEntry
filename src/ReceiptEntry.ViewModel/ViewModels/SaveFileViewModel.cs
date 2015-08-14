@@ -18,10 +18,22 @@ namespace ReceiptEntry.ViewModel
       get { return mColumns; }
     }
 
+    private readonly HelpfulNameListViewModel mNames;
+    public HelpfulNameListViewModel Names
+    {
+      get { return mNames; }
+    }
+
     private readonly MerchantListViewModel mMerchants;
     public MerchantListViewModel Merchants
     {
       get { return mMerchants; }
+    }
+
+    private readonly ReceiptListViewModel mReceipts;
+    public ReceiptListViewModel Receipts
+    {
+      get { return mReceipts; }
     }
 
     public SaveFileViewModel(ISaveFileService service)
@@ -32,6 +44,8 @@ namespace ReceiptEntry.ViewModel
 
       mColumns = new ReceiptColumnListViewModel(this, saveFile.Columns);
       mMerchants = new MerchantListViewModel(this, saveFile.Merchants);
+      mNames = new HelpfulNameListViewModel(this, saveFile.Names);
+      mReceipts = new ReceiptListViewModel(this, saveFile.Receipts);
     }
   }
 }

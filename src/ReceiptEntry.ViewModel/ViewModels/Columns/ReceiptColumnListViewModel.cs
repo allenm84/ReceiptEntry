@@ -11,6 +11,7 @@ namespace ReceiptEntry.ViewModel
   public class ReceiptColumnListViewModel : BaseListViewModel<ReceiptColumnViewModel>
   {
     internal ReceiptColumnListViewModel(SaveFileViewModel parent, IEnumerable<ReceiptColumn> columns)
+      : base(parent)
     {
       foreach (var column in columns)
       {

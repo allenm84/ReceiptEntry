@@ -60,6 +60,12 @@ namespace ReceiptEntry.ViewModel
       mRejectCommand.FireCanExecuteChanged(this);
     }
 
+    protected override void AfterPropertyChanged(string propertyName)
+    {
+      base.AfterPropertyChanged(propertyName);
+      RefreshCommands();
+    }
+
     protected virtual bool CanDoAccept(object parameter)
     {
       return true;
@@ -104,6 +110,14 @@ namespace ReceiptEntry.ViewModel
     protected virtual void Rollback()
     {
       
+    }
+
+    protected void Push(Dictionary<string, object> values)
+    {
+      foreach (var kvp in values)
+      {
+        PushValue(kvp.Key, kvp.Value);
+      }
     }
 
     protected T GetField<T>([CallerMemberName] string key = "")
