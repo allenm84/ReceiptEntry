@@ -12,6 +12,9 @@ namespace ReceiptEntry.ViewModel
   {
     private readonly SaveFileViewModel mParent;
 
+    private ReceiptItemViewModel[] mCommittedItems;
+    private ReceiptTaxViewModel[] mCommittedTaxes;
+
     public string ID
     {
       get { return GetField<string>(); }
@@ -119,11 +122,54 @@ namespace ReceiptEntry.ViewModel
       }
 
       Total = total;
+      Accept();
     }
 
     protected override bool CanDoAccept(object parameter)
     {
       return !string.IsNullOrWhiteSpace(MerchantID);
+    }
+
+    protected override void Commit()
+    {
+      mCommittedItems = mItems.ToArray();
+      Array.ForEach(mCommittedItems, i => i.Accept());
+
+      mCommittedTaxes = mTaxes.ToArray();
+      Array.ForEach(mCommittedTaxes, i => i.Accept());
+
+      base.Commit();
+    }
+
+    protected override void Rollback()
+    {
+      if (mCommittedItems != null)
+      {
+        Array.ForEach(mCommittedItems, i => i.Reject());
+
+        mItems.Clear();
+        foreach (var item in mCommittedItems)
+        {
+          mItems.Add(item);
+        }
+      }
+
+      if (mCommittedTaxes != null)
+      {
+        Array.ForEach(mCommittedTaxes, i => i.Reject());
+
+        mTaxes.Clear();
+        foreach (var tax in mCommittedTaxes)
+        {
+          mTaxes.Add(tax);
+        }
+      }
+      base.Rollback();
+    }
+
+    public bool Contains(string text)
+    {
+      return true;
     }
   }
 }

@@ -56,6 +56,10 @@ namespace ReceiptEntry.DExpress
       CommandBinder.Bind(okCancelButtons1, receipt);
       receipt.PropertyChanged += receipt_PropertyChanged;
 
+      var format = colPercent.DisplayFormat;
+      format.FormatType = DevExpress.Utils.FormatType.Custom;
+      format.Format = new AddPercentageFormatter();
+
       Yielder.Call(SyncColumns, UpdateHelpfulNameVisibility);
     }
 
@@ -156,6 +160,8 @@ namespace ReceiptEntry.DExpress
     private void cboMerchant_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
     {
       var merchant = mReceipt.Parent.Merchants.CreateItem();
+      merchant.Name = cboMerchant.GetFilterText();
+
       using (var dlg = new EditMerchantForm(merchant))
       {
         dlg.Text = "Create Merchant";

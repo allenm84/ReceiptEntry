@@ -14,6 +14,11 @@ namespace ReceiptEntry.ViewModel
   {
     protected static object DeepCopy(object obj)
     {
+      if (obj == null)
+      {
+        return null;
+      }
+
       using (var stream = new MemoryStream())
       {
         var formatter = new BinaryFormatter();
@@ -76,7 +81,7 @@ namespace ReceiptEntry.ViewModel
       Accept();
     }
 
-    protected void Accept()
+    internal void Accept()
     {
       mAccepted = mFields.ToDictionary(k => k.Key, v => DeepCopy(v.Value));
       Commit();
@@ -97,7 +102,7 @@ namespace ReceiptEntry.ViewModel
       Reject();
     }
 
-    protected void Reject()
+    internal void Reject()
     {
       foreach (var kvp in mAccepted)
       {

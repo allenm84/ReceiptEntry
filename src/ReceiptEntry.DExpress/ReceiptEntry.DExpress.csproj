@@ -115,6 +115,7 @@
     <Compile Include="Forms\HelpfulNameListForm.Designer.cs">
       <DependentUpon>HelpfulNameListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridViewFeatures.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +136,7 @@
     <Compile Include="Forms\ReceiptColumnListForm.Designer.cs">
       <DependentUpon>ReceiptColumnListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tools\AddPercentageFormatter.cs" />
     <Compile Include="Tools\CommandBinder.cs" />
     <Compile Include="Tools\DevExpressExtensions.cs" />
     <Compile Include="Tools\GridViewDragAndDrop.cs" />

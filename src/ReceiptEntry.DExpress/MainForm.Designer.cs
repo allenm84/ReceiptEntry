@@ -30,7 +30,16 @@
     {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-      DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+      this.gridReceipts = new DevExpress.XtraGrid.GridControl();
+      this.bsReceipts = new System.Windows.Forms.BindingSource(this.components);
+      this.gridViewReceipts = new DevExpress.XtraGrid.Views.Grid.GridView();
+      this.colMerchantID = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.cboMerchants = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+      this.bsMerchants = new System.Windows.Forms.BindingSource(this.components);
+      this.colDate = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colDateYear = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colDateMonth = new DevExpress.XtraGrid.Columns.GridColumn();
+      this.colTotal = new DevExpress.XtraGrid.Columns.GridColumn();
       this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
       this.bar1 = new DevExpress.XtraBars.Bar();
       this.tbbSave = new DevExpress.XtraBars.BarButtonItem();
@@ -48,36 +57,124 @@
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
       this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
-      this.repositoryItemSearchLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
-      this.repositoryItemSearchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
-      this.repositoryItemGridLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit();
-      this.repositoryItemGridLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
-      this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-      this.gridViewReceipts = new DevExpress.XtraGrid.Views.Grid.GridView();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-      this.colMerchantID = new DevExpress.XtraGrid.Columns.GridColumn();
-      this.colDate = new DevExpress.XtraGrid.Columns.GridColumn();
-      this.gridViewReceiptItems = new DevExpress.XtraGrid.Views.Grid.GridView();
-      this.colDateYear = new DevExpress.XtraGrid.Columns.GridColumn();
-      this.colDateMonth = new DevExpress.XtraGrid.Columns.GridColumn();
+      ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsReceipts)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchants)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsMerchants)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptItems)).BeginInit();
       this.SuspendLayout();
+      // 
+      // gridReceipts
+      // 
+      this.gridReceipts.DataSource = this.bsReceipts;
+      this.gridReceipts.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.gridReceipts.Location = new System.Drawing.Point(12, 12);
+      this.gridReceipts.MainView = this.gridViewReceipts;
+      this.gridReceipts.MenuManager = this.barManager1;
+      this.gridReceipts.Name = "gridReceipts";
+      this.gridReceipts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.cboMerchants});
+      this.gridReceipts.Size = new System.Drawing.Size(542, 466);
+      this.gridReceipts.TabIndex = 4;
+      this.gridReceipts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridViewReceipts});
+      this.gridReceipts.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridReceipts_MouseDoubleClick);
+      // 
+      // bsReceipts
+      // 
+      this.bsReceipts.DataSource = typeof(ReceiptEntry.ViewModel.ReceiptViewModel);
+      // 
+      // gridViewReceipts
+      // 
+      this.gridViewReceipts.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colMerchantID,
+            this.colDate,
+            this.colDateYear,
+            this.colDateMonth,
+            this.colTotal});
+      this.gridViewReceipts.GridControl = this.gridReceipts;
+      this.gridViewReceipts.GroupCount = 3;
+      this.gridViewReceipts.GroupFormat = "[#image]{1} - {2}";
+      this.gridViewReceipts.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", null, "{0:c2}")});
+      this.gridViewReceipts.Name = "gridViewReceipts";
+      this.gridViewReceipts.OptionsView.ShowColumnHeaders = false;
+      this.gridViewReceipts.OptionsView.ShowGroupPanel = false;
+      this.gridViewReceipts.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colDateYear, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colDateMonth, DevExpress.Data.ColumnSortOrder.Ascending),
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colDate, DevExpress.Data.ColumnSortOrder.Ascending)});
+      this.gridViewReceipts.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewReceipts_CustomUnboundColumnData);
+      this.gridViewReceipts.CustomRowFilter += new DevExpress.XtraGrid.Views.Base.RowFilterEventHandler(this.gridViewReceipts_CustomRowFilter);
+      // 
+      // colMerchantID
+      // 
+      this.colMerchantID.ColumnEdit = this.cboMerchants;
+      this.colMerchantID.FieldName = "MerchantID";
+      this.colMerchantID.Name = "colMerchantID";
+      this.colMerchantID.Visible = true;
+      this.colMerchantID.VisibleIndex = 0;
+      this.colMerchantID.Width = 290;
+      // 
+      // cboMerchants
+      // 
+      this.cboMerchants.AutoHeight = false;
+      this.cboMerchants.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboMerchants.DataSource = this.bsMerchants;
+      this.cboMerchants.DisplayMember = "Name";
+      this.cboMerchants.Name = "cboMerchants";
+      this.cboMerchants.ValueMember = "ID";
+      // 
+      // bsMerchants
+      // 
+      this.bsMerchants.DataSource = typeof(ReceiptEntry.ViewModel.MerchantViewModel);
+      // 
+      // colDate
+      // 
+      this.colDate.FieldName = "Date";
+      this.colDate.Name = "colDate";
+      this.colDate.Visible = true;
+      this.colDate.VisibleIndex = 1;
+      // 
+      // colDateYear
+      // 
+      this.colDateYear.Caption = "Year";
+      this.colDateYear.FieldName = "Year";
+      this.colDateYear.Name = "colDateYear";
+      this.colDateYear.UnboundType = DevExpress.Data.UnboundColumnType.String;
+      this.colDateYear.Visible = true;
+      this.colDateYear.VisibleIndex = 2;
+      // 
+      // colDateMonth
+      // 
+      this.colDateMonth.Caption = "Month";
+      this.colDateMonth.FieldName = "Month";
+      this.colDateMonth.Name = "colDateMonth";
+      this.colDateMonth.UnboundType = DevExpress.Data.UnboundColumnType.String;
+      this.colDateMonth.Visible = true;
+      this.colDateMonth.VisibleIndex = 2;
+      // 
+      // colTotal
+      // 
+      this.colTotal.DisplayFormat.FormatString = "c2";
+      this.colTotal.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+      this.colTotal.FieldName = "Total";
+      this.colTotal.MaxWidth = 80;
+      this.colTotal.MinWidth = 80;
+      this.colTotal.Name = "colTotal";
+      this.colTotal.Visible = true;
+      this.colTotal.VisibleIndex = 1;
+      this.colTotal.Width = 80;
       // 
       // barManager1
       // 
@@ -101,8 +198,6 @@
             this.tbbViewStats});
       this.barManager1.MaxItemId = 11;
       this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemSearchLookUpEdit1,
-            this.repositoryItemGridLookUpEdit1,
             this.txtSearchText});
       // 
       // bar1
@@ -222,28 +317,32 @@
       this.barDockControlTop.CausesValidation = false;
       this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
       this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-      this.barDockControlTop.Size = new System.Drawing.Size(485, 62);
+      this.barDockControlTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.barDockControlTop.Size = new System.Drawing.Size(566, 70);
       // 
       // barDockControlBottom
       // 
       this.barDockControlBottom.CausesValidation = false;
       this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.barDockControlBottom.Location = new System.Drawing.Point(0, 455);
-      this.barDockControlBottom.Size = new System.Drawing.Size(485, 0);
+      this.barDockControlBottom.Location = new System.Drawing.Point(0, 560);
+      this.barDockControlBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.barDockControlBottom.Size = new System.Drawing.Size(566, 0);
       // 
       // barDockControlLeft
       // 
       this.barDockControlLeft.CausesValidation = false;
       this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-      this.barDockControlLeft.Location = new System.Drawing.Point(0, 62);
-      this.barDockControlLeft.Size = new System.Drawing.Size(0, 393);
+      this.barDockControlLeft.Location = new System.Drawing.Point(0, 70);
+      this.barDockControlLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.barDockControlLeft.Size = new System.Drawing.Size(0, 490);
       // 
       // barDockControlRight
       // 
       this.barDockControlRight.CausesValidation = false;
       this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-      this.barDockControlRight.Location = new System.Drawing.Point(485, 62);
-      this.barDockControlRight.Size = new System.Drawing.Size(0, 393);
+      this.barDockControlRight.Location = new System.Drawing.Point(566, 70);
+      this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.barDockControlRight.Size = new System.Drawing.Size(0, 490);
       // 
       // barStaticItem1
       // 
@@ -252,44 +351,15 @@
       this.barStaticItem1.Name = "barStaticItem1";
       this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
       // 
-      // repositoryItemSearchLookUpEdit1
-      // 
-      this.repositoryItemSearchLookUpEdit1.AutoHeight = false;
-      this.repositoryItemSearchLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.repositoryItemSearchLookUpEdit1.Name = "repositoryItemSearchLookUpEdit1";
-      this.repositoryItemSearchLookUpEdit1.View = this.repositoryItemSearchLookUpEdit1View;
-      // 
-      // repositoryItemSearchLookUpEdit1View
-      // 
-      this.repositoryItemSearchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-      this.repositoryItemSearchLookUpEdit1View.Name = "repositoryItemSearchLookUpEdit1View";
-      this.repositoryItemSearchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-      this.repositoryItemSearchLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-      // 
-      // repositoryItemGridLookUpEdit1
-      // 
-      this.repositoryItemGridLookUpEdit1.AutoHeight = false;
-      this.repositoryItemGridLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.repositoryItemGridLookUpEdit1.Name = "repositoryItemGridLookUpEdit1";
-      this.repositoryItemGridLookUpEdit1.View = this.repositoryItemGridLookUpEdit1View;
-      // 
-      // repositoryItemGridLookUpEdit1View
-      // 
-      this.repositoryItemGridLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
-      this.repositoryItemGridLookUpEdit1View.Name = "repositoryItemGridLookUpEdit1View";
-      this.repositoryItemGridLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
-      this.repositoryItemGridLookUpEdit1View.OptionsView.ShowGroupPanel = false;
-      // 
       // layoutControl1
       // 
-      this.layoutControl1.Controls.Add(this.gridControl1);
+      this.layoutControl1.Controls.Add(this.gridReceipts);
       this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.layoutControl1.Location = new System.Drawing.Point(0, 62);
+      this.layoutControl1.Location = new System.Drawing.Point(0, 70);
+      this.layoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.layoutControl1.Name = "layoutControl1";
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(485, 393);
+      this.layoutControl1.Size = new System.Drawing.Size(566, 490);
       this.layoutControl1.TabIndex = 4;
       this.layoutControl1.Text = "layoutControl1";
       // 
@@ -301,110 +371,42 @@
             this.layoutControlItem1});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "layoutControlGroup1";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(485, 393);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(566, 490);
       this.layoutControlGroup1.TextVisible = false;
-      // 
-      // gridControl1
-      // 
-      this.gridControl1.DataSource = this.bindingSource1;
-      gridLevelNode1.LevelTemplate = this.gridViewReceiptItems;
-      gridLevelNode1.RelationName = "Items";
-      this.gridControl1.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
-      this.gridControl1.Location = new System.Drawing.Point(12, 12);
-      this.gridControl1.MainView = this.gridViewReceipts;
-      this.gridControl1.MenuManager = this.barManager1;
-      this.gridControl1.Name = "gridControl1";
-      this.gridControl1.Size = new System.Drawing.Size(461, 369);
-      this.gridControl1.TabIndex = 4;
-      this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridViewReceipts,
-            this.gridViewReceiptItems});
-      // 
-      // gridViewReceipts
-      // 
-      this.gridViewReceipts.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colMerchantID,
-            this.colDate,
-            this.colDateYear,
-            this.colDateMonth});
-      this.gridViewReceipts.GridControl = this.gridControl1;
-      this.gridViewReceipts.Name = "gridViewReceipts";
-      this.gridViewReceipts.OptionsView.ShowGroupPanel = false;
       // 
       // layoutControlItem1
       // 
-      this.layoutControlItem1.Control = this.gridControl1;
+      this.layoutControlItem1.Control = this.gridReceipts;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(465, 373);
+      this.layoutControlItem1.Size = new System.Drawing.Size(546, 470);
       this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem1.TextVisible = false;
       // 
-      // bindingSource1
-      // 
-      this.bindingSource1.DataSource = typeof(ReceiptEntry.ViewModel.ReceiptViewModel);
-      // 
-      // colMerchantID
-      // 
-      this.colMerchantID.FieldName = "MerchantID";
-      this.colMerchantID.Name = "colMerchantID";
-      this.colMerchantID.Visible = true;
-      this.colMerchantID.VisibleIndex = 0;
-      // 
-      // colDate
-      // 
-      this.colDate.FieldName = "Date";
-      this.colDate.Name = "colDate";
-      this.colDate.Visible = true;
-      this.colDate.VisibleIndex = 1;
-      // 
-      // gridViewReceiptItems
-      // 
-      this.gridViewReceiptItems.GridControl = this.gridControl1;
-      this.gridViewReceiptItems.Name = "gridViewReceiptItems";
-      // 
-      // colDateYear
-      // 
-      this.colDateYear.Caption = "gridColumn1";
-      this.colDateYear.Name = "colDateYear";
-      this.colDateYear.Visible = true;
-      this.colDateYear.VisibleIndex = 2;
-      // 
-      // colDateMonth
-      // 
-      this.colDateMonth.Caption = "gridColumn1";
-      this.colDateMonth.Name = "colDateMonth";
-      this.colDateMonth.Visible = true;
-      this.colDateMonth.VisibleIndex = 3;
-      // 
       // MainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(485, 455);
+      this.ClientSize = new System.Drawing.Size(566, 560);
       this.Controls.Add(this.layoutControl1);
       this.Controls.Add(this.barDockControlLeft);
       this.Controls.Add(this.barDockControlRight);
       this.Controls.Add(this.barDockControlBottom);
       this.Controls.Add(this.barDockControlTop);
-      this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
       this.Name = "MainForm";
       this.Text = "ReceiptEntry";
+      ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsReceipts)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchants)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsMerchants)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemSearchLookUpEdit1View)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.repositoryItemGridLookUpEdit1View)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceipts)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.gridViewReceiptItems)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -429,20 +431,18 @@
     private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtSearchText;
     private DevExpress.XtraBars.BarButtonItem tbbSearch;
     private DevExpress.XtraBars.BarStaticItem barStaticItem1;
-    private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit repositoryItemSearchLookUpEdit1;
-    private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemSearchLookUpEdit1View;
-    private DevExpress.XtraEditors.Repository.RepositoryItemGridLookUpEdit repositoryItemGridLookUpEdit1;
-    private DevExpress.XtraGrid.Views.Grid.GridView repositoryItemGridLookUpEdit1View;
     private DevExpress.XtraBars.BarButtonItem tbbViewStats;
-    private DevExpress.XtraGrid.GridControl gridControl1;
+    private DevExpress.XtraGrid.GridControl gridReceipts;
     private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceipts;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-    private System.Windows.Forms.BindingSource bindingSource1;
+    private System.Windows.Forms.BindingSource bsReceipts;
     private DevExpress.XtraGrid.Columns.GridColumn colMerchantID;
     private DevExpress.XtraGrid.Columns.GridColumn colDate;
-    private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceiptItems;
     private DevExpress.XtraGrid.Columns.GridColumn colDateYear;
     private DevExpress.XtraGrid.Columns.GridColumn colDateMonth;
+    private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboMerchants;
+    private System.Windows.Forms.BindingSource bsMerchants;
+    private DevExpress.XtraGrid.Columns.GridColumn colTotal;
 
   }
 }

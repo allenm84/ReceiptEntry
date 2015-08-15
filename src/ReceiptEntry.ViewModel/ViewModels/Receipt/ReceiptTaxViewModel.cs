@@ -37,6 +37,7 @@ namespace ReceiptEntry.ViewModel
     {
       Percent = percent;
       Amount = amount;
+      Accept();
     }
   }
 }

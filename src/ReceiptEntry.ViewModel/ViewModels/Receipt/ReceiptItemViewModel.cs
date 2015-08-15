@@ -37,6 +37,7 @@ namespace ReceiptEntry.ViewModel
     {
       Push(values);
       HelpfulNameID = helpfulNameID;
+      Accept();
     }
   }
 }
