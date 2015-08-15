@@ -19,39 +19,10 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
+using ReceiptEntry.ViewModel;
 
 namespace ReceiptEntry.DExpress
 {
-  public static class name
-  {
-    public static string of<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
-    {
-      return info(propertyLambda).Name;
-    }
-
-    public static PropertyInfo info<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
-    {
-      if (propertyLambda == null)
-        throw new ArgumentNullException("propertyLambda");
-
-      var body = propertyLambda.Body;
-
-      // make sure that we're actually accessing a property
-      var member = body as MemberExpression;
-      if (member == null)
-        throw new ArgumentException(String.Format("Expression '{0}' refers to a method, not a property.",
-          propertyLambda.ToString()));
-
-      // and that its actually a property
-      var propInfo = member.Member as PropertyInfo;
-      if (propInfo == null)
-        throw new ArgumentException(String.Format("Expression '{0}' refers to a field, not a property.",
-          propertyLambda.ToString()));
-
-      return propInfo;
-    }
-  }
-
   public static class DevExpressExtensions
   {
     public static Binding BindChecked<TSource>(this CheckEdit checkEdit, TSource value, Expression<Func<TSource, bool>> propertyLambda)

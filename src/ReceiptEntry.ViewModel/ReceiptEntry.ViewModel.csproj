@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\name.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptListViewModel.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptTaxViewModel.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="ViewModels\Columns\ReceiptColumnViewModel.cs" />
     <Compile Include="ViewModels\Columns\ReceiptColumnReferenceViewModel.cs" />
     <Compile Include="ViewModels\Merchant\MerchantListViewModel.cs" />
+    <Compile Include="ViewModels\Receipt\ValidateReceiptTotalViewModel.cs" />
     <Compile Include="ViewModels\SaveFileViewModel.cs" />
     <Compile Include="Tools\ID.cs" />
     <Compile Include="Tools\Levenshtein.cs" />

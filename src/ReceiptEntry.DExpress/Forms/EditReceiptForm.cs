@@ -217,5 +217,13 @@ namespace ReceiptEntry.DExpress
         }
       }
     }
+
+    private void btnValidate_Click(object sender, EventArgs e)
+    {
+      using (var dlg = new ValidateReceiptTotalForm(mReceipt.Validate))
+      {
+        dlg.ShowDialog(this);
+      }
+    }
   }
 }

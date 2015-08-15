@@ -51,12 +51,13 @@
       this.bar2 = new DevExpress.XtraBars.Bar();
       this.tbbSearchText = new DevExpress.XtraBars.BarEditItem();
       this.txtSearchText = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
-      this.tbbSearch = new DevExpress.XtraBars.BarButtonItem();
+      this.tbbMerchantFilter = new DevExpress.XtraBars.BarEditItem();
+      this.cboMerchantFilter = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+      this.tbbClearMerchants = new DevExpress.XtraBars.BarButtonItem();
       this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
       this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-      this.barStaticItem1 = new DevExpress.XtraBars.BarStaticItem();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -67,6 +68,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.bsMerchants)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchantFilter)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
@@ -103,7 +105,7 @@
             this.colTotal});
       this.gridViewReceipts.GridControl = this.gridReceipts;
       this.gridViewReceipts.GroupCount = 3;
-      this.gridViewReceipts.GroupFormat = "[#image]{1} - {2}";
+      this.gridViewReceipts.GroupFormat = "[#image]{1} {2}";
       this.gridViewReceipts.GroupSummary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridGroupSummaryItem(DevExpress.Data.SummaryItemType.Sum, "Total", null, "{0:c2}")});
       this.gridViewReceipts.Name = "gridViewReceipts";
@@ -193,16 +195,17 @@
             this.tbbNames,
             this.tbbAddReceipt,
             this.tbbSearchText,
-            this.barStaticItem1,
-            this.tbbSearch,
-            this.tbbViewStats});
-      this.barManager1.MaxItemId = 11;
+            this.tbbViewStats,
+            this.tbbMerchantFilter,
+            this.tbbClearMerchants});
+      this.barManager1.MaxItemId = 13;
       this.barManager1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.txtSearchText});
+            this.txtSearchText,
+            this.cboMerchantFilter});
       // 
       // bar1
       // 
-      this.bar1.BarName = "Tools";
+      this.bar1.BarName = "Standard";
       this.bar1.DockCol = 0;
       this.bar1.DockRow = 0;
       this.bar1.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
@@ -218,7 +221,7 @@
       this.bar1.OptionsBar.DisableCustomization = true;
       this.bar1.OptionsBar.DrawDragBorder = false;
       this.bar1.OptionsBar.UseWholeRow = true;
-      this.bar1.Text = "Tools";
+      this.bar1.Text = "Standard";
       // 
       // tbbSave
       // 
@@ -227,6 +230,7 @@
       this.tbbSave.Id = 0;
       this.tbbSave.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbSave.LargeGlyph")));
       this.tbbSave.Name = "tbbSave";
+      this.tbbSave.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSave_ItemClick);
       // 
       // tbbColumns
       // 
@@ -275,19 +279,20 @@
       // 
       // bar2
       // 
-      this.bar2.BarName = "Custom 3";
+      this.bar2.BarName = "Search";
       this.bar2.DockCol = 0;
       this.bar2.DockRow = 1;
       this.bar2.DockStyle = DevExpress.XtraBars.BarDockStyle.Top;
       this.bar2.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbSearchText, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
-            new DevExpress.XtraBars.LinkPersistInfo(this.tbbSearch)});
+            new DevExpress.XtraBars.LinkPersistInfo(DevExpress.XtraBars.BarLinkUserDefines.PaintStyle, this.tbbMerchantFilter, "", true, true, true, 0, null, DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph),
+            new DevExpress.XtraBars.LinkPersistInfo(this.tbbClearMerchants)});
       this.bar2.OptionsBar.AllowQuickCustomization = false;
       this.bar2.OptionsBar.DisableClose = true;
       this.bar2.OptionsBar.DisableCustomization = true;
       this.bar2.OptionsBar.DrawDragBorder = false;
       this.bar2.OptionsBar.UseWholeRow = true;
-      this.bar2.Text = "Custom 3";
+      this.bar2.Text = "Search";
       // 
       // tbbSearchText
       // 
@@ -302,15 +307,42 @@
       // 
       this.txtSearchText.AutoHeight = false;
       this.txtSearchText.Name = "txtSearchText";
+      this.txtSearchText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearchText_KeyDown);
       // 
-      // tbbSearch
+      // tbbMerchantFilter
       // 
-      this.tbbSearch.Caption = "Peform Search";
-      this.tbbSearch.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbSearch.Glyph")));
-      this.tbbSearch.Id = 9;
-      this.tbbSearch.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbSearch.LargeGlyph")));
-      this.tbbSearch.Name = "tbbSearch";
-      this.tbbSearch.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbSearch_ItemClick);
+      this.tbbMerchantFilter.Caption = "Filter:";
+      this.tbbMerchantFilter.Edit = this.cboMerchantFilter;
+      this.tbbMerchantFilter.Id = 11;
+      this.tbbMerchantFilter.Name = "tbbMerchantFilter";
+      this.tbbMerchantFilter.Width = 150;
+      // 
+      // cboMerchantFilter
+      // 
+      this.cboMerchantFilter.AllowNullInput = DevExpress.Utils.DefaultBoolean.True;
+      this.cboMerchantFilter.AutoHeight = false;
+      this.cboMerchantFilter.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboMerchantFilter.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 5, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.Ascending)});
+      this.cboMerchantFilter.DataSource = this.bsMerchants;
+      this.cboMerchantFilter.DisplayMember = "Name";
+      this.cboMerchantFilter.Name = "cboMerchantFilter";
+      this.cboMerchantFilter.NullText = "[Show all Merchants]";
+      this.cboMerchantFilter.ShowFooter = false;
+      this.cboMerchantFilter.ShowHeader = false;
+      this.cboMerchantFilter.ShowLines = false;
+      this.cboMerchantFilter.ValueMember = "ID";
+      this.cboMerchantFilter.EditValueChanged += new System.EventHandler(this.cboMerchantFilter_EditValueChanged);
+      // 
+      // tbbClearMerchants
+      // 
+      this.tbbClearMerchants.Caption = "Clear";
+      this.tbbClearMerchants.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbClearMerchants.Glyph")));
+      this.tbbClearMerchants.Id = 12;
+      this.tbbClearMerchants.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbClearMerchants.LargeGlyph")));
+      this.tbbClearMerchants.Name = "tbbClearMerchants";
+      this.tbbClearMerchants.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.tbbClearMerchants_ItemClick);
       // 
       // barDockControlTop
       // 
@@ -343,13 +375,6 @@
       this.barDockControlRight.Location = new System.Drawing.Point(566, 70);
       this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.barDockControlRight.Size = new System.Drawing.Size(0, 490);
-      // 
-      // barStaticItem1
-      // 
-      this.barStaticItem1.Caption = "barStaticItem1";
-      this.barStaticItem1.Id = 8;
-      this.barStaticItem1.Name = "barStaticItem1";
-      this.barStaticItem1.TextAlignment = System.Drawing.StringAlignment.Near;
       // 
       // layoutControl1
       // 
@@ -395,6 +420,7 @@
       this.Controls.Add(this.barDockControlTop);
       this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
       this.Name = "MainForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "ReceiptEntry";
       ((System.ComponentModel.ISupportInitialize)(this.gridReceipts)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.bsReceipts)).EndInit();
@@ -403,6 +429,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.bsMerchants)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtSearchText)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.cboMerchantFilter)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
@@ -429,8 +456,6 @@
     private DevExpress.XtraBars.Bar bar2;
     private DevExpress.XtraBars.BarEditItem tbbSearchText;
     private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit txtSearchText;
-    private DevExpress.XtraBars.BarButtonItem tbbSearch;
-    private DevExpress.XtraBars.BarStaticItem barStaticItem1;
     private DevExpress.XtraBars.BarButtonItem tbbViewStats;
     private DevExpress.XtraGrid.GridControl gridReceipts;
     private DevExpress.XtraGrid.Views.Grid.GridView gridViewReceipts;
@@ -443,6 +468,9 @@
     private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboMerchants;
     private System.Windows.Forms.BindingSource bsMerchants;
     private DevExpress.XtraGrid.Columns.GridColumn colTotal;
+    private DevExpress.XtraBars.BarEditItem tbbMerchantFilter;
+    private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboMerchantFilter;
+    private DevExpress.XtraBars.BarButtonItem tbbClearMerchants;
 
   }
 }

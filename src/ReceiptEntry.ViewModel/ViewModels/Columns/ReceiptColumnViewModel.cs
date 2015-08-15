@@ -40,5 +40,15 @@ namespace ReceiptEntry.ViewModel
       Type = type;
       Accept();
     }
+
+    internal ReceiptColumn ToColumn()
+    {
+      return new ReceiptColumn
+      {
+        ID = ID,
+        Name = Name,
+        Type = Type,
+      };
+    }
   }
 }

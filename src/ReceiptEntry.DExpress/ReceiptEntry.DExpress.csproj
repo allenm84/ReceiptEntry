@@ -115,7 +115,7 @@
     <Compile Include="Forms\HelpfulNameListForm.Designer.cs">
       <DependentUpon>HelpfulNameListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="GridViewFeatures.cs" />
+    <Compile Include="Tools\GridViewFeatures.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +143,12 @@
     <Compile Include="Tools\ListExtensions.cs" />
     <Compile Include="Tools\MessageHelper.cs" />
     <Compile Include="Tools\Yielder.cs" />
+    <Compile Include="Forms\ValidateReceiptTotalForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ValidateReceiptTotalForm.Designer.cs">
+      <DependentUpon>ValidateReceiptTotalForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Controls\EditorButtons.resx">
       <DependentUpon>EditorButtons.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +194,9 @@
     </Compile>
     <EmbeddedResource Include="Forms\ReceiptColumnListForm.resx">
       <DependentUpon>ReceiptColumnListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ValidateReceiptTotalForm.resx">
+      <DependentUpon>ValidateReceiptTotalForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

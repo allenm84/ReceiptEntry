@@ -9,6 +9,12 @@ namespace ReceiptEntry.ViewModel
 {
   public class ReceiptItemViewModel : BaseViewModel
   {
+    static string sNameID;
+    static ReceiptItemViewModel()
+    {
+      sNameID = name.of((ReceiptItemViewModel v) => v.HelpfulNameID);
+    }
+
     public string HelpfulNameID
     {
       get { return GetField<string>(); }
@@ -38,6 +44,18 @@ namespace ReceiptEntry.ViewModel
       Push(values);
       HelpfulNameID = helpfulNameID;
       Accept();
+    }
+
+    internal ReceiptItem ToReceiptItem()
+    {
+      var values = Pull();
+      values.Remove(sNameID);
+
+      return new ReceiptItem
+      {
+        HelpfulNameID = HelpfulNameID,
+        Values = values,
+      };
     }
   }
 }

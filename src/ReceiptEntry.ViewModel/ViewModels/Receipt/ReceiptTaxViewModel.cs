@@ -39,5 +39,14 @@ namespace ReceiptEntry.ViewModel
       Amount = amount;
       Accept();
     }
+
+    internal ReceiptTax ToTax()
+    {
+      return new ReceiptTax
+      {
+        Amount = Amount,
+        Percent = Percent,
+      };
+    }
   }
 }

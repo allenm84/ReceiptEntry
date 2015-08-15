@@ -125,6 +125,11 @@ namespace ReceiptEntry.ViewModel
       }
     }
 
+    protected Dictionary<string, object> Pull()
+    {
+      return mFields.ToDictionary(k => k.Key, v => v.Value);
+    }
+
     protected T GetField<T>([CallerMemberName] string key = "")
     {
       object value;

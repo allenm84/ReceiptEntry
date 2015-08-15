@@ -16,6 +16,8 @@ namespace ReceiptEntry.DExpress
 {
   public partial class MainForm : BaseForm
   {
+    static ulong sId = 0;
+
     private SaveFileViewModel viewModel;
     private ISaveFileService service;
     private readonly GridViewFeatures gridViewFeatures;
@@ -25,8 +27,9 @@ namespace ReceiptEntry.DExpress
       InitializeComponent();
       gridViewReceipts.SetPropertiesToList(false, false);
 
-      //service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
-      service = new TestFileService();
+      service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
+      //service = new TestFileService();
+
       viewModel = new SaveFileViewModel(service);
       bsMerchants.DataSource = viewModel.Merchants.Items;
 
@@ -78,6 +81,15 @@ namespace ReceiptEntry.DExpress
       }
     }
 
+    private async void ExpandAllGroupsAsync(ulong id)
+    {
+      await Task.Yield();
+      if (id == sId)
+      {
+        gridViewReceipts.ExpandAllGroups();
+      }
+    }
+
     private void gridViewReceipts_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
     {
       var receipt = e.Row as ReceiptViewModel;
@@ -107,6 +119,11 @@ namespace ReceiptEntry.DExpress
       }
     }
 
+    private void tbbSave_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      viewModel.SaveCommand.Execute(sender);
+    }
+
     private void tbbColumns_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
       Yielder.Call(DoEditColumnList);
@@ -132,16 +149,38 @@ namespace ReceiptEntry.DExpress
 
     }
 
-    private void tbbSearch_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    private void txtSearchText_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Enter)
+      {
+        gridViewReceipts.RefreshData();
+      }
+    }
+
+    private void cboMerchantFilter_EditValueChanged(object sender, EventArgs e)
     {
       gridViewReceipts.RefreshData();
+    }
+
+    private void tbbClearMerchants_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+    {
+      if (tbbMerchantFilter.EditValue != null 
+        && MessageHelper.Confirm(this, "Are you sure you want to clear the merchant filter?"))
+      {
+        tbbMerchantFilter.EditValue = null;
+      }
     }
 
     private void gridViewReceipts_CustomRowFilter(object sender, DevExpress.XtraGrid.Views.Base.RowFilterEventArgs e)
     {
       var receipt = bsReceipts[e.ListSourceRow] as ReceiptViewModel;
+      var merchantID = tbbMerchantFilter.EditValue as string;
+
       e.Handled = true;
-      e.Visible = receipt.Contains(tbbSearchText.EditValue as string);
+      e.Visible = (string.IsNullOrWhiteSpace(merchantID) || receipt.MerchantID == merchantID) && 
+        receipt.Contains(tbbSearchText.EditValue as string);
+
+      ExpandAllGroupsAsync(sId++);
     }
   }
 }

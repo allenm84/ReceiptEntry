@@ -33,5 +33,14 @@ namespace ReceiptEntry.ViewModel
       Name = name;
       Accept();
     }
+
+    internal HelpfulName ToName()
+    {
+      return new HelpfulName
+      {
+        ID = ID,
+        Name = Name,
+      };
+    }
   }
 }

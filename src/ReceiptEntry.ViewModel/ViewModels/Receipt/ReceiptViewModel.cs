@@ -73,7 +73,7 @@ namespace ReceiptEntry.ViewModel
     public BindingList<ReceiptColumnReferenceViewModel> Columns
     {
       get { return mColumns; }
-      set
+      private set
       {
         mColumns = value;
         FirePropertyChanged();
@@ -84,6 +84,12 @@ namespace ReceiptEntry.ViewModel
     {
       get { return GetField<decimal>(); }
       set { SetField(value); }
+    }
+
+    private readonly ValidateReceiptTotalViewModel mValidate;
+    public ValidateReceiptTotalViewModel Validate
+    {
+      get { return mValidate; }
     }
 
     internal ReceiptViewModel(SaveFileViewModel parent, Receipt receipt)
@@ -122,6 +128,8 @@ namespace ReceiptEntry.ViewModel
       }
 
       Total = total;
+
+      mValidate = new ValidateReceiptTotalViewModel(this);
       Accept();
     }
 
@@ -169,7 +177,36 @@ namespace ReceiptEntry.ViewModel
 
     public bool Contains(string text)
     {
-      return true;
+      if (string.IsNullOrWhiteSpace(text))
+      {
+        return true;
+      }
+
+      var names = mColumns
+        .Select(c => mParent.Columns.Fetch(r => r.ID == c.ColumnID))
+        .Where(c => c.Type == ReceiptColumnType.Text)
+        .Select(c => c.Name)
+        .ToArray();
+
+      return mItems.Any(i =>
+      {
+        var values = names.Select(n => (i[n] as string) ?? string.Empty);
+        return values.Any(v => v.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1);
+      });
+    }
+
+    internal Receipt ToReceipt()
+    {
+      return new Receipt
+      {
+        Date = Date,
+        ID = ID,
+        Items = mItems.Select(i => i.ToReceiptItem()).ToArray(),
+        MerchantID = MerchantID,
+        ShowHelpfulName = ShowHelpfulName,
+        Taxes = mTaxes.Select(t => t.ToTax()).ToArray(),
+        Total = Total,
+      };
     }
   }
 }

@@ -30,6 +30,7 @@
     {
       this.components = new System.ComponentModel.Container();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.btnValidate = new DevExpress.XtraEditors.SimpleButton();
       this.chkShowHelpfulName = new DevExpress.XtraEditors.CheckEdit();
       this.okCancelButtons1 = new ReceiptEntry.DExpress.OKCancelButtons();
       this.numTotal = new DevExpress.XtraEditors.SpinEdit();
@@ -60,7 +61,6 @@
       this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
       this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
-      this.btnValidate = new DevExpress.XtraEditors.SimpleButton();
       this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
@@ -112,6 +112,16 @@
       this.layoutControl1.Size = new System.Drawing.Size(442, 539);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
+      // 
+      // btnValidate
+      // 
+      this.btnValidate.Location = new System.Drawing.Point(12, 503);
+      this.btnValidate.Name = "btnValidate";
+      this.btnValidate.Size = new System.Drawing.Size(76, 22);
+      this.btnValidate.StyleController = this.layoutControl1;
+      this.btnValidate.TabIndex = 11;
+      this.btnValidate.Text = "Validate";
+      this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
       // 
       // chkShowHelpfulName
       // 
@@ -444,15 +454,6 @@
       this.simpleLabelItem1.Size = new System.Drawing.Size(284, 24);
       this.simpleLabelItem1.Text = "Items:";
       this.simpleLabelItem1.TextSize = new System.Drawing.Size(58, 16);
-      // 
-      // btnValidate
-      // 
-      this.btnValidate.Location = new System.Drawing.Point(12, 503);
-      this.btnValidate.Name = "btnValidate";
-      this.btnValidate.Size = new System.Drawing.Size(76, 22);
-      this.btnValidate.StyleController = this.layoutControl1;
-      this.btnValidate.TabIndex = 11;
-      this.btnValidate.Text = "Validate";
       // 
       // layoutControlItem8
       // 

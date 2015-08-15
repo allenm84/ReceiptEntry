@@ -330,5 +330,15 @@ namespace ReceiptEntry.ViewModel
       mSuspendColumnChange = false;
       Refresh();
     }
+
+    internal Merchant ToMerchant()
+    {
+      return new Merchant
+      {
+        Columns = mCurrentColumns.OrderBy(c => c.Order).Select(c => c.ToColumnReference()).ToArray(),
+        ID = ID,
+        Name = Name,
+      };
+    }
   }
 }
