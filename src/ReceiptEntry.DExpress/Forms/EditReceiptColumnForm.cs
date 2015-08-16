@@ -16,6 +16,8 @@ namespace ReceiptEntry.DExpress
   public partial class EditReceiptColumnForm : BaseForm
   {
     private readonly ReceiptColumnViewModel mColumn;
+    private readonly int mTypeCount;
+
     public EditReceiptColumnForm(ReceiptColumnViewModel column)
     {
       mColumn = column;
@@ -26,8 +28,19 @@ namespace ReceiptEntry.DExpress
       cboType.FillWithEnum<ReceiptColumnType>();
       cboType.BindValue(column, (ReceiptColumnViewModel v) => v.Type);
       cboType.EditValueChanged += cboType_EditValueChanged;
+      cboType.PreviewKeyDown += cboType_PreviewKeyDown;
+      mTypeCount = ((System.Collections.IList)cboType.Properties.DataSource).Count;
 
       Yielder.Call(UpdateExampleText);
+    }
+
+    private async void ExpectedIndex(int index, int wrapped)
+    {
+      await Task.Yield();
+      if (index != cboType.ItemIndex)
+      {
+        cboType.EditValue = cboType.Properties.GetDataSourceValue("Value", wrapped);
+      }
     }
 
     private void UpdateExampleText()
@@ -38,6 +51,11 @@ namespace ReceiptEntry.DExpress
         case ReceiptColumnType.Dollars: 
           {
             lblExample.Text = "Example: <b>$12.34</b>"; 
+            break;
+          }
+        case ReceiptColumnType.HelpfulName:
+          {
+            lblExample.Text = "Example: <b>Helpful Name</b> for an item";
             break;
           }
         case ReceiptColumnType.Number:
@@ -56,6 +74,18 @@ namespace ReceiptEntry.DExpress
     private void cboType_EditValueChanged(object sender, EventArgs e)
     {
       UpdateExampleText();
+    }
+
+    private void cboType_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+    {
+      if (e.KeyCode == Keys.Down)
+      {
+        ExpectedIndex(cboType.ItemIndex + 1, 0);
+      }
+      else if (e.KeyCode == Keys.Up)
+      {
+        ExpectedIndex(cboType.ItemIndex - 1, mTypeCount - 1);
+      }
     }
 
     protected override bool ProcessDialogKey(Keys keyData)

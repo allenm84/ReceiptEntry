@@ -30,6 +30,7 @@
     {
       this.components = new System.ComponentModel.Container();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.btnUpdateOrder = new DevExpress.XtraEditors.SimpleButton();
       this.btnNone = new DevExpress.XtraEditors.SimpleButton();
       this.btnAll = new DevExpress.XtraEditors.SimpleButton();
       this.btnAddNew = new DevExpress.XtraEditors.SimpleButton();
@@ -59,7 +60,6 @@
       this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
       this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
       this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-      this.btnUpdateOrder = new DevExpress.XtraEditors.SimpleButton();
       this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
@@ -107,6 +107,15 @@
       this.layoutControl1.Size = new System.Drawing.Size(457, 407);
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
+      // 
+      // btnUpdateOrder
+      // 
+      this.btnUpdateOrder.Location = new System.Drawing.Point(233, 331);
+      this.btnUpdateOrder.Name = "btnUpdateOrder";
+      this.btnUpdateOrder.Size = new System.Drawing.Size(76, 22);
+      this.btnUpdateOrder.StyleController = this.layoutControl1;
+      this.btnUpdateOrder.TabIndex = 11;
+      this.btnUpdateOrder.Text = "Update";
       // 
       // btnNone
       // 
@@ -213,6 +222,7 @@
       this.gridAvailableColumns.TabIndex = 6;
       this.gridAvailableColumns.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewAvailableColumns});
+      this.gridAvailableColumns.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gridAvailableColumns_MouseDoubleClick);
       // 
       // bsAvailable
       // 
@@ -398,15 +408,6 @@
       this.emptySpaceItem2.Name = "emptySpaceItem2";
       this.emptySpaceItem2.Size = new System.Drawing.Size(44, 26);
       this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-      // 
-      // btnUpdateOrder
-      // 
-      this.btnUpdateOrder.Location = new System.Drawing.Point(233, 331);
-      this.btnUpdateOrder.Name = "btnUpdateOrder";
-      this.btnUpdateOrder.Size = new System.Drawing.Size(76, 22);
-      this.btnUpdateOrder.StyleController = this.layoutControl1;
-      this.btnUpdateOrder.TabIndex = 11;
-      this.btnUpdateOrder.Text = "Update";
       // 
       // layoutControlItem3
       // 

@@ -13,27 +13,60 @@ namespace ReceiptEntry.ViewModel
   {
     private readonly ReceiptViewModel mParent;
 
-    public ReceiptColumnViewModel[] Columns
+    public ReceiptColumnViewModel[] PriceColumns
     {
       get
       {
-        return mParent.Parent.Columns.Items
+        var columns = mParent.Parent.Columns.Items
           .Where(c => c.Type == ReceiptColumnType.Dollars)
           .Where(c => mParent.Columns.Any(r => r.ColumnID == c.ID))
           .ToArray();
+
+        if (columns.Length == 1)
+        {
+          SelectedPriceColumn = columns[0].ID;
+        }
+
+        return columns;
       }
     }
 
-    public string SelectedColumnID
+    public ReceiptColumnViewModel[] QuantityColumns
     {
-      get { return GetField<string>(); }
-      set { SetField(value); }
+      get
+      {
+        var columns = mParent.Parent.Columns.Items
+          .Where(c => c.Type == ReceiptColumnType.Number)
+          .Where(c => mParent.Columns.Any(r => r.ColumnID == c.ID))
+          .ToArray();
+
+        if (columns.Length == 1)
+        {
+          SelectedQuantityColumn = columns[0].ID;
+        }
+
+        return columns;
+      }
     }
 
-    public decimal ExpectedTotal
+    public string SelectedPriceColumn
     {
-      get { return mParent.Total; }
-      private set { FirePropertyChanged(); }
+      get { return GetField<string>(); }
+      set 
+      { 
+        SetField(value);
+        UpdateActualTotal();
+      }
+    }
+
+    public string SelectedQuantityColumn
+    {
+      get { return GetField<string>(); }
+      set
+      {
+        SetField(value);
+        UpdateActualTotal();
+      }
     }
 
     public decimal ActualTotal
@@ -42,34 +75,23 @@ namespace ReceiptEntry.ViewModel
       private set { SetField(value); }
     }
 
-    private readonly DelegateCommand mValidateCommand;
-    public ICommand ValidateCommand
-    {
-      get { return mValidateCommand; }
-    }
-
     internal ValidateReceiptTotalViewModel(ReceiptViewModel parent)
     {
       mParent = parent;
-      parent.PropertyChanged += parent_PropertyChanged;
-      mValidateCommand = new DelegateCommand(DoValidate, CanValidate);
     }
 
-    private bool CanValidate(object parameter)
+    private void UpdateActualTotal()
     {
-      return !string.IsNullOrWhiteSpace(SelectedColumnID);
-    }
+      if (!string.IsNullOrWhiteSpace(SelectedPriceColumn)
+        && !string.IsNullOrWhiteSpace(SelectedQuantityColumn))
+      {
+        var price = mParent.Parent.Columns.Fetch(c => c.ID == SelectedPriceColumn);
+        var quantity = mParent.Parent.Columns.Fetch(c => c.ID == SelectedQuantityColumn);
 
-    private void DoValidate(object parameter)
-    {
-      ActualTotal =
-        mParent.Items.Sum(i => (decimal)i[SelectedColumnID]) +
-        mParent.Taxes.Sum(t => t.Amount);
-    }
-
-    private void parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-      ExpectedTotal = 0;
+        ActualTotal =
+          mParent.Items.Sum(i => (decimal)i[price.Name] * (decimal)i[quantity.Name]) +
+          mParent.Taxes.Sum(t => t.Amount);
+      }
     }
   }
 }

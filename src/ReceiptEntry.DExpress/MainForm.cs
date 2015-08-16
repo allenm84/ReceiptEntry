@@ -32,6 +32,7 @@ namespace ReceiptEntry.DExpress
 
       viewModel = new SaveFileViewModel(service);
       bsMerchants.DataSource = viewModel.Merchants.Items;
+      bsReceipts.DataSource = viewModel.Receipts.Items;
 
       gridViewFeatures = new GridViewFeatures(gridViewReceipts);
       gridViewFeatures.AddAlignGroupSummariesToColumns();
@@ -108,7 +109,7 @@ namespace ReceiptEntry.DExpress
       if (e.Button == System.Windows.Forms.MouseButtons.Left)
       {
         var info = gridViewReceipts.CalcHitInfo(e.Location);
-        if (info.InRow)
+        if (info.InRow && !info.InGroupRow)
         {
           var receipt = gridViewReceipts.GetRow(info.RowHandle) as ReceiptViewModel;
           if (receipt != null)

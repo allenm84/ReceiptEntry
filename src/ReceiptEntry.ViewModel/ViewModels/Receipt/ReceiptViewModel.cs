@@ -51,12 +51,6 @@ namespace ReceiptEntry.ViewModel
       set { SetField(value); }
     }
 
-    public bool ShowHelpfulName
-    {
-      get { return GetField<bool>(); }
-      set { SetField(value); }
-    }
-
     private readonly BindingList<ReceiptItemViewModel> mItems;
     public BindingList<ReceiptItemViewModel> Items
     {
@@ -203,7 +197,6 @@ namespace ReceiptEntry.ViewModel
         ID = ID,
         Items = mItems.Select(i => i.ToReceiptItem()).ToArray(),
         MerchantID = MerchantID,
-        ShowHelpfulName = ShowHelpfulName,
         Taxes = mTaxes.Select(t => t.ToTax()).ToArray(),
         Total = Total,
       };

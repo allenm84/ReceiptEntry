@@ -12,6 +12,7 @@ using ReceiptEntry.ViewModel;
 using DevExpress.XtraGrid.Columns;
 using ReceiptEntry.Model;
 using DevExpress.Data;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace ReceiptEntry.DExpress
 {
@@ -22,8 +23,6 @@ namespace ReceiptEntry.DExpress
     {
       sColumnsName = name.of((ReceiptViewModel v) => v.Columns);
     }
-
-    static int sPreviousHelpfulNameIndex = 1;
 
     private readonly ReceiptViewModel mReceipt;
     private readonly BindingList<ReceiptColumnViewModel> mAllColumns;
@@ -38,7 +37,6 @@ namespace ReceiptEntry.DExpress
       mGridColumns = new Dictionary<string, GridColumn>();
 
       InitializeComponent();
-      colHelpfulNameID.Visible = false;
       AddViewModelColumns();
 
       var colName = cboViewNames.Columns.AddVisible((HelpfulNameViewModel v) => v.Name);
@@ -48,8 +46,6 @@ namespace ReceiptEntry.DExpress
       cboMerchant.BindValue(receipt, (ReceiptViewModel v) => v.MerchantID);
       bsMerchants.DataSource = receipt.Parent.Merchants.Items;
       dtDate.BindDate(receipt, (ReceiptViewModel v) => v.Date);
-      chkShowHelpfulName.BindChecked(receipt, (ReceiptViewModel v) => v.ShowHelpfulName);
-      chkShowHelpfulName.CheckedChanged += chkShowHelpfulName_CheckedChanged;
       bsItems.DataSource = receipt.Items;
       bsTaxes.DataSource = receipt.Taxes;
       numTotal.BindValue(receipt, (ReceiptViewModel v) => v.Total);
@@ -60,19 +56,22 @@ namespace ReceiptEntry.DExpress
       format.FormatType = DevExpress.Utils.FormatType.Custom;
       format.Format = new AddPercentageFormatter();
 
-      Yielder.Call(SyncColumns, UpdateHelpfulNameVisibility);
+      Yielder.Call(SyncColumns, UpdateEditButton);
     }
 
     private void AddViewModelColumns()
     {
       foreach (var c in mAllColumns)
       {
-        var column = new GridColumn();
-        column.FieldName = c.Name;
-        column.Visible = false;
-        SetUnboundType(column, c.Type);
-        mGridColumns[c.ID] = column;
-        gridViewItems.Columns.Add(column);
+        if (!mGridColumns.ContainsKey(c.ID))
+        {
+          var column = new GridColumn();
+          column.FieldName = c.Name;
+          column.Visible = false;
+          SetUnboundType(column, c.Type);
+          mGridColumns[c.ID] = column;
+          gridViewItems.Columns.Add(column);
+        }
       }
     }
 
@@ -85,6 +84,13 @@ namespace ReceiptEntry.DExpress
             column.UnboundType = UnboundColumnType.Decimal;
             column.DisplayFormat.FormatString = "c2";
             column.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
+            break;
+          }
+        case ReceiptColumnType.HelpfulName:
+          {
+            column.UnboundType = UnboundColumnType.String;
+            column.ColumnEdit = cboNames;
+            column.ShowButtonMode = ShowButtonModeEnum.ShowAlways;
             break;
           }
         case ReceiptColumnType.Number:
@@ -102,6 +108,8 @@ namespace ReceiptEntry.DExpress
 
     private void SyncColumns()
     {
+      AddViewModelColumns();
+
       gridViewItems.BeginUpdate();
 
       if (mCurrentColumns != null)
@@ -129,24 +137,12 @@ namespace ReceiptEntry.DExpress
       }
 
       gridViewItems.EndUpdate();
-      UpdateHelpfulNameVisibility();
     }
 
-    private void UpdateHelpfulNameVisibility()
+    private void UpdateEditButton()
     {
-      if (chkShowHelpfulName.Checked)
-      {
-        colHelpfulNameID.Visible = false;
-        colHelpfulNameID.VisibleIndex = sPreviousHelpfulNameIndex;
-      }
-      else
-      {
-        if (colHelpfulNameID.Visible)
-        {
-          sPreviousHelpfulNameIndex = colHelpfulNameID.VisibleIndex;
-        }
-        colHelpfulNameID.Visible = false;
-      }
+      var index = cboMerchant.Properties.GetIndexByKeyValue(cboMerchant.EditValue);
+      btnEdit.Enabled = (-1 < index && index < bsMerchants.Count);
     }
 
     private void receipt_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -159,8 +155,10 @@ namespace ReceiptEntry.DExpress
 
     private void cboMerchant_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
     {
+      var lookup = sender as SearchLookUpEdit;
+
       var merchant = mReceipt.Parent.Merchants.CreateItem();
-      merchant.Name = cboMerchant.GetFilterText();
+      merchant.Name = lookup.GetFilterText();
 
       using (var dlg = new EditMerchantForm(merchant))
       {
@@ -176,9 +174,25 @@ namespace ReceiptEntry.DExpress
       }
     }
 
-    private void chkShowHelpfulName_CheckedChanged(object sender, EventArgs e)
+    private void btnEdit_Click(object sender, EventArgs e)
     {
-      UpdateHelpfulNameVisibility();
+      var index = cboMerchant.Properties.GetIndexByKeyValue(cboMerchant.EditValue);
+      if (index < 0 || index >= bsMerchants.Count)
+      {
+        return;
+      }
+
+      var merchant = bsMerchants[index] as MerchantViewModel;
+      if (merchant == null)
+      {
+        return;
+      }
+
+      using (var dlg = new EditMerchantForm(merchant))
+      {
+        dlg.Text = "Edit Merchant";
+        dlg.ShowDialog(this);
+      }
     }
 
     private void gridViewItems_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
@@ -200,7 +214,11 @@ namespace ReceiptEntry.DExpress
 
     private void cboNames_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
     {
+      var lookup = sender as SearchLookUpEdit;
+
       var name = mReceipt.Parent.Names.CreateItem();
+      name.Name = lookup.GetFilterText();
+
       using (var dlg = new TextInputForm())
       {
         dlg.Text = "Add Name";
@@ -224,6 +242,11 @@ namespace ReceiptEntry.DExpress
       {
         dlg.ShowDialog(this);
       }
+    }
+
+    private void cboMerchant_EditValueChanged(object sender, EventArgs e)
+    {
+      UpdateEditButton();
     }
   }
 }

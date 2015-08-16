@@ -70,6 +70,15 @@ namespace ReceiptEntry.DExpress
       lciCurrent.Text = string.Format("Current({0})", bsCurrent.Count);
     }
 
+    private void DoEditColumn(ReceiptColumnViewModel column)
+    {
+      using (var dlg = new EditReceiptColumnForm(column))
+      {
+        dlg.Text = "Edit Column";
+        dlg.ShowDialog(this);
+      }
+    }
+
     protected override void OnFormClosed(FormClosedEventArgs e)
     {
       if (mFromAvailable != null)
@@ -136,6 +145,20 @@ namespace ReceiptEntry.DExpress
         if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
         {
           bsColumns.Add(column);
+        }
+      }
+    }
+
+    private void gridAvailableColumns_MouseDoubleClick(object sender, MouseEventArgs e)
+    {
+      if (e.Button == System.Windows.Forms.MouseButtons.Left)
+      {
+        var info = gridViewAvailableColumns.CalcHitInfo(e.Location);
+        if (info.InRow && !info.InGroupRow)
+        {
+          var reference = gridViewAvailableColumns.GetRow(info.RowHandle) as ReceiptColumnReferenceViewModel;
+          var column = mMerchant.Columns.Single(c => c.ID == reference.ColumnID);
+          DoEditColumn(column);
         }
       }
     }

@@ -13,8 +13,5 @@ namespace ReceiptEntry.Model
   {
     [DataMember(Order = 0)]
     public Dictionary<string, object> Values { get; set; }
-
-    [DataMember(Order = 1)]
-    public string HelpfulNameID { get; set; }
   }
 }

@@ -11,10 +11,15 @@ namespace ReceiptEntry.Model
   public enum ReceiptColumnType
   {
     [EnumMember]
-    Text,
+    Dollars,
+
+    [EnumMember]
+    HelpfulName,
+
     [EnumMember]
     Number,
+
     [EnumMember]
-    Dollars,
+    Text,
   }
 }

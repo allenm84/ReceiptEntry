@@ -30,8 +30,8 @@
     {
       this.components = new System.ComponentModel.Container();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.btnEdit = new DevExpress.XtraEditors.SimpleButton();
       this.btnValidate = new DevExpress.XtraEditors.SimpleButton();
-      this.chkShowHelpfulName = new DevExpress.XtraEditors.CheckEdit();
       this.okCancelButtons1 = new ReceiptEntry.DExpress.OKCancelButtons();
       this.numTotal = new DevExpress.XtraEditors.SpinEdit();
       this.gridTaxes = new DevExpress.XtraGrid.GridControl();
@@ -42,7 +42,6 @@
       this.gridItems = new DevExpress.XtraGrid.GridControl();
       this.bsItems = new System.Windows.Forms.BindingSource(this.components);
       this.gridViewItems = new DevExpress.XtraGrid.Views.Grid.GridView();
-      this.colHelpfulNameID = new DevExpress.XtraGrid.Columns.GridColumn();
       this.cboNames = new DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit();
       this.bsNames = new System.Windows.Forms.BindingSource(this.components);
       this.cboViewNames = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -59,12 +58,12 @@
       this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
       this.simpleLabelItem1 = new DevExpress.XtraLayout.SimpleLabelItem();
       this.layoutControlItem8 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlItem10 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.layoutControlItem9 = new DevExpress.XtraLayout.LayoutControlItem();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.chkShowHelpfulName.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numTotal.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridTaxes)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.bsTaxes)).BeginInit();
@@ -88,15 +87,16 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
       // 
+      this.layoutControl1.Controls.Add(this.btnEdit);
       this.layoutControl1.Controls.Add(this.btnValidate);
-      this.layoutControl1.Controls.Add(this.chkShowHelpfulName);
       this.layoutControl1.Controls.Add(this.okCancelButtons1);
       this.layoutControl1.Controls.Add(this.numTotal);
       this.layoutControl1.Controls.Add(this.gridTaxes);
@@ -113,6 +113,16 @@
       this.layoutControl1.TabIndex = 0;
       this.layoutControl1.Text = "layoutControl1";
       // 
+      // btnEdit
+      // 
+      this.btnEdit.Location = new System.Drawing.Point(352, 31);
+      this.btnEdit.Name = "btnEdit";
+      this.btnEdit.Size = new System.Drawing.Size(78, 22);
+      this.btnEdit.StyleController = this.layoutControl1;
+      this.btnEdit.TabIndex = 12;
+      this.btnEdit.Text = "Edit";
+      this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+      // 
       // btnValidate
       // 
       this.btnValidate.Location = new System.Drawing.Point(12, 503);
@@ -122,16 +132,6 @@
       this.btnValidate.TabIndex = 11;
       this.btnValidate.Text = "Validate";
       this.btnValidate.Click += new System.EventHandler(this.btnValidate_Click);
-      // 
-      // chkShowHelpfulName
-      // 
-      this.chkShowHelpfulName.AutoSizeInLayoutControl = true;
-      this.chkShowHelpfulName.Location = new System.Drawing.Point(296, 102);
-      this.chkShowHelpfulName.Name = "chkShowHelpfulName";
-      this.chkShowHelpfulName.Properties.Caption = "Show Helpful Name";
-      this.chkShowHelpfulName.Size = new System.Drawing.Size(134, 20);
-      this.chkShowHelpfulName.StyleController = this.layoutControl1;
-      this.chkShowHelpfulName.TabIndex = 10;
       // 
       // okCancelButtons1
       // 
@@ -156,6 +156,8 @@
       this.numTotal.Name = "numTotal";
       this.numTotal.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.numTotal.Properties.DisplayFormat.FormatString = "c2";
+      this.numTotal.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
       this.numTotal.Size = new System.Drawing.Size(418, 22);
       this.numTotal.StyleController = this.layoutControl1;
       this.numTotal.TabIndex = 8;
@@ -164,10 +166,10 @@
       // 
       this.gridTaxes.DataSource = this.bsTaxes;
       this.gridTaxes.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.gridTaxes.Location = new System.Drawing.Point(12, 330);
+      this.gridTaxes.Location = new System.Drawing.Point(12, 328);
       this.gridTaxes.MainView = this.gridViewTaxes;
       this.gridTaxes.Name = "gridTaxes";
-      this.gridTaxes.Size = new System.Drawing.Size(418, 122);
+      this.gridTaxes.Size = new System.Drawing.Size(418, 124);
       this.gridTaxes.TabIndex = 7;
       this.gridTaxes.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewTaxes});
@@ -219,12 +221,12 @@
       // 
       this.gridItems.DataSource = this.bsItems;
       this.gridItems.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.gridItems.Location = new System.Drawing.Point(12, 126);
+      this.gridItems.Location = new System.Drawing.Point(12, 122);
       this.gridItems.MainView = this.gridViewItems;
       this.gridItems.Name = "gridItems";
       this.gridItems.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cboNames});
-      this.gridItems.Size = new System.Drawing.Size(418, 179);
+      this.gridItems.Size = new System.Drawing.Size(418, 181);
       this.gridItems.TabIndex = 6;
       this.gridItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewItems});
@@ -235,12 +237,11 @@
       // 
       // gridViewItems
       // 
-      this.gridViewItems.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.colHelpfulNameID});
       this.gridViewItems.GridControl = this.gridItems;
       this.gridViewItems.Name = "gridViewItems";
       this.gridViewItems.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.True;
       this.gridViewItems.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
+      this.gridViewItems.OptionsBehavior.AutoPopulateColumns = false;
       this.gridViewItems.OptionsCustomization.AllowFilter = false;
       this.gridViewItems.OptionsCustomization.AllowGroup = false;
       this.gridViewItems.OptionsCustomization.AllowQuickHideColumns = false;
@@ -259,16 +260,6 @@
       this.gridViewItems.OptionsView.ShowGroupPanel = false;
       this.gridViewItems.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.gridViewItems_CustomUnboundColumnData);
       // 
-      // colHelpfulNameID
-      // 
-      this.colHelpfulNameID.Caption = "Helpful Name";
-      this.colHelpfulNameID.ColumnEdit = this.cboNames;
-      this.colHelpfulNameID.FieldName = "HelpfulNameID";
-      this.colHelpfulNameID.Name = "colHelpfulNameID";
-      this.colHelpfulNameID.ShowButtonMode = DevExpress.XtraGrid.Views.Base.ShowButtonModeEnum.ShowAlways;
-      this.colHelpfulNameID.Visible = true;
-      this.colHelpfulNameID.VisibleIndex = 0;
-      // 
       // cboNames
       // 
       this.cboNames.AutoHeight = false;
@@ -279,6 +270,7 @@
       this.cboNames.Name = "cboNames";
       this.cboNames.NullText = "[Select a helpful name]";
       this.cboNames.ShowAddNewButton = true;
+      this.cboNames.ShowClearButton = false;
       this.cboNames.ValueMember = "ID";
       this.cboNames.View = this.cboViewNames;
       this.cboNames.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboNames_AddNewValue);
@@ -319,12 +311,14 @@
       this.cboMerchant.Properties.DisplayMember = "Name";
       this.cboMerchant.Properties.NullText = "[Select a merchant]";
       this.cboMerchant.Properties.ShowAddNewButton = true;
+      this.cboMerchant.Properties.ShowClearButton = false;
       this.cboMerchant.Properties.ValueMember = "ID";
       this.cboMerchant.Properties.View = this.cboViewMerchant;
-      this.cboMerchant.Size = new System.Drawing.Size(418, 22);
+      this.cboMerchant.Size = new System.Drawing.Size(336, 22);
       this.cboMerchant.StyleController = this.layoutControl1;
       this.cboMerchant.TabIndex = 4;
       this.cboMerchant.AddNewValue += new DevExpress.XtraEditors.Controls.AddNewValueEventHandler(this.cboMerchant_AddNewValue);
+      this.cboMerchant.EditValueChanged += new System.EventHandler(this.cboMerchant_EditValueChanged);
       // 
       // bsMerchants
       // 
@@ -362,9 +356,9 @@
             this.layoutControlItem5,
             this.layoutControlItem3,
             this.layoutControlItem6,
-            this.layoutControlItem7,
             this.simpleLabelItem1,
-            this.layoutControlItem8});
+            this.layoutControlItem8,
+            this.layoutControlItem10});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "Root";
       this.layoutControlGroup1.Size = new System.Drawing.Size(442, 539);
@@ -375,7 +369,7 @@
       this.layoutControlItem1.Control = this.cboMerchant;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(422, 45);
+      this.layoutControlItem1.Size = new System.Drawing.Size(340, 45);
       this.layoutControlItem1.Text = "Merchant:";
       this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
       this.layoutControlItem1.TextSize = new System.Drawing.Size(58, 16);
@@ -393,16 +387,16 @@
       // simpleSeparator1
       // 
       this.simpleSeparator1.AllowHotTrack = false;
-      this.simpleSeparator1.Location = new System.Drawing.Point(0, 297);
+      this.simpleSeparator1.Location = new System.Drawing.Point(0, 295);
       this.simpleSeparator1.Name = "simpleSeparator1";
       this.simpleSeparator1.Size = new System.Drawing.Size(422, 2);
       // 
       // layoutControlItem4
       // 
       this.layoutControlItem4.Control = this.gridTaxes;
-      this.layoutControlItem4.Location = new System.Drawing.Point(0, 299);
+      this.layoutControlItem4.Location = new System.Drawing.Point(0, 297);
       this.layoutControlItem4.Name = "layoutControlItem4";
-      this.layoutControlItem4.Size = new System.Drawing.Size(422, 145);
+      this.layoutControlItem4.Size = new System.Drawing.Size(422, 147);
       this.layoutControlItem4.Text = "Taxes:";
       this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Top;
       this.layoutControlItem4.TextSize = new System.Drawing.Size(58, 16);
@@ -420,9 +414,9 @@
       // layoutControlItem3
       // 
       this.layoutControlItem3.Control = this.gridItems;
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 114);
+      this.layoutControlItem3.Location = new System.Drawing.Point(0, 110);
       this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(422, 183);
+      this.layoutControlItem3.Size = new System.Drawing.Size(422, 185);
       this.layoutControlItem3.Text = "Items:";
       this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
       this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
@@ -437,21 +431,12 @@
       this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem6.TextVisible = false;
       // 
-      // layoutControlItem7
-      // 
-      this.layoutControlItem7.Control = this.chkShowHelpfulName;
-      this.layoutControlItem7.Location = new System.Drawing.Point(284, 90);
-      this.layoutControlItem7.Name = "layoutControlItem7";
-      this.layoutControlItem7.Size = new System.Drawing.Size(138, 24);
-      this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem7.TextVisible = false;
-      // 
       // simpleLabelItem1
       // 
       this.simpleLabelItem1.AllowHotTrack = false;
       this.simpleLabelItem1.Location = new System.Drawing.Point(0, 90);
       this.simpleLabelItem1.Name = "simpleLabelItem1";
-      this.simpleLabelItem1.Size = new System.Drawing.Size(284, 24);
+      this.simpleLabelItem1.Size = new System.Drawing.Size(422, 20);
       this.simpleLabelItem1.Text = "Items:";
       this.simpleLabelItem1.TextSize = new System.Drawing.Size(58, 16);
       // 
@@ -469,6 +454,36 @@
       this.layoutControlItem8.TextVisible = false;
       this.layoutControlItem8.TrimClientAreaToControl = false;
       // 
+      // layoutControlItem10
+      // 
+      this.layoutControlItem10.Control = this.btnEdit;
+      this.layoutControlItem10.ControlAlignment = System.Drawing.ContentAlignment.BottomCenter;
+      this.layoutControlItem10.Location = new System.Drawing.Point(340, 0);
+      this.layoutControlItem10.MaxSize = new System.Drawing.Size(82, 26);
+      this.layoutControlItem10.MinSize = new System.Drawing.Size(82, 26);
+      this.layoutControlItem10.Name = "layoutControlItem10";
+      this.layoutControlItem10.Size = new System.Drawing.Size(82, 45);
+      this.layoutControlItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+      this.layoutControlItem10.TextLocation = DevExpress.Utils.Locations.Top;
+      this.layoutControlItem10.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem10.TextVisible = false;
+      this.layoutControlItem10.TrimClientAreaToControl = false;
+      // 
+      // layoutControlItem9
+      // 
+      this.layoutControlItem9.Control = this.btnEdit;
+      this.layoutControlItem9.ControlAlignment = System.Drawing.ContentAlignment.BottomCenter;
+      this.layoutControlItem9.Location = new System.Drawing.Point(340, 0);
+      this.layoutControlItem9.MaxSize = new System.Drawing.Size(82, 26);
+      this.layoutControlItem9.MinSize = new System.Drawing.Size(82, 26);
+      this.layoutControlItem9.Name = "layoutControlItem9";
+      this.layoutControlItem9.Size = new System.Drawing.Size(82, 45);
+      this.layoutControlItem9.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+      this.layoutControlItem9.TextLocation = DevExpress.Utils.Locations.Top;
+      this.layoutControlItem9.TextSize = new System.Drawing.Size(0, 0);
+      this.layoutControlItem9.TextVisible = false;
+      this.layoutControlItem9.TrimClientAreaToControl = false;
+      // 
       // EditReceiptForm
       // 
       this.AcceptButton = this.okCancelButtons1.OK;
@@ -482,7 +497,6 @@
       this.Text = "EditReceiptForm";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.chkShowHelpfulName.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.numTotal.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.gridTaxes)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.bsTaxes)).EndInit();
@@ -506,9 +520,10 @@
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.simpleLabelItem1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem8)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem10)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem9)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -534,19 +549,19 @@
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
     private System.Windows.Forms.BindingSource bsItems;
-    private DevExpress.XtraGrid.Columns.GridColumn colHelpfulNameID;
     private System.Windows.Forms.BindingSource bsMerchants;
     private System.Windows.Forms.BindingSource bsTaxes;
     private DevExpress.XtraGrid.Columns.GridColumn colPercent;
     private DevExpress.XtraGrid.Columns.GridColumn colAmount;
     private DevExpress.XtraGrid.Columns.GridColumn colName;
-    private DevExpress.XtraEditors.CheckEdit chkShowHelpfulName;
-    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
     private DevExpress.XtraLayout.SimpleLabelItem simpleLabelItem1;
     private System.Windows.Forms.BindingSource bsNames;
     private DevExpress.XtraEditors.Repository.RepositoryItemSearchLookUpEdit cboNames;
     private DevExpress.XtraGrid.Views.Grid.GridView cboViewNames;
     private DevExpress.XtraEditors.SimpleButton btnValidate;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
+    private DevExpress.XtraEditors.SimpleButton btnEdit;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem10;
+    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem9;
   }
 }

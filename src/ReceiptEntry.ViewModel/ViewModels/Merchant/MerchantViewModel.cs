@@ -92,7 +92,22 @@ namespace ReceiptEntry.ViewModel
       ID = id;
       Name = name;
 
-      mOriginalColumns = columns;
+      var original = new List<ReceiptColumnReference>(columns ?? new ReceiptColumnReference[0]);
+      if (!allColumns.Items.Any(c => c.Type == ReceiptColumnType.HelpfulName))
+      {
+        var helpfulNameColumn = allColumns.CreateItem();
+        helpfulNameColumn.Type = ReceiptColumnType.HelpfulName;
+        helpfulNameColumn.Name = "HN";
+        allColumns.Items.Add(helpfulNameColumn);
+      }
+
+      if (!original.Any(o => allColumns.Fetch(f => f.ID == o.ColumnID).Type == ReceiptColumnType.HelpfulName))
+      {
+        var helpfulNameColumn = allColumns.Items.First(c => c.Type == ReceiptColumnType.HelpfulName);
+        original.Add(new ReceiptColumnReference { ColumnID = helpfulNameColumn.ID });
+      }
+
+      mOriginalColumns = original.ToArray();
 
       mAllColumns = allColumns;
       mAllColumns.Items.ListChanged += allColumns_ListChanged;

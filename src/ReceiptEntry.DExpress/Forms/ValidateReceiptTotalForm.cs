@@ -21,11 +21,14 @@ namespace ReceiptEntry.DExpress
       mValidate = validate;
       InitializeComponent();
 
-      bsColumns.DataSource = validate.Columns;
-      cboColumns.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.SelectedColumnID);
-      numExpected.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.ExpectedTotal);
+      layoutControl1.MaximumSize = new System.Drawing.Size(0, 1000);
+      layoutControl1.MinimumSize = new System.Drawing.Size(0, 10);
+
+      bsPriceColumns.DataSource = validate.PriceColumns;
+      cboPriceColumns.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.SelectedPriceColumn);
+      bsQuantityColumns.DataSource = validate.QuantityColumns;
+      cboQuantityColumns.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.SelectedQuantityColumn);
       numActual.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.ActualTotal);
-      CommandBinder.Bind(btnCalculate, validate.ValidateCommand);
     }
   }
 }

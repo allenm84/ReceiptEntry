@@ -29,55 +29,89 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
+      this.cboQuantityColumns = new DevExpress.XtraEditors.LookUpEdit();
+      this.bsQuantityColumns = new System.Windows.Forms.BindingSource(this.components);
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
-      this.btnCalculate = new DevExpress.XtraEditors.SimpleButton();
+      this.cboPriceColumns = new DevExpress.XtraEditors.LookUpEdit();
+      this.bsPriceColumns = new System.Windows.Forms.BindingSource(this.components);
       this.numActual = new DevExpress.XtraEditors.SpinEdit();
-      this.numExpected = new DevExpress.XtraEditors.SpinEdit();
-      this.cboColumns = new DevExpress.XtraEditors.LookUpEdit();
-      this.bsColumns = new System.Windows.Forms.BindingSource(this.components);
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlGroup2 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+      ((System.ComponentModel.ISupportInitialize)(this.cboQuantityColumns.Properties)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsQuantityColumns)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.cboPriceColumns.Properties)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsPriceColumns)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.numActual.Properties)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.numExpected.Properties)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cboColumns.Properties)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.bsColumns)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
       this.SuspendLayout();
       // 
+      // cboQuantityColumns
+      // 
+      this.cboQuantityColumns.Location = new System.Drawing.Point(12, 76);
+      this.cboQuantityColumns.Name = "cboQuantityColumns";
+      this.cboQuantityColumns.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboQuantityColumns.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 43, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.Ascending)});
+      this.cboQuantityColumns.Properties.DataSource = this.bsQuantityColumns;
+      this.cboQuantityColumns.Properties.DisplayMember = "Name";
+      this.cboQuantityColumns.Properties.NullText = "[Select a column]";
+      this.cboQuantityColumns.Properties.ShowFooter = false;
+      this.cboQuantityColumns.Properties.ShowHeader = false;
+      this.cboQuantityColumns.Properties.ShowLines = false;
+      this.cboQuantityColumns.Properties.ValueMember = "ID";
+      this.cboQuantityColumns.Size = new System.Drawing.Size(235, 22);
+      this.cboQuantityColumns.StyleController = this.layoutControl1;
+      this.cboQuantityColumns.TabIndex = 8;
+      // 
+      // bsQuantityColumns
+      // 
+      this.bsQuantityColumns.DataSource = typeof(ReceiptEntry.ViewModel.ReceiptColumnViewModel);
+      // 
       // layoutControl1
       // 
-      this.layoutControl1.Controls.Add(this.btnCalculate);
+      this.layoutControl1.AutoScroll = false;
+      this.layoutControl1.Controls.Add(this.cboPriceColumns);
       this.layoutControl1.Controls.Add(this.numActual);
-      this.layoutControl1.Controls.Add(this.numExpected);
-      this.layoutControl1.Controls.Add(this.cboColumns);
+      this.layoutControl1.Controls.Add(this.cboQuantityColumns);
       this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.layoutControl1.Location = new System.Drawing.Point(0, 0);
       this.layoutControl1.Name = "layoutControl1";
-      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(688, 163, 355, 350);
+      this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(616, 88, 250, 350);
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(331, 221);
-      this.layoutControl1.TabIndex = 0;
+      this.layoutControl1.Size = new System.Drawing.Size(259, 172);
+      this.layoutControl1.TabIndex = 9;
       this.layoutControl1.Text = "layoutControl1";
       // 
-      // btnCalculate
+      // cboPriceColumns
       // 
-      this.btnCalculate.Location = new System.Drawing.Point(127, 171);
-      this.btnCalculate.Name = "btnCalculate";
-      this.btnCalculate.Size = new System.Drawing.Size(76, 22);
-      this.btnCalculate.StyleController = this.layoutControl1;
-      this.btnCalculate.TabIndex = 7;
-      this.btnCalculate.Text = "Calculate";
+      this.cboPriceColumns.Location = new System.Drawing.Point(12, 31);
+      this.cboPriceColumns.Name = "cboPriceColumns";
+      this.cboPriceColumns.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboPriceColumns.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 43, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.Ascending)});
+      this.cboPriceColumns.Properties.DataSource = this.bsPriceColumns;
+      this.cboPriceColumns.Properties.DisplayMember = "Name";
+      this.cboPriceColumns.Properties.NullText = "[Select a column]";
+      this.cboPriceColumns.Properties.ShowFooter = false;
+      this.cboPriceColumns.Properties.ShowHeader = false;
+      this.cboPriceColumns.Properties.ShowLines = false;
+      this.cboPriceColumns.Properties.ValueMember = "ID";
+      this.cboPriceColumns.Size = new System.Drawing.Size(235, 22);
+      this.cboPriceColumns.StyleController = this.layoutControl1;
+      this.cboPriceColumns.TabIndex = 4;
+      // 
+      // bsPriceColumns
+      // 
+      this.bsPriceColumns.DataSource = typeof(ReceiptEntry.ViewModel.ReceiptColumnViewModel);
       // 
       // numActual
       // 
@@ -86,53 +120,14 @@
             0,
             0,
             0});
-      this.numActual.Location = new System.Drawing.Point(200, 117);
+      this.numActual.Location = new System.Drawing.Point(12, 121);
       this.numActual.Name = "numActual";
       this.numActual.Properties.DisplayFormat.FormatString = "c2";
       this.numActual.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
       this.numActual.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-      this.numActual.Size = new System.Drawing.Size(107, 22);
+      this.numActual.Size = new System.Drawing.Size(235, 22);
       this.numActual.StyleController = this.layoutControl1;
       this.numActual.TabIndex = 6;
-      // 
-      // numExpected
-      // 
-      this.numExpected.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-      this.numExpected.Location = new System.Drawing.Point(200, 91);
-      this.numExpected.Name = "numExpected";
-      this.numExpected.Properties.DisplayFormat.FormatString = "c2";
-      this.numExpected.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Custom;
-      this.numExpected.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-      this.numExpected.Size = new System.Drawing.Size(107, 22);
-      this.numExpected.StyleController = this.layoutControl1;
-      this.numExpected.TabIndex = 5;
-      // 
-      // cboColumns
-      // 
-      this.cboColumns.Location = new System.Drawing.Point(12, 31);
-      this.cboColumns.Name = "cboColumns";
-      this.cboColumns.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.cboColumns.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Name", "Name", 43, DevExpress.Utils.FormatType.None, "", true, DevExpress.Utils.HorzAlignment.Near, DevExpress.Data.ColumnSortOrder.Ascending)});
-      this.cboColumns.Properties.DataSource = this.bsColumns;
-      this.cboColumns.Properties.DisplayMember = "Name";
-      this.cboColumns.Properties.NullText = "[Select a column]";
-      this.cboColumns.Properties.ShowFooter = false;
-      this.cboColumns.Properties.ShowHeader = false;
-      this.cboColumns.Properties.ShowLines = false;
-      this.cboColumns.Properties.ValueMember = "ID";
-      this.cboColumns.Size = new System.Drawing.Size(307, 22);
-      this.cboColumns.StyleController = this.layoutControl1;
-      this.cboColumns.TabIndex = 4;
-      // 
-      // bsColumns
-      // 
-      this.bsColumns.DataSource = typeof(ReceiptEntry.ViewModel.ReceiptColumnViewModel);
       // 
       // layoutControlGroup1
       // 
@@ -140,87 +135,64 @@
       this.layoutControlGroup1.GroupBordersVisible = false;
       this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1,
-            this.layoutControlGroup2,
+            this.layoutControlItem2,
             this.layoutControlItem4});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "Root";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(331, 221);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(259, 172);
       this.layoutControlGroup1.TextVisible = false;
       // 
       // layoutControlItem1
       // 
-      this.layoutControlItem1.Control = this.cboColumns;
+      this.layoutControlItem1.Control = this.cboPriceColumns;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(311, 45);
-      this.layoutControlItem1.Text = "Select column to use as price:";
+      this.layoutControlItem1.Size = new System.Drawing.Size(239, 45);
+      this.layoutControlItem1.Text = "Price Column:";
       this.layoutControlItem1.TextLocation = DevExpress.Utils.Locations.Top;
-      this.layoutControlItem1.TextSize = new System.Drawing.Size(173, 16);
-      // 
-      // layoutControlGroup2
-      // 
-      this.layoutControlGroup2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem2,
-            this.layoutControlItem3});
-      this.layoutControlGroup2.Location = new System.Drawing.Point(0, 45);
-      this.layoutControlGroup2.Name = "layoutControlGroup2";
-      this.layoutControlGroup2.Size = new System.Drawing.Size(311, 98);
-      this.layoutControlGroup2.Text = "Totals";
+      this.layoutControlItem1.TextSize = new System.Drawing.Size(99, 16);
       // 
       // layoutControlItem2
       // 
-      this.layoutControlItem2.Control = this.numExpected;
-      this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+      this.layoutControlItem2.Control = this.cboQuantityColumns;
+      this.layoutControlItem2.Location = new System.Drawing.Point(0, 45);
       this.layoutControlItem2.Name = "layoutControlItem2";
-      this.layoutControlItem2.Size = new System.Drawing.Size(287, 26);
-      this.layoutControlItem2.Text = "Expected:";
-      this.layoutControlItem2.TextSize = new System.Drawing.Size(173, 16);
-      // 
-      // layoutControlItem3
-      // 
-      this.layoutControlItem3.Control = this.numActual;
-      this.layoutControlItem3.Location = new System.Drawing.Point(0, 26);
-      this.layoutControlItem3.Name = "layoutControlItem3";
-      this.layoutControlItem3.Size = new System.Drawing.Size(287, 26);
-      this.layoutControlItem3.Text = "Actual:";
-      this.layoutControlItem3.TextSize = new System.Drawing.Size(173, 16);
+      this.layoutControlItem2.Size = new System.Drawing.Size(239, 45);
+      this.layoutControlItem2.Text = "Quantity Column:";
+      this.layoutControlItem2.TextLocation = DevExpress.Utils.Locations.Top;
+      this.layoutControlItem2.TextSize = new System.Drawing.Size(99, 16);
       // 
       // layoutControlItem4
       // 
-      this.layoutControlItem4.Control = this.btnCalculate;
-      this.layoutControlItem4.ControlAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-      this.layoutControlItem4.Location = new System.Drawing.Point(0, 143);
-      this.layoutControlItem4.MaxSize = new System.Drawing.Size(80, 26);
-      this.layoutControlItem4.MinSize = new System.Drawing.Size(80, 26);
+      this.layoutControlItem4.Control = this.numActual;
+      this.layoutControlItem4.Location = new System.Drawing.Point(0, 90);
       this.layoutControlItem4.Name = "layoutControlItem4";
-      this.layoutControlItem4.Size = new System.Drawing.Size(311, 58);
-      this.layoutControlItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-      this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-      this.layoutControlItem4.TextVisible = false;
-      this.layoutControlItem4.TrimClientAreaToControl = false;
+      this.layoutControlItem4.Size = new System.Drawing.Size(239, 62);
+      this.layoutControlItem4.Text = "Calculated Total:";
+      this.layoutControlItem4.TextLocation = DevExpress.Utils.Locations.Top;
+      this.layoutControlItem4.TextSize = new System.Drawing.Size(99, 16);
       // 
       // ValidateReceiptTotalForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(331, 221);
+      this.ClientSize = new System.Drawing.Size(259, 172);
       this.Controls.Add(this.layoutControl1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "ValidateReceiptTotalForm";
       this.Text = "Validate Total";
+      ((System.ComponentModel.ISupportInitialize)(this.cboQuantityColumns.Properties)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsQuantityColumns)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.cboPriceColumns.Properties)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.bsPriceColumns)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.numActual.Properties)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.numExpected.Properties)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cboColumns.Properties)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.bsColumns)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup2)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
       this.ResumeLayout(false);
 
@@ -228,18 +200,16 @@
 
     #endregion
 
+    private DevExpress.XtraEditors.LookUpEdit cboPriceColumns;
+    private DevExpress.XtraEditors.SpinEdit numActual;
+    private System.Windows.Forms.BindingSource bsPriceColumns;
+    private DevExpress.XtraEditors.LookUpEdit cboQuantityColumns;
+    private System.Windows.Forms.BindingSource bsQuantityColumns;
     private DevExpress.XtraLayout.LayoutControl layoutControl1;
     private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
-    private DevExpress.XtraEditors.LookUpEdit cboColumns;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-    private DevExpress.XtraEditors.SpinEdit numActual;
-    private DevExpress.XtraEditors.SpinEdit numExpected;
-    private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup2;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
-    private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
-    private DevExpress.XtraEditors.SimpleButton btnCalculate;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-    private System.Windows.Forms.BindingSource bsColumns;
 
   }
 }
