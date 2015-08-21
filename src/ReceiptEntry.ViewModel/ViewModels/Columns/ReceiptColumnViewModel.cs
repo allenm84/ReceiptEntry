@@ -9,6 +9,8 @@ namespace ReceiptEntry.ViewModel
 {
   public class ReceiptColumnViewModel : BaseViewModel
   {
+    private readonly ReceiptColumnListViewModel mParent;
+
     public string ID
     {
       get { return GetField<string>(); }
@@ -18,7 +20,28 @@ namespace ReceiptEntry.ViewModel
     public string Name
     {
       get { return GetField<string>(); }
-      set { SetField(value); }
+      set
+      {
+        SetField(value);
+
+        var name = this.Name;
+        if (string.IsNullOrWhiteSpace(name))
+        {
+          SetError("Please enter a valid name for this column.");
+        }
+        else
+        {
+          var matches = mParent.Items
+            .Where(i => i != this)
+            .GroupBy(i => i.Name)
+            .Where(g => g.Key == name)
+            .Sum(g => g.Count());
+
+          SetError(matches > 0
+            ? string.Format("There is already a column with the name of {0}.", name)
+            : "");
+        }
+      }
     }
 
     public ReceiptColumnType Type
@@ -27,14 +50,16 @@ namespace ReceiptEntry.ViewModel
       set { SetField(value); }
     }
 
-    internal ReceiptColumnViewModel(ReceiptColumn column)
-      : this(column.ID, column.Name, column.Type)
+    internal ReceiptColumnViewModel(ReceiptColumnListViewModel parent, ReceiptColumn column)
+      : this(parent, column.ID, column.Name, column.Type)
     {
 
     }
 
-    internal ReceiptColumnViewModel(string id, string name, ReceiptColumnType type)
+    internal ReceiptColumnViewModel(ReceiptColumnListViewModel parent, string id, string name, ReceiptColumnType type)
     {
+      mParent = parent;
+
       ID = id;
       Name = name;
       Type = type;
@@ -49,6 +74,11 @@ namespace ReceiptEntry.ViewModel
         Name = Name,
         Type = Type,
       };
+    }
+
+    protected override bool InternalCanDoAccept(object parameter)
+    {
+      return !string.IsNullOrWhiteSpace(Name);
     }
   }
 }

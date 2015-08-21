@@ -92,7 +92,6 @@ namespace ReceiptEntry.ViewModel
       ID = id;
       Name = name;
 
-      var original = new List<ReceiptColumnReference>(columns ?? new ReceiptColumnReference[0]);
       if (!allColumns.Items.Any(c => c.Type == ReceiptColumnType.HelpfulName))
       {
         var helpfulNameColumn = allColumns.CreateItem();
@@ -101,13 +100,7 @@ namespace ReceiptEntry.ViewModel
         allColumns.Items.Add(helpfulNameColumn);
       }
 
-      if (!original.Any(o => allColumns.Fetch(f => f.ID == o.ColumnID).Type == ReceiptColumnType.HelpfulName))
-      {
-        var helpfulNameColumn = allColumns.Items.First(c => c.Type == ReceiptColumnType.HelpfulName);
-        original.Add(new ReceiptColumnReference { ColumnID = helpfulNameColumn.ID });
-      }
-
-      mOriginalColumns = original.ToArray();
+      mOriginalColumns = (columns ?? new ReceiptColumnReference[0]);
 
       mAllColumns = allColumns;
       mAllColumns.Items.ListChanged += allColumns_ListChanged;
@@ -142,7 +135,7 @@ namespace ReceiptEntry.ViewModel
       mCurrentColumns.Add(column);
     }
 
-    protected override bool CanDoAccept(object parameter)
+    protected override bool InternalCanDoAccept(object parameter)
     {
       return !string.IsNullOrWhiteSpace(Name) && mCurrentColumns.Count > 0;
     }

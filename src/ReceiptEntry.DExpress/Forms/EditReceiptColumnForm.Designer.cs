@@ -28,25 +28,28 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
+      this.lblExample = new DevExpress.XtraEditors.LabelControl();
+      this.cboType = new DevExpress.XtraEditors.LookUpEdit();
       this.okCancelButtons1 = new ReceiptEntry.DExpress.OKCancelButtons();
       this.txtName = new DevExpress.XtraEditors.TextEdit();
       this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
       this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
       this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.cboType = new DevExpress.XtraEditors.LookUpEdit();
       this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-      this.lblExample = new DevExpress.XtraEditors.LabelControl();
       this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+      this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
       this.layoutControl1.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.cboType.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cboType.Properties)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
       this.SuspendLayout();
       // 
       // layoutControl1
@@ -64,6 +67,26 @@
       this.layoutControl1.Size = new System.Drawing.Size(284, 151);
       this.layoutControl1.TabIndex = 1;
       this.layoutControl1.Text = "layoutControl1";
+      // 
+      // lblExample
+      // 
+      this.lblExample.AllowHtmlString = true;
+      this.lblExample.Location = new System.Drawing.Point(111, 92);
+      this.lblExample.Name = "lblExample";
+      this.lblExample.Size = new System.Drawing.Size(61, 13);
+      this.lblExample.StyleController = this.layoutControl1;
+      this.lblExample.TabIndex = 10;
+      this.lblExample.Text = "<b>Test</b> or <b>Yes</b>";
+      // 
+      // cboType
+      // 
+      this.cboType.Location = new System.Drawing.Point(12, 68);
+      this.cboType.Name = "cboType";
+      this.cboType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+      this.cboType.Size = new System.Drawing.Size(260, 20);
+      this.cboType.StyleController = this.layoutControl1;
+      this.cboType.TabIndex = 9;
       // 
       // okCancelButtons1
       // 
@@ -117,16 +140,6 @@
       this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem2.TextVisible = false;
       // 
-      // cboType
-      // 
-      this.cboType.Location = new System.Drawing.Point(12, 68);
-      this.cboType.Name = "cboType";
-      this.cboType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-      this.cboType.Size = new System.Drawing.Size(260, 20);
-      this.cboType.StyleController = this.layoutControl1;
-      this.cboType.TabIndex = 9;
-      // 
       // layoutControlItem3
       // 
       this.layoutControlItem3.Control = this.cboType;
@@ -137,16 +150,6 @@
       this.layoutControlItem3.TextLocation = DevExpress.Utils.Locations.Top;
       this.layoutControlItem3.TextSize = new System.Drawing.Size(31, 13);
       // 
-      // lblExample
-      // 
-      this.lblExample.AllowHtmlString = true;
-      this.lblExample.Location = new System.Drawing.Point(111, 92);
-      this.lblExample.Name = "lblExample";
-      this.lblExample.Size = new System.Drawing.Size(61, 13);
-      this.lblExample.StyleController = this.layoutControl1;
-      this.lblExample.TabIndex = 10;
-      this.lblExample.Text = "<b>Test</b> or <b>Yes</b>";
-      // 
       // layoutControlItem4
       // 
       this.layoutControlItem4.Control = this.lblExample;
@@ -156,6 +159,10 @@
       this.layoutControlItem4.Size = new System.Drawing.Size(264, 17);
       this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem4.TextVisible = false;
+      // 
+      // errorProvider
+      // 
+      this.errorProvider.ContainerControl = this;
       // 
       // EditReceiptColumnForm
       // 
@@ -172,13 +179,14 @@
       this.Text = "EditReceiptColumnForm";
       ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
       this.layoutControl1.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.cboType.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.cboType.Properties)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+      ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -195,5 +203,6 @@
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem3;
     private DevExpress.XtraEditors.LabelControl lblExample;
     private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+    private System.Windows.Forms.ErrorProvider errorProvider;
   }
 }

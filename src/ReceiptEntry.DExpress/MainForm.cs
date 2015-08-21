@@ -28,7 +28,6 @@ namespace ReceiptEntry.DExpress
       gridViewReceipts.SetPropertiesToList(false, false);
 
       service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
-      //service = new TestFileService();
 
       viewModel = new SaveFileViewModel(service);
       bsMerchants.DataSource = viewModel.Merchants.Items;
@@ -36,6 +35,13 @@ namespace ReceiptEntry.DExpress
 
       gridViewFeatures = new GridViewFeatures(gridViewReceipts);
       gridViewFeatures.AddAlignGroupSummariesToColumns();
+
+      Yielder.Call(UpdateClearFilerButton);
+    }
+
+    private void UpdateClearFilerButton()
+    {
+      tbbClearMerchants.Enabled = !string.IsNullOrWhiteSpace(tbbMerchantFilter.EditValue as string);
     }
 
     private void DoEditColumnList()
@@ -161,6 +167,7 @@ namespace ReceiptEntry.DExpress
     private void cboMerchantFilter_EditValueChanged(object sender, EventArgs e)
     {
       gridViewReceipts.RefreshData();
+      UpdateClearFilerButton();
     }
 
     private void tbbClearMerchants_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

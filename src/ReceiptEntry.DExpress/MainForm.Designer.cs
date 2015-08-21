@@ -78,14 +78,13 @@
       // gridReceipts
       // 
       this.gridReceipts.DataSource = this.bsReceipts;
-      this.gridReceipts.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.gridReceipts.Location = new System.Drawing.Point(12, 12);
       this.gridReceipts.MainView = this.gridViewReceipts;
       this.gridReceipts.MenuManager = this.barManager1;
       this.gridReceipts.Name = "gridReceipts";
       this.gridReceipts.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.cboMerchants});
-      this.gridReceipts.Size = new System.Drawing.Size(542, 466);
+      this.gridReceipts.Size = new System.Drawing.Size(461, 369);
       this.gridReceipts.TabIndex = 4;
       this.gridReceipts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridViewReceipts});
@@ -337,7 +336,7 @@
       // 
       // tbbClearMerchants
       // 
-      this.tbbClearMerchants.Caption = "Clear";
+      this.tbbClearMerchants.Caption = "Show all Merchants";
       this.tbbClearMerchants.Glyph = ((System.Drawing.Image)(resources.GetObject("tbbClearMerchants.Glyph")));
       this.tbbClearMerchants.Id = 12;
       this.tbbClearMerchants.LargeGlyph = ((System.Drawing.Image)(resources.GetObject("tbbClearMerchants.LargeGlyph")));
@@ -349,42 +348,37 @@
       this.barDockControlTop.CausesValidation = false;
       this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
       this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
-      this.barDockControlTop.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.barDockControlTop.Size = new System.Drawing.Size(566, 70);
+      this.barDockControlTop.Size = new System.Drawing.Size(485, 62);
       // 
       // barDockControlBottom
       // 
       this.barDockControlBottom.CausesValidation = false;
       this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.barDockControlBottom.Location = new System.Drawing.Point(0, 560);
-      this.barDockControlBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.barDockControlBottom.Size = new System.Drawing.Size(566, 0);
+      this.barDockControlBottom.Location = new System.Drawing.Point(0, 455);
+      this.barDockControlBottom.Size = new System.Drawing.Size(485, 0);
       // 
       // barDockControlLeft
       // 
       this.barDockControlLeft.CausesValidation = false;
       this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-      this.barDockControlLeft.Location = new System.Drawing.Point(0, 70);
-      this.barDockControlLeft.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.barDockControlLeft.Size = new System.Drawing.Size(0, 490);
+      this.barDockControlLeft.Location = new System.Drawing.Point(0, 62);
+      this.barDockControlLeft.Size = new System.Drawing.Size(0, 393);
       // 
       // barDockControlRight
       // 
       this.barDockControlRight.CausesValidation = false;
       this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-      this.barDockControlRight.Location = new System.Drawing.Point(566, 70);
-      this.barDockControlRight.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-      this.barDockControlRight.Size = new System.Drawing.Size(0, 490);
+      this.barDockControlRight.Location = new System.Drawing.Point(485, 62);
+      this.barDockControlRight.Size = new System.Drawing.Size(0, 393);
       // 
       // layoutControl1
       // 
       this.layoutControl1.Controls.Add(this.gridReceipts);
       this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.layoutControl1.Location = new System.Drawing.Point(0, 70);
-      this.layoutControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+      this.layoutControl1.Location = new System.Drawing.Point(0, 62);
       this.layoutControl1.Name = "layoutControl1";
       this.layoutControl1.Root = this.layoutControlGroup1;
-      this.layoutControl1.Size = new System.Drawing.Size(566, 490);
+      this.layoutControl1.Size = new System.Drawing.Size(485, 393);
       this.layoutControl1.TabIndex = 4;
       this.layoutControl1.Text = "layoutControl1";
       // 
@@ -396,7 +390,7 @@
             this.layoutControlItem1});
       this.layoutControlGroup1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlGroup1.Name = "layoutControlGroup1";
-      this.layoutControlGroup1.Size = new System.Drawing.Size(566, 490);
+      this.layoutControlGroup1.Size = new System.Drawing.Size(485, 393);
       this.layoutControlGroup1.TextVisible = false;
       // 
       // layoutControlItem1
@@ -404,21 +398,21 @@
       this.layoutControlItem1.Control = this.gridReceipts;
       this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
       this.layoutControlItem1.Name = "layoutControlItem1";
-      this.layoutControlItem1.Size = new System.Drawing.Size(546, 470);
+      this.layoutControlItem1.Size = new System.Drawing.Size(465, 373);
       this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
       this.layoutControlItem1.TextVisible = false;
       // 
       // MainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(566, 560);
+      this.ClientSize = new System.Drawing.Size(485, 455);
       this.Controls.Add(this.layoutControl1);
       this.Controls.Add(this.barDockControlLeft);
       this.Controls.Add(this.barDockControlRight);
       this.Controls.Add(this.barDockControlBottom);
       this.Controls.Add(this.barDockControlTop);
-      this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+      this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
       this.Name = "MainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "ReceiptEntry";

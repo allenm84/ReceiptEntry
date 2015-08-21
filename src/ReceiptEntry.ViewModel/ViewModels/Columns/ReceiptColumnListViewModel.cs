@@ -15,7 +15,7 @@ namespace ReceiptEntry.ViewModel
     {
       foreach (var column in columns)
       {
-        mItems.Add(new ReceiptColumnViewModel(column));
+        mItems.Add(new ReceiptColumnViewModel(this, column));
       }
 
       Accept();
@@ -23,7 +23,7 @@ namespace ReceiptEntry.ViewModel
 
     public override ReceiptColumnViewModel CreateItem()
     {
-      return new ReceiptColumnViewModel(ID.Next, "<New Column>", ReceiptColumnType.Text);
+      return new ReceiptColumnViewModel(this, ID.Next, "<New Column>", ReceiptColumnType.Text);
     }
   }
 }

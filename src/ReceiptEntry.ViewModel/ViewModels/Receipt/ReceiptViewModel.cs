@@ -127,7 +127,7 @@ namespace ReceiptEntry.ViewModel
       Accept();
     }
 
-    protected override bool CanDoAccept(object parameter)
+    protected override bool InternalCanDoAccept(object parameter)
     {
       return !string.IsNullOrWhiteSpace(MerchantID);
     }

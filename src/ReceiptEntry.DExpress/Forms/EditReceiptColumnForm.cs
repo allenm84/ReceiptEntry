@@ -24,12 +24,14 @@ namespace ReceiptEntry.DExpress
       InitializeComponent();
 
       txtName.BindText(column, ((ReceiptColumnViewModel v) => v.Name));
+      errorProvider.BindToDataAndErrors(mColumn, null);
 
       cboType.FillWithEnum<ReceiptColumnType>();
       cboType.BindValue(column, (ReceiptColumnViewModel v) => v.Type);
       cboType.EditValueChanged += cboType_EditValueChanged;
       cboType.PreviewKeyDown += cboType_PreviewKeyDown;
       mTypeCount = ((System.Collections.IList)cboType.Properties.DataSource).Count;
+      CommandBinder.Bind(okCancelButtons1, column);
 
       Yielder.Call(UpdateExampleText);
     }
