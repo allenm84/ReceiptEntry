@@ -1,0 +1,300 @@
+<ShoppingList xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <Items>
+    <ShoppingListItem>
+      <ID>dd05ff74-9d95-4ba1-99ac-7bb90c60b48c</ID>
+      <Name>Gas</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>81188830-fc9b-43d2-8fc1-e8a8a20ad102</ID>
+      <Name>Happy Meal</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>1c28c0ce-8585-46b9-939c-caa56ec72d85</ID>
+      <Name>Trash Bags</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>135c723b-829a-4090-bfc4-0d119c05da4a</ID>
+      <Name>Paper Towels</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>a12febfc-a3fb-4bc9-a5fe-a43bdc53bb80</ID>
+      <Name>Easy Ups</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>1064574d-8c27-46a5-8be2-9190140879c8</ID>
+      <Name>BBQ Chips</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>580a385d-d1a9-4c15-a3bf-b294aae4ed0d</ID>
+      <Name>Tortilla Chips</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>ed23cbf8-cdbb-413b-a495-7e4097084aaa</ID>
+      <Name>Pretzels</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>56d9985f-d47d-4606-98b1-8c7bc00902ba</ID>
+      <Name>2% Milk</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>f8b03015-69b1-43d1-9d6a-cdba471feffa</ID>
+      <Name>1% Milk</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>1e209aef-d69c-4222-99d4-856d2da1cdd0</ID>
+      <Name>Turkey</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>9afa577e-77a8-4ef5-9891-b6a34f5d2216</ID>
+      <Name>Ham</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>f91b699b-2c2a-42d1-a68c-86dc081a50c5</ID>
+      <Name>Mozarella Cheese</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>cf6c52fc-4cb4-43e4-9cbc-5b8a1246bbf4</ID>
+      <Name>Mountain Dew</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>08d46c39-5756-45a6-9f5b-489de51948c6</ID>
+      <Name>Diet Coke</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2f7c4057-4f0c-46c4-b5db-d182a3d5da06</ID>
+      <Name>Mozarella Cheese Block</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>b5dd2626-ce03-4f18-8cce-a6345a3d510e</ID>
+      <Name>Spaghetti Noodles</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>70d013b5-6085-4b87-a9ec-18835975ea92</ID>
+      <Name>Croutons</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>3be2fc33-3d55-4d4b-bdb0-7c20958c3c97</ID>
+      <Name>Monterey &amp; Colby Cheese</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>040274d1-5ec2-45c7-a1f7-5922e025fe08</ID>
+      <Name>Pecan Chocolates</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>4c1af658-f32d-40f8-b962-1877625e8b59</ID>
+      <Name>Eggs</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>3d6f8dac-ac8a-41db-9d66-82f8d4fe7d30</ID>
+      <Name>Granola Bars</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>7b5445df-ae3f-432c-a837-70e3f9cfb2fc</ID>
+      <Name>Yogurt</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>9af835c0-2d81-4947-8b26-97c36f834c61</ID>
+      <Name>Rotini Noodles</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>525aacf1-9403-4c3d-b247-ec9d539143dc</ID>
+      <Name>Cream Cheese</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>bb53d8a7-c24a-41c0-a33b-1bb6ffa0a6f1</ID>
+      <Name>Chocolate</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>55224d3e-c3d7-4d18-8005-aa26b7fbac2e</ID>
+      <Name>Sour Cream</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>929b698f-42a1-4657-888f-7b11397a0cc5</ID>
+      <Name>Ground Turkey</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>9e567bf7-b5db-409a-be50-37b3d3a8144b</ID>
+      <Name>Bagels</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>e2fc669e-f0d1-44f2-ba3c-130ebd0a6ba8</ID>
+      <Name>English Muffins</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>d7de04fb-f541-4602-9664-27b42aadc043</ID>
+      <Name>Hamburger Buns</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>4c124050-e2e1-4ca4-8cea-65fbc7e3ae2f</ID>
+      <Name>Burger Patties</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2c904605-e409-47f4-93e7-90ec5f35af68</ID>
+      <Name>Corn</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c188be9d-6c66-4907-b255-afed8b50a54f</ID>
+      <Name>Brocolli</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>a37ab059-a8fa-460e-9860-57cc4583bdd4</ID>
+      <Name>Chicken Breasts</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>7547005e-6704-43c6-9ee0-6d28a8630eb9</ID>
+      <Name>Raw Brocolli</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>81278829-3bcd-4b60-9cf3-60ffa99566d7</ID>
+      <Name>Cream of Chicken</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>35a0d890-3981-4ca3-ad6a-c0cc867fb2d6</ID>
+      <Name>Chip Dip</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2b9ef812-2e2f-47b7-b8f0-e965c912f900</ID>
+      <Name>All Purpose Flour</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2c0175ff-1063-4aa4-9090-7dcafe48d31c</ID>
+      <Name>Parmesan Cheese</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c3898142-54c3-4885-869b-80cf5871b734</ID>
+      <Name>Caesar Dressing</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c30c66b3-5d18-4346-9313-e65a44902b62</ID>
+      <Name>Pickles</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>7b9a4502-7a7f-4c78-8563-5a0177c972d6</ID>
+      <Name>Bagged Lettuce</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>0fe3e229-3ec1-4a1a-ad29-62837d45fd00</ID>
+      <Name>Spinach</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>0c2c3244-723a-41e0-97f4-a049538582ff</ID>
+      <Name>Pasta Sauce</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>78ebb1dc-d5ea-47e6-ac4e-02e6b698dccd</ID>
+      <Name>Large Double Cheese Burger Meal</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2f2371c1-c576-471f-ab0a-8d13150227d2</ID>
+      <Name>Toilet Paper</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>2b67bebc-5725-4ed9-975d-abc73608d0f0</ID>
+      <Name>Icecream</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>e77949ac-ea1b-4894-a452-074c0c4b4b86</ID>
+      <Name>Cheeseburger</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c6801c07-792c-4281-9fae-b1ed9ba6a637</ID>
+      <Name>Extra Patty</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>ebc7bb0e-ff20-4967-980a-0ed345e3d9fd</ID>
+      <Name>Pizza</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>da877645-f2cd-42a9-9658-4ce6b953cb94</ID>
+      <Name>Large Quarter Pounder Meal</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>f981dab5-d625-4f4e-bbf1-5d83bf5aeb4d</ID>
+      <Name>Large 2 Cheeseburger Meal</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>ebdaad91-9356-4460-b1ca-95bf2acafd1d</ID>
+      <Name>Wiper Blades</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c2e4d8e1-4f49-444c-a764-6029f30ec095</ID>
+      <Name>Air Filter</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>a41efe93-ad1d-467f-beb8-3e489b993ff6</ID>
+      <Name>Turkey Ranch &amp; Bacon Sandwich</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>6ec8df26-f8d0-4e83-88f4-294a2c4b346c</ID>
+      <Name>Large Curly Fry</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>020d0225-05c5-41f3-a28e-d247a48e003e</ID>
+      <Name>Large Mountain Dew</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>d2d48e6c-a514-41ec-a4ce-bbdb9f9cd03e</ID>
+      <Name>Ranch Dressing</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>cedbc825-65d4-4165-9966-a59d992245e0</ID>
+      <Name>Apples</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>356a96e9-0102-4abb-8ade-88820556d5cc</ID>
+      <Name>Candy</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>be8ccbb6-8fee-4953-a8e7-dfa213dba5b5</ID>
+      <Name>Extention Cords</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>a48c1ff9-3d13-4f2f-9496-e0ef5bcd22ba</ID>
+      <Name>Floss</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>1140db79-1520-4316-98f6-934935a8dc1e</ID>
+      <Name>Dishwasher Soap</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>10b7b16d-0040-4248-8162-ac7186fa2c32</ID>
+      <Name>Peanut Butter</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>6f6817d3-95fc-457c-96b1-3342aca78fb2</ID>
+      <Name>Bread</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>65c56bc6-f3a0-4414-9d63-0f6d09cee0e3</ID>
+      <Name>Pears</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>d4d725d0-8a19-4bb9-beb9-2d54390b28e0</ID>
+      <Name>Garlic Powder</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>08f60cc9-65f2-4a2e-b85a-01e25d76f1ec</ID>
+      <Name>Floss Picks</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>c1382de2-4789-44b6-a86e-71ecf9ee2d51</ID>
+      <Name>Zip Lock Bags</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>cd411d50-39af-4f3d-881e-f62c6df5d4b7</ID>
+      <Name>Water Filter</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>258ce297-3507-4534-9ceb-98085115708d</ID>
+      <Name>Olives</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>9aeaa765-8c02-4648-a05c-a72a706b5078</ID>
+      <Name>Cranberry-Grape Juice</Name>
+    </ShoppingListItem>
+    <ShoppingListItem>
+      <ID>1d20ffdc-b757-4e47-b032-1c0123ef8eaf</ID>
+      <Name>Innovasian Box</Name>
+    </ShoppingListItem>
+  </Items>
+</ShoppingList>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ReceiptEntry.ViewModel;
+using DevExpress.Data;
 
 namespace ReceiptEntry.DExpress
 {
@@ -28,7 +29,7 @@ namespace ReceiptEntry.DExpress
     {
       lstNames.AutoGenerateColumns = false;
       lstNames.Mode = GridListControlViewMode.List;
-      lstNames.AddColumn((HelpfulNameViewModel v) => v.Name);
+      lstNames.AddColumn((HelpfulNameViewModel v) => v.Name).SortOrder = ColumnSortOrder.Ascending;
       lstNames.Editor = this;
       lstNames.DataSource = mNames.Items;
     }

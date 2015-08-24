@@ -27,7 +27,7 @@ namespace ReceiptEntry.DExpress
       InitializeComponent();
       gridViewReceipts.SetPropertiesToList(false, false);
 
-      service = new DataContractSaveFileService(Path.Combine(Application.StartupPath, "saved.xml"));
+      service = new XmlImportService(Path.Combine(Application.StartupPath, "saved.xml"));
 
       viewModel = new SaveFileViewModel(service);
       bsMerchants.DataSource = viewModel.Merchants.Items;

@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -217,6 +217,10 @@
     <ProjectReference Include="..\ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractSerializerService.csproj">
       <Project>{738b9abc-be74-4c05-8c1d-b5d0d4202b27}</Project>
       <Name>ReceiptEntry.DataContractSerializerService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiptEntry.ImportService\ReceiptEntry.ImportService.csproj">
+      <Project>{179eb149-ba7f-43dc-8db5-5acc38226b21}</Project>
+      <Name>ReceiptEntry.ImportService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiptEntry.TestService\ReceiptEntry.TestService.csproj">
       <Project>{c3bb7c00-4fc3-4355-8fa4-d10e547e1722}</Project>
