@@ -19,6 +19,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
+using ReceiptEntry.Tools;
 using ReceiptEntry.ViewModel;
 
 namespace ReceiptEntry.DExpress
@@ -27,42 +28,42 @@ namespace ReceiptEntry.DExpress
   {
     public static Binding BindEnabled<TSource>(this Control control, TSource value, Expression<Func<TSource, bool>> propertyLambda)
     {
-      return control.DataBindings.Add("Enabled", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+      return control.DataBindings.Add("Enabled", value, propertyLambda.NameOf(), false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     public static Binding BindChecked<TSource>(this CheckEdit checkEdit, TSource value, Expression<Func<TSource, bool>> propertyLambda)
     {
-      return checkEdit.DataBindings.Add("Checked", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+      return checkEdit.DataBindings.Add("Checked", value, propertyLambda.NameOf(), false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     public static Binding BindDate<TSource>(this DateEdit dateEdit, TSource value, Expression<Func<TSource, DateTime>> propertyLambda)
     {
-      return dateEdit.DataBindings.Add("DateTime", value, propertyLambda.of());
+      return dateEdit.DataBindings.Add("DateTime", value, propertyLambda.NameOf());
     }
 
     public static Binding BindValue<TSource, TValue>(this SearchLookUpEdit lookUp, TSource value, Expression<Func<TSource, TValue>> propertyLambda)
     {
-      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.NameOf(), false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     public static Binding BindValue<TSource, TValue>(this LookUpEdit lookUp, TSource value, Expression<Func<TSource, TValue>> propertyLambda)
     {
-      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+      return lookUp.DataBindings.Add("EditValue", value, propertyLambda.NameOf(), false, DataSourceUpdateMode.OnPropertyChanged);
     }
 
     public static Binding BindValue<TSource>(this SpinEdit spin, TSource value, Expression<Func<TSource, decimal>> propertyLambda)
     {
-      return spin.DataBindings.Add("Value", value, propertyLambda.of());
+      return spin.DataBindings.Add("Value", value, propertyLambda.NameOf());
     }
 
     public static Binding BindText<TSource>(this TextEdit text, TSource value, Expression<Func<TSource, string>> propertyLambda)
     {
-      return text.DataBindings.Add("Text", value, propertyLambda.of());
+      return text.DataBindings.Add("Text", value, propertyLambda.NameOf());
     }
 
     public static GridColumn AddVisible<TSource, TType>(this GridColumnCollection columns, Expression<Func<TSource, TType>> propertyLambda)
     {
-      return columns.AddVisible(propertyLambda.of());
+      return columns.AddVisible(propertyLambda.NameOf());
     }
 
     public static void ImmediateUpdate(this GridView view)

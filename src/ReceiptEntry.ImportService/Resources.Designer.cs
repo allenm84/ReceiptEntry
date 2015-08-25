@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ReceiptEntry.ImportService {
+namespace ReceiptEntry.Services {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ReceiptEntry.ImportService {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ReceiptEntry.ImportService.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ReceiptEntry.Services.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -85,7 +85,22 @@ namespace ReceiptEntry.ImportService {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;ShoppingList xmlns=&quot;http://www.mapa.com/apps/shoppingList/data&quot; xmlns:i=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;&lt;Items&gt;&lt;ShoppingListItem&gt;&lt;ID&gt;dd05ff74-9d95-4ba1-99ac-7bb90c60b48c&lt;/ID&gt;&lt;Name&gt;Gas&lt;/Name&gt;&lt;/ShoppingListItem&gt;&lt;ShoppingListItem&gt;&lt;ID&gt;81188830-fc9b-43d2-8fc1-e8a8a20ad102&lt;/ID&gt;&lt;Name&gt;Happy Meal&lt;/Name&gt;&lt;/ShoppingListItem&gt;&lt;ShoppingListItem&gt;&lt;ID&gt;1c28c0ce-8585-46b9-939c-caa56ec72d85&lt;/ID&gt;&lt;Name&gt;Trash Bags&lt;/Name&gt;&lt;/ShoppingListItem&gt;&lt;ShoppingListItem&gt;&lt;ID&gt;135c723b-829a-4090-bfc4-0d119c05da4a&lt;/ID&gt;&lt;Name&gt;Paper Towel [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to &lt;ShoppingList xmlns:i=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+        ///  &lt;Items&gt;
+        ///    &lt;ShoppingListItem&gt;
+        ///      &lt;ID&gt;dd05ff74-9d95-4ba1-99ac-7bb90c60b48c&lt;/ID&gt;
+        ///      &lt;Name&gt;Gas&lt;/Name&gt;
+        ///    &lt;/ShoppingListItem&gt;
+        ///    &lt;ShoppingListItem&gt;
+        ///      &lt;ID&gt;81188830-fc9b-43d2-8fc1-e8a8a20ad102&lt;/ID&gt;
+        ///      &lt;Name&gt;Happy Meal&lt;/Name&gt;
+        ///    &lt;/ShoppingListItem&gt;
+        ///    &lt;ShoppingListItem&gt;
+        ///      &lt;ID&gt;1c28c0ce-8585-46b9-939c-caa56ec72d85&lt;/ID&gt;
+        ///      &lt;Name&gt;Trash Bags&lt;/Name&gt;
+        ///    &lt;/ShoppingListItem&gt;
+        ///    &lt;ShoppingListItem&gt;
+        ///      &lt;ID&gt;135c723 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string shoppingItems {
             get {

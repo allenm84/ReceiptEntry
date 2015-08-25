@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReceiptEntry.ViewModel
+namespace ReceiptEntry.Tools
 {
-  public static class name
+  public static class Expressions
   {
-    public static string of<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
+    public static string NameOf<TSource, TType>(this Expression<Func<TSource, TType>> propertyLambda)
     {
       return info(propertyLambda).Name;
     }

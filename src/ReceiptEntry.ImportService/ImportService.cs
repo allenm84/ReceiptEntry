@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using ReceiptEntry.ImportService;
 using ReceiptEntry.Model;
+using ReceiptEntry.Tools;
 
 namespace ReceiptEntry.Services
 {
-  public class XmlImportService : ISaveFileService
+  public class ImportService : ISaveFileService
   {
     private static string ID { get { return Guid.NewGuid().ToString(); } }
 
@@ -36,7 +37,7 @@ namespace ReceiptEntry.Services
 
     private readonly DataContractFile<SaveFile> dcf;
 
-    public XmlImportService(string filepath)
+    public ImportService(string filepath)
     {
       dcf = new DataContractFile<SaveFile>(filepath);
     }

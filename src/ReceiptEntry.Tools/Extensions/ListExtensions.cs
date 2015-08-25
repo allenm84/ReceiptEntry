@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReceiptEntry.ViewModel
+namespace ReceiptEntry.Tools
 {
-  internal static class ListExtensions
+  public static class ListExtensions
   {
     public static int FirstIndexOf<T>(this IList<T> list, Func<T, bool> predicate)
     {

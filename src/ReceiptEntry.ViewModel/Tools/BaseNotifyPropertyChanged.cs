@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ReceiptEntry.Tools;
 
 namespace ReceiptEntry.ViewModel
 {
@@ -37,7 +38,7 @@ namespace ReceiptEntry.ViewModel
 
     protected void FirePropertyChanged<TSource, TType>(Expression<Func<TSource, TType>> propertyLambda)
     {
-      FirePropertyChanged(propertyLambda.of());
+      FirePropertyChanged(propertyLambda.NameOf());
     }
 
     protected void FirePropertyChanged([CallerMemberName] string propertyName = "")

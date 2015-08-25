@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tools\ListExtensions.cs" />
-    <Compile Include="Tools\name.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptListViewModel.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptTaxViewModel.cs" />
@@ -59,7 +57,6 @@
     <Compile Include="ViewModels\Receipt\ValidateReceiptTotalViewModel.cs" />
     <Compile Include="ViewModels\SaveFileViewModel.cs" />
     <Compile Include="Tools\ID.cs" />
-    <Compile Include="Tools\Levenshtein.cs" />
     <Compile Include="Tools\BaseNotifyPropertyChanged.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Merchant\MerchantViewModel.cs" />
@@ -68,6 +65,10 @@
     <ProjectReference Include="..\ReceiptEntry.Common\ReceiptEntry.Model.csproj">
       <Project>{7dbea9d2-0560-40bb-9a34-d22186d497dc}</Project>
       <Name>ReceiptEntry.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiptEntry.Tools\ReceiptEntry.Tools.csproj">
+      <Project>{dd37f453-41d0-4906-8abd-53a4733f2fc6}</Project>
+      <Name>ReceiptEntry.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

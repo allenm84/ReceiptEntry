@@ -210,13 +210,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ReceiptEntry.BinaryFileService\ReceiptEntry.SaveFileSerializerService.csproj">
+      <Project>{f07e0ee1-94e6-431f-8a6b-adee3753b69d}</Project>
+      <Name>ReceiptEntry.SaveFileSerializerService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReceiptEntry.Common\ReceiptEntry.Model.csproj">
       <Project>{7dbea9d2-0560-40bb-9a34-d22186d497dc}</Project>
       <Name>ReceiptEntry.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractSerializerService.csproj">
+    <ProjectReference Include="..\ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractService.csproj">
       <Project>{738b9abc-be74-4c05-8c1d-b5d0d4202b27}</Project>
-      <Name>ReceiptEntry.DataContractSerializerService</Name>
+      <Name>ReceiptEntry.DataContractService</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiptEntry.ImportService\ReceiptEntry.ImportService.csproj">
       <Project>{179eb149-ba7f-43dc-8db5-5acc38226b21}</Project>
@@ -225,6 +229,10 @@
     <ProjectReference Include="..\ReceiptEntry.TestService\ReceiptEntry.TestService.csproj">
       <Project>{c3bb7c00-4fc3-4355-8fa4-d10e547e1722}</Project>
       <Name>ReceiptEntry.TestService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ReceiptEntry.Tools\ReceiptEntry.Tools.csproj">
+      <Project>{dd37f453-41d0-4906-8abd-53a4733f2fc6}</Project>
+      <Name>ReceiptEntry.Tools</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiptEntry.ViewModel\ReceiptEntry.ViewModel.csproj">
       <Project>{e2607037-caae-4d09-a92d-e209dad43967}</Project>

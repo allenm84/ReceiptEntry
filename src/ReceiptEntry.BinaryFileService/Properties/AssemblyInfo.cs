@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ReceiptEntry.DataContractService")]
+[assembly: AssemblyTitle("ReceiptEntry.SaveFileSerializerService")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ReceiptEntry.DataContractService")]
+[assembly: AssemblyProduct("ReceiptEntry.SaveFileSerializerService")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("885f39eb-0f5b-47eb-9df9-8d1a564144f0")]
+[assembly: Guid("f37a2b53-203c-452c-8a11-46469bed4f3b")]
 
 // Version information for an assembly consists of the following four values:
 //

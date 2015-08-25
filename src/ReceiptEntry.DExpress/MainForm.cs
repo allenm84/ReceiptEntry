@@ -6,11 +6,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ReceiptEntry.Model;
 using ReceiptEntry.Services;
 using ReceiptEntry.ViewModel;
-using System.Threading.Tasks;
 
 namespace ReceiptEntry.DExpress
 {
@@ -27,7 +27,8 @@ namespace ReceiptEntry.DExpress
       InitializeComponent();
       gridViewReceipts.SetPropertiesToList(false, false);
 
-      service = new XmlImportService(Path.Combine(Application.StartupPath, "saved.xml"));
+      service = new DataContractService(Path.Combine(Application.StartupPath, "saved.xml"));
+      //service = new ImportService(Path.Combine(Application.StartupPath, "saved.xml"));
 
       viewModel = new SaveFileViewModel(service);
       bsMerchants.DataSource = viewModel.Merchants.Items;

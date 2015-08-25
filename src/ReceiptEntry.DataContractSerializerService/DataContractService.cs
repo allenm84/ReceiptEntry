@@ -7,11 +7,11 @@ using ReceiptEntry.Model;
 
 namespace ReceiptEntry.Services
 {
-  public class DataContractSaveFileService : ISaveFileService
+  public class DataContractService : ISaveFileService
   {
     private readonly DataContractFile<SaveFile> dcf;
 
-    public DataContractSaveFileService(string filepath)
+    public DataContractService(string filepath)
     {
       dcf = new DataContractFile<SaveFile>(filepath);
     }

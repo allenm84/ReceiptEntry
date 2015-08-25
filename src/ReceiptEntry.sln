@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.Model", "Recei
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.ViewModel", "ReceiptEntry.ViewModel\ReceiptEntry.ViewModel.csproj", "{E2607037-CAAE-4D09-A92D-E209DAD43967}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.DataContractSerializerService", "ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractSerializerService.csproj", "{738B9ABC-BE74-4C05-8C1D-B5D0D4202B27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.DataContractService", "ReceiptEntry.DataContractSerializerService\ReceiptEntry.DataContractService.csproj", "{738B9ABC-BE74-4C05-8C1D-B5D0D4202B27}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.DExpress", "ReceiptEntry.DExpress\ReceiptEntry.DExpress.csproj", "{5B07EB5B-C91B-4106-AEDB-F1A32A9C50D3}"
 EndProject
@@ -20,6 +20,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View Model", "View Model", "{AD8899D4-CD7A-40D4-BB98-3EC39BED8D3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.ImportService", "ReceiptEntry.ImportService\ReceiptEntry.ImportService.csproj", "{179EB149-BA7F-43DC-8DB5-5ACC38226B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.SaveFileSerializerService", "ReceiptEntry.BinaryFileService\ReceiptEntry.SaveFileSerializerService.csproj", "{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{8C8387A6-3965-4B8B-9034-0D9964EB4A8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiptEntry.Tools", "ReceiptEntry.Tools\ReceiptEntry.Tools.csproj", "{DD37F453-41D0-4906-8ABD-53A4733F2FC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +57,14 @@ Global
 		{179EB149-BA7F-43DC-8DB5-5ACC38226B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{179EB149-BA7F-43DC-8DB5-5ACC38226B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{179EB149-BA7F-43DC-8DB5-5ACC38226B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD37F453-41D0-4906-8ABD-53A4733F2FC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD37F453-41D0-4906-8ABD-53A4733F2FC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD37F453-41D0-4906-8ABD-53A4733F2FC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD37F453-41D0-4906-8ABD-53A4733F2FC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +76,7 @@ Global
 		{5B07EB5B-C91B-4106-AEDB-F1A32A9C50D3} = {AE9A5A1A-CDD6-416C-A034-A895380714FE}
 		{C3BB7C00-4FC3-4355-8FA4-D10E547E1722} = {D15AF536-89DB-4DAC-B084-3246C114A9F4}
 		{179EB149-BA7F-43DC-8DB5-5ACC38226B21} = {D15AF536-89DB-4DAC-B084-3246C114A9F4}
+		{F07E0EE1-94E6-431F-8A6B-ADEE3753B69D} = {D15AF536-89DB-4DAC-B084-3246C114A9F4}
+		{DD37F453-41D0-4906-8ABD-53A4733F2FC6} = {8C8387A6-3965-4B8B-9034-0D9964EB4A8E}
 	EndGlobalSection
 EndGlobal
