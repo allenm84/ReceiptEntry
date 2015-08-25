@@ -25,5 +25,10 @@ namespace ReceiptEntry.ViewModel
     {
       return new MerchantViewModel(ID.Next, "<New Merchant>", null, mParent.Columns);
     }
+
+    public MerchantViewModel Fetch(string id)
+    {
+      return base.Fetch(v => v.ID == id);
+    }
   }
 }

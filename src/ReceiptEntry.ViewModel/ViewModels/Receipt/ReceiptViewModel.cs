@@ -11,6 +11,7 @@ namespace ReceiptEntry.ViewModel
   public class ReceiptViewModel : BaseViewModel
   {
     private readonly SaveFileViewModel mParent;
+    private readonly List<ReceiptColumnReferenceViewModel> mHelpfulNameColumns;
 
     private ReceiptItemViewModel[] mCommittedItems;
     private ReceiptTaxViewModel[] mCommittedTaxes;
@@ -18,6 +19,12 @@ namespace ReceiptEntry.ViewModel
     public string ID
     {
       get { return GetField<string>(); }
+      private set { SetField(value); }
+    }
+
+    public bool IsValidMerchant
+    {
+      get { return GetField<bool>(); }
       private set { SetField(value); }
     }
 
@@ -31,11 +38,15 @@ namespace ReceiptEntry.ViewModel
 
         if (id != null)
         {
-          Columns = mParent.Merchants.Fetch(m => m.ID == id).CurrentColumns;
+          var columns = mParent.Merchants.Fetch(id).CurrentColumns;
+          UpdateColumns(columns);
+          Columns = columns;
+          IsValidMerchant = true;
         }
         else
         {
           Columns = new BindingList<ReceiptColumnReferenceViewModel>();
+          IsValidMerchant = false;
         }
       }
     }
@@ -49,6 +60,20 @@ namespace ReceiptEntry.ViewModel
     {
       get { return GetField<DateTime>(); }
       set { SetField(value); }
+    }
+
+    public bool ShowHelpfulName
+    {
+      get { return GetField<bool>(); }
+      set 
+      { 
+        SetField(value);
+        if (IsValidMerchant)
+        {
+          UpdateColumns(Columns);
+          FireColumnOrderChanged();
+        }
+      }
     }
 
     private readonly BindingList<ReceiptItemViewModel> mItems;
@@ -86,6 +111,8 @@ namespace ReceiptEntry.ViewModel
       get { return mValidate; }
     }
 
+    public event EventHandler ColumnOrderChanged;
+
     internal ReceiptViewModel(SaveFileViewModel parent, Receipt receipt)
       : this(parent, receipt.ID, receipt.MerchantID, receipt.Date, receipt.Items, receipt.Taxes, receipt.Total)
     {
@@ -98,10 +125,14 @@ namespace ReceiptEntry.ViewModel
 
     private ReceiptViewModel(SaveFileViewModel parent, string id, string merchantID, DateTime date, ReceiptItem[] items, ReceiptTax[] taxes, decimal total)
     {
+      mHelpfulNameColumns = new List<ReceiptColumnReferenceViewModel>();
+
       mParent = parent;
       ID = id;
       MerchantID = merchantID;
       Date = date;
+
+      InitializeHelpfulNames();
 
       mItems = new BindingList<ReceiptItemViewModel>();
       if (items != null)
@@ -127,9 +158,18 @@ namespace ReceiptEntry.ViewModel
       Accept();
     }
 
+    private void FireColumnOrderChanged()
+    {
+      var changed = ColumnOrderChanged;
+      if (changed != null)
+      {
+        changed(this, EventArgs.Empty);
+      }
+    }
+
     protected override bool InternalCanDoAccept(object parameter)
     {
-      return !string.IsNullOrWhiteSpace(MerchantID);
+      return IsValidMerchant;
     }
 
     protected override void Commit()
@@ -187,6 +227,65 @@ namespace ReceiptEntry.ViewModel
         var values = names.Select(n => (i[n] as string) ?? string.Empty);
         return values.Any(v => v.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1);
       });
+    }
+
+    private void InitializeHelpfulNames()
+    {
+      // create a lookup table for the columns
+      if (IsValidMerchant)
+      {
+        var lookup = mParent.Columns.Items.ToDictionary(k => k.ID);
+        mHelpfulNameColumns.AddRange(mColumns
+          .Where(c => lookup[c.ColumnID].Type == ReceiptColumnType.HelpfulName));
+
+        if (mHelpfulNameColumns.Count > 0)
+        {
+          // there is at least one helpful name column available, so show it!
+          ShowHelpfulName = true;
+        }
+        else
+        {
+          // there are no helpful name columns that are a part of this receipt.
+          // Let's add a helpful name column
+          var helpfulName = mParent.Columns.EnsureHelpfulName();
+          var item = mColumns.FirstOrDefault(c => lookup[c.ColumnID].Name == "Item");
+          mHelpfulNameColumns.Add(new ReceiptColumnReferenceViewModel(helpfulName.ID)
+          {
+            Order = (item == null) ? 1 : Math.Max(1, item.Order - 1),
+          });
+
+          // since there are no helpful names, we need to hide the columns
+          ShowHelpfulName = false;
+        }
+      }
+      else
+      {
+        ShowHelpfulName = false;
+      }
+    }
+
+    private void UpdateColumns(BindingList<ReceiptColumnReferenceViewModel> columns)
+    {
+      // create a lookup table for the columns
+      var lookup = mParent.Columns.Items.ToDictionary(k => k.ID);
+
+      // get the index of all the helpful columns
+      var indices = columns
+        .Select((c, i) => new { Index = i, Column = lookup[c.ColumnID] })
+        .Where(a => a.Column.Type == ReceiptColumnType.HelpfulName)
+        .OrderByDescending(a => a.Index)
+        .ToArray();
+
+      if (!ShowHelpfulName)
+      {
+        // we need to remove a column if it is a helpful name
+        mHelpfulNameColumns.ForEach(c => columns.Remove(c));
+      }
+      else if (indices.Length == 0)
+      {
+        // there are no helpful name columns, so let's add them back!
+        mHelpfulNameColumns.ForEach(c => columns.Add(c));
+      }
     }
 
     internal Receipt ToReceipt()

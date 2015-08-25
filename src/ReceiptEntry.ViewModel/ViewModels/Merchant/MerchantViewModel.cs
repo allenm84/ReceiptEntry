@@ -92,14 +92,7 @@ namespace ReceiptEntry.ViewModel
       ID = id;
       Name = name;
 
-      if (!allColumns.Items.Any(c => c.Type == ReceiptColumnType.HelpfulName))
-      {
-        var helpfulNameColumn = allColumns.CreateItem();
-        helpfulNameColumn.Type = ReceiptColumnType.HelpfulName;
-        helpfulNameColumn.Name = "HN";
-        allColumns.Items.Add(helpfulNameColumn);
-      }
-
+      allColumns.EnsureHelpfulName();
       mOriginalColumns = (columns ?? new ReceiptColumnReference[0]);
 
       mAllColumns = allColumns;

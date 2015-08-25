@@ -46,11 +46,15 @@ namespace ReceiptEntry.DExpress
       cboMerchant.BindValue(receipt, (ReceiptViewModel v) => v.MerchantID);
       bsMerchants.DataSource = receipt.Parent.Merchants.Items;
       dtDate.BindDate(receipt, (ReceiptViewModel v) => v.Date);
+      chkShowHelpfulName.BindChecked(receipt, (ReceiptViewModel v) => v.ShowHelpfulName);
+      chkShowHelpfulName.BindEnabled(receipt, (ReceiptViewModel v) => v.IsValidMerchant);
       bsItems.DataSource = receipt.Items;
       bsTaxes.DataSource = receipt.Taxes;
       numTotal.BindValue(receipt, (ReceiptViewModel v) => v.Total);
       CommandBinder.Bind(okCancelButtons1, receipt);
+
       receipt.PropertyChanged += receipt_PropertyChanged;
+      receipt.ColumnOrderChanged += receipt_ColumnOrderChanged;
 
       var format = colPercent.DisplayFormat;
       format.FormatType = DevExpress.Utils.FormatType.Custom;
@@ -106,12 +110,8 @@ namespace ReceiptEntry.DExpress
       }
     }
 
-    private void SyncColumns()
+    private void WriteColumnOrder()
     {
-      AddViewModelColumns();
-
-      gridViewItems.BeginUpdate();
-
       if (mCurrentColumns != null)
       {
         foreach (var c in mCurrentColumns)
@@ -119,9 +119,10 @@ namespace ReceiptEntry.DExpress
           c.Order = mGridColumns[c.ColumnID].VisibleIndex + 1;
         }
       }
+    }
 
-      mCurrentColumns = mReceipt.Columns;
-
+    private void ReadColumnOrder()
+    {
       if (mCurrentColumns != null)
       {
         foreach (var kvp in mGridColumns)
@@ -129,13 +130,24 @@ namespace ReceiptEntry.DExpress
           kvp.Value.VisibleIndex = -1;
         }
 
-        var columns = mCurrentColumns.OrderBy(i => i.Order).Select((c, o)=> new { Column = c, Order = o});
+        var columns = mCurrentColumns.OrderBy(i => i.Order).Select((c, o) => new { Column = c, Order = o });
         foreach (var c in columns)
         {
           mGridColumns[c.Column.ColumnID].VisibleIndex = c.Order + 1;
         }
       }
+    }
 
+    private void SyncColumns()
+    {
+      AddViewModelColumns();
+
+      gridViewItems.BeginUpdate();
+      WriteColumnOrder();
+
+      mCurrentColumns = mReceipt.Columns;
+
+      ReadColumnOrder();
       gridViewItems.EndUpdate();
     }
 
@@ -151,6 +163,13 @@ namespace ReceiptEntry.DExpress
       {
         SyncColumns();
       }
+    }
+
+    private void receipt_ColumnOrderChanged(object sender, EventArgs e)
+    {
+      gridViewItems.BeginUpdate();
+      ReadColumnOrder();
+      gridViewItems.EndUpdate();
     }
 
     private void cboMerchant_AddNewValue(object sender, DevExpress.XtraEditors.Controls.AddNewValueEventArgs e)
@@ -176,18 +195,7 @@ namespace ReceiptEntry.DExpress
 
     private void btnEdit_Click(object sender, EventArgs e)
     {
-      var index = cboMerchant.Properties.GetIndexByKeyValue(cboMerchant.EditValue);
-      if (index < 0 || index >= bsMerchants.Count)
-      {
-        return;
-      }
-
-      var merchant = bsMerchants[index] as MerchantViewModel;
-      if (merchant == null)
-      {
-        return;
-      }
-
+      var merchant = mReceipt.Parent.Merchants.Fetch(cboMerchant.EditValue as string);
       using (var dlg = new EditMerchantForm(merchant))
       {
         dlg.Text = "Edit Merchant";
@@ -247,6 +255,11 @@ namespace ReceiptEntry.DExpress
     private void cboMerchant_EditValueChanged(object sender, EventArgs e)
     {
       UpdateEditButton();
+    }
+
+    private void gridViewItems_DragObjectDrop(object sender, DragObjectDropEventArgs e)
+    {
+      Yielder.Call(WriteColumnOrder);
     }
   }
 }

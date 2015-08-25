@@ -25,6 +25,11 @@ namespace ReceiptEntry.DExpress
 {
   public static class DevExpressExtensions
   {
+    public static Binding BindEnabled<TSource>(this Control control, TSource value, Expression<Func<TSource, bool>> propertyLambda)
+    {
+      return control.DataBindings.Add("Enabled", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
+    }
+
     public static Binding BindChecked<TSource>(this CheckEdit checkEdit, TSource value, Expression<Func<TSource, bool>> propertyLambda)
     {
       return checkEdit.DataBindings.Add("Checked", value, propertyLambda.of(), false, DataSourceUpdateMode.OnPropertyChanged);
