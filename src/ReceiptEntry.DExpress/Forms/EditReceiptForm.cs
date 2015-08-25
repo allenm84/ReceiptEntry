@@ -18,26 +18,22 @@ namespace ReceiptEntry.DExpress
 {
   public partial class EditReceiptForm : BaseForm
   {
-    static readonly string sColumnsName;
-    static EditReceiptForm()
-    {
-      sColumnsName = name.of((ReceiptViewModel v) => v.Columns);
-    }
-
     private readonly ReceiptViewModel mReceipt;
     private readonly BindingList<ReceiptColumnViewModel> mAllColumns;
     private readonly Dictionary<string, GridColumn> mGridColumns;
 
-    private BindingList<ReceiptColumnReferenceViewModel> mCurrentColumns;
+    private List<ReceiptColumnReferenceViewModel> mSelectedMerchantColumns;
 
     public EditReceiptForm(ReceiptViewModel receipt)
     {
+      mSelectedMerchantColumns = new List<ReceiptColumnReferenceViewModel>();
+
       mReceipt = receipt;
       mAllColumns = receipt.Parent.Columns.Items;
       mGridColumns = new Dictionary<string, GridColumn>();
 
       InitializeComponent();
-      AddViewModelColumns();
+      AddMissingGridColumns();
 
       var colName = cboViewNames.Columns.AddVisible((HelpfulNameViewModel v) => v.Name);
       colName.SortOrder = ColumnSortOrder.Ascending;
@@ -47,36 +43,45 @@ namespace ReceiptEntry.DExpress
       bsMerchants.DataSource = receipt.Parent.Merchants.Items;
       dtDate.BindDate(receipt, (ReceiptViewModel v) => v.Date);
       chkShowHelpfulName.BindChecked(receipt, (ReceiptViewModel v) => v.ShowHelpfulName);
-      chkShowHelpfulName.BindEnabled(receipt, (ReceiptViewModel v) => v.IsValidMerchant);
+      chkShowHelpfulName.BindEnabled(receipt, (ReceiptViewModel v) => v.ContainsHelpfulName);
       bsItems.DataSource = receipt.Items;
       bsTaxes.DataSource = receipt.Taxes;
       numTotal.BindValue(receipt, (ReceiptViewModel v) => v.Total);
       CommandBinder.Bind(okCancelButtons1, receipt);
 
-      receipt.PropertyChanged += receipt_PropertyChanged;
-      receipt.ColumnOrderChanged += receipt_ColumnOrderChanged;
-
       var format = colPercent.DisplayFormat;
       format.FormatType = DevExpress.Utils.FormatType.Custom;
       format.Format = new AddPercentageFormatter();
 
+      receipt.ColumnsChanged += receipt_ColumnsChanged;
       Yielder.Call(SyncColumns, UpdateEditButton);
     }
 
-    private void AddViewModelColumns()
+    private void receipt_ColumnsChanged(object sender, EventArgs e)
+    {
+      SyncColumns();
+    }
+
+    private void AddMissingGridColumns()
     {
       foreach (var c in mAllColumns)
       {
         if (!mGridColumns.ContainsKey(c.ID))
         {
-          var column = new GridColumn();
-          column.FieldName = c.Name;
-          column.Visible = false;
-          SetUnboundType(column, c.Type);
-          mGridColumns[c.ID] = column;
-          gridViewItems.Columns.Add(column);
+          AddGridColumn(c);
         }
       }
+    }
+
+    private GridColumn AddGridColumn(ReceiptColumnViewModel c)
+    {
+      var column = new GridColumn();
+      column.FieldName = c.Name;
+      column.Visible = false;
+      SetUnboundType(column, c.Type);
+      mGridColumns[c.ID] = column;
+      gridViewItems.Columns.Add(column);
+      return column;
     }
 
     private void SetUnboundType(GridColumn column, ReceiptColumnType type)
@@ -112,40 +117,34 @@ namespace ReceiptEntry.DExpress
 
     private void WriteColumnOrder()
     {
-      if (mCurrentColumns != null)
+      foreach (var c in mSelectedMerchantColumns)
       {
-        foreach (var c in mCurrentColumns)
-        {
-          c.Order = mGridColumns[c.ColumnID].VisibleIndex + 1;
-        }
+        c.Order = mGridColumns[c.ColumnID].VisibleIndex + 1;
       }
     }
 
     private void ReadColumnOrder()
     {
-      if (mCurrentColumns != null)
+      foreach (var kvp in mGridColumns)
       {
-        foreach (var kvp in mGridColumns)
-        {
-          kvp.Value.VisibleIndex = -1;
-        }
+        kvp.Value.VisibleIndex = -1;
+      }
 
-        var columns = mCurrentColumns.OrderBy(i => i.Order).Select((c, o) => new { Column = c, Order = o });
-        foreach (var c in columns)
-        {
-          mGridColumns[c.Column.ColumnID].VisibleIndex = c.Order + 1;
-        }
+      var columns = mSelectedMerchantColumns.OrderBy(i => i.Order).Select((c, o) => new { Column = c, Order = o });
+      foreach (var c in columns)
+      {
+        mGridColumns[c.Column.ColumnID].VisibleIndex = c.Order + 1;
       }
     }
 
     private void SyncColumns()
     {
-      AddViewModelColumns();
+      AddMissingGridColumns();
 
       gridViewItems.BeginUpdate();
       WriteColumnOrder();
 
-      mCurrentColumns = mReceipt.Columns;
+      mSelectedMerchantColumns = mReceipt.Columns.ToList();
 
       ReadColumnOrder();
       gridViewItems.EndUpdate();
@@ -155,14 +154,6 @@ namespace ReceiptEntry.DExpress
     {
       var index = cboMerchant.Properties.GetIndexByKeyValue(cboMerchant.EditValue);
       btnEdit.Enabled = (-1 < index && index < bsMerchants.Count);
-    }
-
-    private void receipt_PropertyChanged(object sender, PropertyChangedEventArgs e)
-    {
-      if (e.PropertyName == sColumnsName)
-      {
-        SyncColumns();
-      }
     }
 
     private void receipt_ColumnOrderChanged(object sender, EventArgs e)
@@ -200,6 +191,10 @@ namespace ReceiptEntry.DExpress
       {
         dlg.Text = "Edit Merchant";
         dlg.ShowDialog(this);
+
+        AddMissingGridColumns();
+        ReadColumnOrder();
+        SyncColumns();
       }
     }
 
