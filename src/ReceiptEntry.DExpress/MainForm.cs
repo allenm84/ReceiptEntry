@@ -164,7 +164,7 @@ namespace ReceiptEntry.DExpress
       }
     }
 
-    private void cboMerchantFilter_EditValueChanged(object sender, EventArgs e)
+    private void tbbMerchantFilter_EditValueChanged(object sender, EventArgs e)
     {
       gridViewReceipts.RefreshData();
       UpdateClearFilerButton();

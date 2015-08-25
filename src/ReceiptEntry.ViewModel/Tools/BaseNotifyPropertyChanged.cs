@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,11 @@ namespace ReceiptEntry.ViewModel
     protected virtual void AfterPropertyChanged(string propertyName)
     {
 
+    }
+
+    protected void FirePropertyChanged<TSource, TType>(Expression<Func<TSource, TType>> propertyLambda)
+    {
+      FirePropertyChanged(propertyLambda.of());
     }
 
     protected void FirePropertyChanged([CallerMemberName] string propertyName = "")
