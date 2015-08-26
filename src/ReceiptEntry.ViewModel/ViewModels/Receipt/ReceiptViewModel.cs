@@ -205,6 +205,8 @@ namespace ReceiptEntry.ViewModel
       // create a lookup for all the columns
       var columns = mCurrentMerchant.CurrentColumns;
       var lookup = mParent.Columns.Items.ToDictionary(k => k.ID);
+
+      // retrieve all of the text column names
       var names = columns
         .Select(c => lookup[c.ColumnID])
         .Where(c => c.Type == ReceiptColumnType.Text)
@@ -214,7 +216,9 @@ namespace ReceiptEntry.ViewModel
       return mItems.Any(i =>
       {
         var values = names.Select(n => (i[n] as string) ?? string.Empty);
-        return values.Any(v => v.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1);
+        var matched = values.Any(v => v.IndexOf(text, StringComparison.InvariantCultureIgnoreCase) > -1);
+        i.IsMatched = matched;
+        return matched;
       });
     }
 

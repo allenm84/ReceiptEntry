@@ -154,15 +154,12 @@ namespace ReceiptEntry.DExpress
 
     private void tbbViewStats_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
     {
-
+      MessageHelper.Inform(this, "Under construction.");
     }
 
-    private void txtSearchText_KeyDown(object sender, KeyEventArgs e)
+    private void tbbSearchText_EditValueChanged(object sender, EventArgs e)
     {
-      if (e.KeyCode == Keys.Enter)
-      {
-        gridViewReceipts.RefreshData();
-      }
+      gridViewReceipts.RefreshData();
     }
 
     private void tbbMerchantFilter_EditValueChanged(object sender, EventArgs e)

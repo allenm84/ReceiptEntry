@@ -9,6 +9,28 @@ namespace ReceiptEntry.ViewModel
 {
   public class ReceiptItemViewModel : BaseViewModel
   {
+    static ulong sCurrentID = 0;
+    static readonly HashSet<ulong> sMatches = new HashSet<ulong>();
+
+    private readonly ulong mId = (sCurrentID++);
+
+    public bool IsMatched
+    {
+      get { return sMatches.Contains(mId); }
+      internal set
+      {
+        if (value)
+        {
+          sMatches.Add(mId);
+        }
+        else
+        {
+          sMatches.Remove(mId);
+        }
+        FirePropertyChanged();
+      }
+    }
+
     public object this[string name]
     {
       get { return GetField<object>(name); }
