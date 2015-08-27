@@ -25,8 +25,10 @@ namespace ReceiptEntry.DExpress
       layoutControl1.MinimumSize = new System.Drawing.Size(0, 10);
 
       bsPriceColumns.DataSource = validate.PriceColumns;
+
       cboPriceColumns.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.SelectedPriceColumn);
       bsQuantityColumns.DataSource = validate.QuantityColumns;
+
       cboQuantityColumns.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.SelectedQuantityColumn);
       numActual.BindValue(validate, (ValidateReceiptTotalViewModel v) => v.ActualTotal);
     }

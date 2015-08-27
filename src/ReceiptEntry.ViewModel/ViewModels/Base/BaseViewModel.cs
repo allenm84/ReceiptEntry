@@ -176,6 +176,11 @@ namespace ReceiptEntry.ViewModel
       }
     }
 
+    protected bool TryGetValue(string key, out object value)
+    {
+      return mFields.TryGetValue(key, out value);
+    }
+
     protected T GetField<T>([CallerMemberName] string key = "")
     {
       object value;

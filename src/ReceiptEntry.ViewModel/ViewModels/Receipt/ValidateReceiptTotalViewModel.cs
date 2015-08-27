@@ -80,6 +80,13 @@ namespace ReceiptEntry.ViewModel
       mParent = parent;
     }
 
+    private decimal GetTotal(ReceiptItemViewModel item, string price, string quantity)
+    {
+      return 
+        item.Fetch(price, 0m) * 
+        item.Fetch(quantity, 1m);
+    }
+
     private void UpdateActualTotal()
     {
       if (!string.IsNullOrWhiteSpace(SelectedPriceColumn)
@@ -89,7 +96,7 @@ namespace ReceiptEntry.ViewModel
         var quantity = mParent.Parent.Columns.Fetch(c => c.ID == SelectedQuantityColumn);
 
         ActualTotal =
-          mParent.Items.Sum(i => (decimal)i[price.Name] * (decimal)i[quantity.Name]) +
+          mParent.Items.Sum(i => GetTotal(i, price.Name, quantity.Name)) +
           mParent.Taxes.Sum(t => t.Amount);
       }
     }

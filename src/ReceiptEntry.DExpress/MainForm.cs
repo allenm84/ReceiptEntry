@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.Utils;
+using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using ReceiptEntry.Model;
 using ReceiptEntry.Services;
 using ReceiptEntry.ViewModel;
@@ -187,6 +189,17 @@ namespace ReceiptEntry.DExpress
         receipt.Contains(tbbSearchText.EditValue as string);
 
       ExpandAllGroupsAsync(sId++);
+    }
+
+    private void gridViewReceipts_CustomDrawFooterCell(object sender, DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventArgs e)
+    {
+      var viewInfo = gridViewReceipts.GetViewInfo() as GridViewInfo;
+      var client = viewInfo.ClientBounds;
+      var rect = new Rectangle(client.X, 
+        e.Info.Bounds.Y,
+        client.Width, 
+        e.Info.Bounds.Height);
+      e.Info.Bounds = rect;
     }
   }
 }

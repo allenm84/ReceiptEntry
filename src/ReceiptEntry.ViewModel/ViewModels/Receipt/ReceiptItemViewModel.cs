@@ -62,5 +62,18 @@ namespace ReceiptEntry.ViewModel
         Values = Pull(),
       };
     }
+
+    internal T Fetch<T>(string key, T defaultValue = default(T))
+    {
+      object value;
+      if (TryGetValue(key, out value) && (value is T))
+      {
+        return (T)value;
+      }
+      else
+      {
+        return defaultValue;
+      }
+    }
   }
 }
