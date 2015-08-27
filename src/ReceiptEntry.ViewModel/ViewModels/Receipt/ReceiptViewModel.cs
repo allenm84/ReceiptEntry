@@ -150,7 +150,7 @@ namespace ReceiptEntry.ViewModel
 
     protected override bool InternalCanDoAccept(object parameter)
     {
-      return ContainsHelpfulName;
+      return !string.IsNullOrEmpty(MerchantID);
     }
 
     protected override void Commit()
