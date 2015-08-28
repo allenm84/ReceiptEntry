@@ -42,8 +42,8 @@ namespace ReceiptEntry.DExpress
       cboMerchant.BindValue(receipt, (ReceiptViewModel v) => v.MerchantID);
       bsMerchants.DataSource = receipt.Parent.Merchants.Items;
       dtDate.BindDate(receipt, (ReceiptViewModel v) => v.Date);
+      chkShowHelpfulName.BindEnabled(receipt, (ReceiptViewModel v) => v.IsValidMerchant);
       chkShowHelpfulName.BindChecked(receipt, (ReceiptViewModel v) => v.ShowHelpfulName);
-      chkShowHelpfulName.BindEnabled(receipt, (ReceiptViewModel v) => v.ContainsHelpfulName);
       bsItems.DataSource = receipt.Items;
       bsTaxes.DataSource = receipt.Taxes;
       numTotal.BindValue(receipt, (ReceiptViewModel v) => v.Total);

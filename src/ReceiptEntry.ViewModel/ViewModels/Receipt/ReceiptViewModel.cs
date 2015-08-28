@@ -23,12 +23,6 @@ namespace ReceiptEntry.ViewModel
       private set { SetField(value); }
     }
 
-    public bool ContainsHelpfulName
-    {
-      get { return GetField<bool>(); }
-      private set { SetField(value); }
-    }
-
     public string MerchantID
     {
       get { return GetField<string>(); }
@@ -50,11 +44,22 @@ namespace ReceiptEntry.ViewModel
       set { SetField(value); }
     }
 
+    public bool IsValidMerchant
+    {
+      get { return GetField<bool>(); }
+      private set { SetField(value); }
+    }
+
     public bool ShowHelpfulName
     {
       get { return GetField<bool>(); }
       set 
-      { 
+      {
+        if (value)
+        {
+          EnsureHelpfulNameColumn();
+        }
+
         SetField(value);
         FireColumnsChanged();
       }
@@ -81,7 +86,7 @@ namespace ReceiptEntry.ViewModel
           yield break;
         }
 
-        bool show = ShowHelpfulName; 
+        bool show = ShowHelpfulName;
         foreach (var column in mCurrentMerchant.CurrentColumns)
         {
           if (!show && IsHelpfulName(column))
@@ -150,7 +155,7 @@ namespace ReceiptEntry.ViewModel
 
     protected override bool InternalCanDoAccept(object parameter)
     {
-      return !string.IsNullOrEmpty(MerchantID);
+      return IsValidMerchant;
     }
 
     protected override void Commit()
@@ -204,7 +209,7 @@ namespace ReceiptEntry.ViewModel
 
       // create a lookup for all the columns
       var columns = mCurrentMerchant.CurrentColumns;
-      var lookup = mParent.Columns.Items.ToDictionary(k => k.ID);
+      var lookup = mParent.Columns.CreateLookUp();
 
       // retrieve all of the text column names
       var names = columns
@@ -237,24 +242,65 @@ namespace ReceiptEntry.ViewModel
 
     private bool IsHelpfulName(ReceiptColumnReferenceViewModel reference)
     {
-      var column = mParent.Columns.Fetch(c => c.ID == reference.ColumnID);
+      var column = mParent.Columns[reference.ColumnID];
       return (column != null) && (column.Type == ReceiptColumnType.HelpfulName);
+    }
+
+    private bool IsItem(ReceiptColumnReferenceViewModel reference)
+    {
+      var column = mParent.Columns[reference.ColumnID];
+      return (column != null) && (column.Name == "Item");
+    }
+
+    private void EnsureHelpfulNameColumn()
+    {
+      if (mCurrentMerchant == null)
+      {
+        return;
+      }
+
+      // is the helpful name column part of the available columns?
+      var helpfulNameReference = mCurrentMerchant.AvailableColumns.SingleOrDefault(IsHelpfulName);
+      if (helpfulNameReference != null)
+      {
+        mCurrentMerchant.UnselectAvailableColumns();
+
+        int defaultOrder = Math.Min(2, mCurrentMerchant.CurrentColumns.Count);
+        var itemReference = mCurrentMerchant.CurrentColumns.SingleOrDefault(IsItem);
+        helpfulNameReference.IsSelected = true;
+
+        // calculate the desired order
+        int desiredOrder = (itemReference == null) 
+          ? defaultOrder 
+          : itemReference.Order + 1;
+
+        // create a lookup of the current columns based on the order
+        var lookup = mCurrentMerchant.CurrentColumns.ToDictionary(c => c.Order);
+
+        // starting at the desired order, move the columns down by one
+        for (int o = desiredOrder; lookup.ContainsKey(o); ++o)
+        {
+          lookup[o].Order++;
+        }
+
+        // move the column over
+        mCurrentMerchant.MoveSelectedToCurrentCommand.Execute(this);
+
+        // set the desired order on the helpful name column
+        helpfulNameReference.Order = desiredOrder;
+
+        // update the order of the columns
+        mCurrentMerchant.UpdateCommand.Execute(this);
+      }
     }
 
     private void UpdateCurrentMerchant()
     { 
       // retrieve the columns from the selected merchant
       mCurrentMerchant = mParent.Merchants.Fetch(MerchantID);
-      if (mCurrentMerchant != null)
-      {
-        var columns = mCurrentMerchant.CurrentColumns;
-        var lookup = mParent.Columns.Items.ToDictionary(k => k.ID);
-        ContainsHelpfulName = columns.Any(c => lookup[c.ColumnID].Type == ReceiptColumnType.HelpfulName);
-      }
-      else
-      {
-        ContainsHelpfulName = false;
-      }
+
+      // make sure we let the view know if this is a valid merchant
+      IsValidMerchant = (mCurrentMerchant != null);
 
       // make sure the view is alerted
       FireColumnsChanged();

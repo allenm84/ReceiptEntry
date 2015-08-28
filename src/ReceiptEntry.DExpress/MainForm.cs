@@ -100,19 +100,6 @@ namespace ReceiptEntry.DExpress
       }
     }
 
-    private void gridViewReceipts_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
-    {
-      var receipt = e.Row as ReceiptViewModel;
-      if (e.Column == colDateMonth)
-      {
-        e.Value = string.Format("{0:MM} - {0:MMMM}", receipt.Date);
-      }
-      else if (e.Column == colDateYear)
-      {
-        e.Value = string.Format("{0:yyyy}", receipt.Date);
-      }
-    }
-
     private void gridReceipts_MouseDoubleClick(object sender, MouseEventArgs e)
     {
       if (e.Button == System.Windows.Forms.MouseButtons.Left)
@@ -126,6 +113,53 @@ namespace ReceiptEntry.DExpress
             DoEditReceipt(receipt);
           }
         }
+      }
+    }
+
+    private void gridViewReceipts_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+    {
+      var receipt = e.Row as ReceiptViewModel;
+      if (e.Column == colDateMonth)
+      {
+        e.Value = string.Format("{0:MM} - {0:MMMM}", receipt.Date);
+      }
+      else if (e.Column == colDateYear)
+      {
+        e.Value = string.Format("{0:yyyy}", receipt.Date);
+      }
+    }
+
+    private void gridViewReceipts_CustomRowFilter(object sender, DevExpress.XtraGrid.Views.Base.RowFilterEventArgs e)
+    {
+      var receipt = bsReceipts[e.ListSourceRow] as ReceiptViewModel;
+      var merchantID = tbbMerchantFilter.EditValue as string;
+
+      e.Handled = true;
+      e.Visible = (string.IsNullOrWhiteSpace(merchantID) || receipt.MerchantID == merchantID) &&
+        receipt.Contains(tbbSearchText.EditValue as string);
+
+      ExpandAllGroupsAsync(sId++);
+    }
+
+    private void gridViewReceipts_CustomDrawFooterCell(object sender, DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventArgs e)
+    {
+      var viewInfo = gridViewReceipts.GetViewInfo() as GridViewInfo;
+      var client = viewInfo.ClientBounds;
+      var rect = new Rectangle(client.X,
+        e.Info.Bounds.Y,
+        client.Width,
+        e.Info.Bounds.Height);
+      e.Info.Bounds = rect;
+    }
+
+    private void gridViewReceipts_GroupRowExpanded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
+    {
+      int group = e.RowHandle;
+      var count = gridViewReceipts.GetChildRowCount(group);
+      if (count > 1)
+      {
+        var child = gridViewReceipts.GetChildRowHandle(group, 0);
+        gridViewReceipts.MakeRowVisible(child);
       }
     }
 
@@ -177,29 +211,6 @@ namespace ReceiptEntry.DExpress
       {
         tbbMerchantFilter.EditValue = null;
       }
-    }
-
-    private void gridViewReceipts_CustomRowFilter(object sender, DevExpress.XtraGrid.Views.Base.RowFilterEventArgs e)
-    {
-      var receipt = bsReceipts[e.ListSourceRow] as ReceiptViewModel;
-      var merchantID = tbbMerchantFilter.EditValue as string;
-
-      e.Handled = true;
-      e.Visible = (string.IsNullOrWhiteSpace(merchantID) || receipt.MerchantID == merchantID) && 
-        receipt.Contains(tbbSearchText.EditValue as string);
-
-      ExpandAllGroupsAsync(sId++);
-    }
-
-    private void gridViewReceipts_CustomDrawFooterCell(object sender, DevExpress.XtraGrid.Views.Grid.FooterCellCustomDrawEventArgs e)
-    {
-      var viewInfo = gridViewReceipts.GetViewInfo() as GridViewInfo;
-      var client = viewInfo.ClientBounds;
-      var rect = new Rectangle(client.X, 
-        e.Info.Bounds.Y,
-        client.Width, 
-        e.Info.Bounds.Height);
-      e.Info.Bounds = rect;
     }
   }
 }

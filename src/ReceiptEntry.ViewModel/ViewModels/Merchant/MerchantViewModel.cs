@@ -32,7 +32,7 @@ namespace ReceiptEntry.ViewModel
     }
 
     private readonly ReceiptColumnListViewModel mAllColumns;
-    public BindingList<ReceiptColumnViewModel> Columns
+    public BindingList<ReceiptColumnViewModel> AllColumns
     {
       get { return mAllColumns.Items; }
     }
@@ -261,21 +261,20 @@ namespace ReceiptEntry.ViewModel
       mCurrentColumns.Clear();
       mAvailableColumns.Clear();
 
-      if (mOriginalColumns != null)
+      // go through the selected columns
+      int order = 1;
+      foreach (var c in mOriginalColumns)
       {
-        int order = 1;
-        foreach (var c in mOriginalColumns)
+        if (mColumnIDHashset.Add(c.ColumnID))
         {
-          if (mColumnIDHashset.Add(c.ColumnID))
-          {
-            var column = new ReceiptColumnReferenceViewModel(c);
-            column.Order = (order++);
-            mCurrentColumns.Add(column);
-          }
+          var column = new ReceiptColumnReferenceViewModel(c);
+          column.Order = (order++);
+          mCurrentColumns.Add(column);
         }
       }
 
-      foreach (var column in Columns)
+      // go through all the columns
+      foreach (var column in AllColumns)
       {
         if (mColumnIDHashset.Add(column.ID))
         {
@@ -340,6 +339,14 @@ namespace ReceiptEntry.ViewModel
         ID = ID,
         Name = Name,
       };
+    }
+
+    internal void UnselectAvailableColumns()
+    {
+      foreach (var c in mAvailableColumns)
+      {
+        c.IsSelected = false;
+      }
     }
   }
 }

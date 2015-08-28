@@ -144,18 +144,28 @@ namespace ReceiptEntry.DExpress
 
     public static void FillWithEnum<T>(this RepositoryItemLookUpEdit lookUp, Func<T, bool> filter = null, Func<T, string> getText = null)
     {
+      lookUp.Fill(Enum.GetValues(typeof(T)).Cast<T>(), filter, getText);
+    }
+
+    public static void Fill<T>(this LookUpEdit lookUp, IEnumerable<T> values, Func<T, bool> filter = null, Func<T, string> getText = null)
+    {
+      lookUp.Properties.Fill(values, filter, getText);
+    }
+
+    public static void Fill<T>(this RepositoryItemLookUpEdit lookUp, IEnumerable<T> values, Func<T, bool> filter = null, Func<T, string> getText = null)
+    {
       if (getText == null)
       {
         getText = (x) => x.ToString();
       }
 
-      var values = Enum.GetValues(typeof(T)).Cast<T>();
-      if (filter != null)
+      if (filter == null)
       {
-        values = values.Where(filter);
+        filter = (x) => true;
       }
 
-      lookUp.DataSource = values
+      var filtered = values.Where(filter);
+      lookUp.DataSource = filtered
         .Select(v => new { Value = v, Display = getText(v) })
         .ToArray();
       lookUp.DisplayMember = "Display";

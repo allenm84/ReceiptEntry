@@ -8,6 +8,11 @@ namespace ReceiptEntry.Tools
 {
   public static class ListExtensions
   {
+    public static HashSet<T> ToHashSet<T>(this IEnumerable<T> values)
+    {
+      return new HashSet<T>(values);
+    }
+
     public static int FirstIndexOf<T>(this IList<T> list, Func<T, bool> predicate)
     {
       for (int i = 0; i < list.Count; ++i)

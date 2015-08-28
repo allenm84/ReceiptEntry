@@ -5,11 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ReceiptEntry.Model;
+using ReceiptEntry.Tools;
 
 namespace ReceiptEntry.ViewModel
 {
   public class ReceiptColumnListViewModel : BaseListViewModel<ReceiptColumnViewModel>
   {
+    internal ReceiptColumnViewModel this[string id]
+    {
+      get { return Fetch(c => c.ID == id); }
+    }
+
     internal ReceiptColumnListViewModel(SaveFileViewModel parent, IEnumerable<ReceiptColumn> columns)
       : base(parent)
     {
@@ -37,6 +43,11 @@ namespace ReceiptEntry.ViewModel
         Items.Add(helpfulNameColumn);
       }
       return helpfulNameColumn;
+    }
+
+    internal Dictionary<string, ReceiptColumnViewModel> CreateLookUp()
+    {
+      return Items.ToDictionary(k => k.ID);
     }
   }
 }

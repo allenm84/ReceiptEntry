@@ -39,7 +39,7 @@ namespace ReceiptEntry.DExpress
 
       bsAvailable.DataSource = merchant.AvailableColumns;
       bsCurrent.DataSource = merchant.CurrentColumns;
-      bsColumns.DataSource = merchant.Columns;
+      bsColumns.DataSource = merchant.AllColumns;
 
       txtName.BindText(merchant, (MerchantViewModel v) => v.Name);
       merchant.ColumnsChanged += merchant_ColumnsChanged;
@@ -157,7 +157,7 @@ namespace ReceiptEntry.DExpress
         if (info.InRow && !info.InGroupRow)
         {
           var reference = gridViewAvailableColumns.GetRow(info.RowHandle) as ReceiptColumnReferenceViewModel;
-          var column = mMerchant.Columns.Single(c => c.ID == reference.ColumnID);
+          var column = mMerchant.AllColumns.Single(c => c.ID == reference.ColumnID);
           DoEditColumn(column);
         }
       }
