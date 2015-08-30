@@ -63,6 +63,7 @@ namespace ReceiptEntry.ViewModel
       ID = id;
       Name = name;
       Type = type;
+
       Accept();
     }
 

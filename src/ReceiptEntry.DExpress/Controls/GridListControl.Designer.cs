@@ -41,7 +41,6 @@
       // 
       // ctrlButtons
       // 
-      this.ctrlButtons.AllowRemove = true;
       this.ctrlButtons.Dock = System.Windows.Forms.DockStyle.Right;
       this.ctrlButtons.EditVisible = true;
       this.ctrlButtons.Location = new System.Drawing.Point(196, 0);

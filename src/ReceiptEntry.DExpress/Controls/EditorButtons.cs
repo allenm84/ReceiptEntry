@@ -15,7 +15,7 @@ namespace ReceiptEntry.DExpress
 {
   public partial class EditorButtons : XtraUserControl
   {
-    private bool mAllowRemove = true;
+    private bool mRemoveDisabled = false;
 
     public event EventHandler AddClick
     {
@@ -41,6 +41,12 @@ namespace ReceiptEntry.DExpress
       remove { btnClear.Click -= value; }
     }
 
+    public event EventHandler MergeClick
+    {
+      add { btnMerge.Click += value; }
+      remove { btnMerge.Click -= value; }
+    }
+
     [Browsable(false)]
     public bool EditVisible
     {
@@ -49,31 +55,54 @@ namespace ReceiptEntry.DExpress
     }
 
     [Browsable(false)]
-    public bool AllowRemove
+    public bool MergeVisible
     {
-      get { return mAllowRemove; }
-      set { mAllowRemove = value; }
+      get { return layoutControlItem5.GetIsVisible(); }
+      set { layoutControlItem5.SetIsVisible(value); }
     }
 
     public EditorButtons()
     {
       InitializeComponent();
+      MergeVisible = false;
     }
 
     public void UpdateButtons(int selectionCount, bool isDataRow, int totalCount)
     {
       btnAdd.Enabled = true;
       btnEdit.Enabled = selectionCount == 1 && isDataRow;
-      btnRemove.Enabled = selectionCount > 0 && mAllowRemove;
-      btnClear.Enabled = totalCount > 0;
+      btnMerge.Enabled = (selectionCount > 1);
+
+      if (mRemoveDisabled)
+      {
+        btnRemove.Enabled = false;
+        btnClear.Enabled = false;
+      }
+      else
+      {
+        btnRemove.Enabled = selectionCount > 0;
+        btnClear.Enabled = totalCount > 0;
+      }
     }
 
     public void Remove()
     {
+      if (mRemoveDisabled)
+      {
+        return;
+      }
+
       if (btnRemove.Enabled)
       {
         btnRemove.PerformClick();
       }
+    }
+
+    public void DisableRemove()
+    {
+      mRemoveDisabled = true;
+      layoutControlItem3.SetIsVisible(false);
+      layoutControlItem4.SetIsVisible(false);
     }
   }
 

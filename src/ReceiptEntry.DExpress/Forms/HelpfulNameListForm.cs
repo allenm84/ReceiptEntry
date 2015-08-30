@@ -29,6 +29,7 @@ namespace ReceiptEntry.DExpress
     {
       lstNames.AutoGenerateColumns = false;
       lstNames.Mode = GridListControlViewMode.List;
+      lstNames.DisableRemove();
       lstNames.AddColumn((HelpfulNameViewModel v) => v.Name).SortOrder = ColumnSortOrder.Ascending;
       lstNames.Editor = this;
       lstNames.DataSource = mNames.Items;

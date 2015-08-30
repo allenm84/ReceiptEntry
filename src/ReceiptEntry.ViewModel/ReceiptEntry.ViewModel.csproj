@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tools\BindingListEx.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptListViewModel.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptTaxViewModel.cs" />

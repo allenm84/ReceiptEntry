@@ -39,18 +39,6 @@ namespace ReceiptEntry.DExpress
 
     [Browsable(false)]
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public bool AllowRemove
-    {
-      get { return ctrlButtons.AllowRemove; }
-      set 
-      { 
-        ctrlButtons.AllowRemove = value;
-        UpdateButtonsAsync();
-      }
-    }
-
-    [Browsable(false)]
-    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
     public object DataSource
     {
       get { return itemSource.DataSource; }
@@ -97,8 +85,22 @@ namespace ReceiptEntry.DExpress
       }
     }
 
+    [Browsable(false)]
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public bool MergeVisible
+    {
+      get { return ctrlButtons.MergeVisible; }
+      set { ctrlButtons.MergeVisible = value; }
+    }
+
     public event GridListControlRemoveEventHandler Remove;
     public event GridListControlRemoveEventHandler Clear;
+
+    public event EventHandler Merge
+    {
+      add { ctrlButtons.MergeClick += value; }
+      remove { ctrlButtons.MergeClick -= value; }
+    }
 
     public GridListControl()
     {
@@ -279,6 +281,11 @@ namespace ReceiptEntry.DExpress
         yield return gridViewItems.GetRow(r) as T;
       }
     }
+
+    public void DisableRemove()
+    {
+      ctrlButtons.DisableRemove();
+    }
   }
 
   public static class GridListControlExtensions
@@ -311,6 +318,7 @@ namespace ReceiptEntry.DExpress
       gridView.OptionsView.ShowColumnHeaders = false;
       gridView.OptionsView.ShowGroupPanel = false;
       gridView.OptionsView.ShowIndicator = false;
+      gridView.OptionsView.ShowFooter = false;
     }
   }
 

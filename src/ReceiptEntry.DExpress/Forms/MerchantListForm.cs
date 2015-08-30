@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ReceiptEntry.ViewModel;
+using DevExpress.Data;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace ReceiptEntry.DExpress
 {
@@ -28,9 +30,18 @@ namespace ReceiptEntry.DExpress
     {
       lstMerchants.AutoGenerateColumns = false;
       lstMerchants.Mode = GridListControlViewMode.List;
-      lstMerchants.AddColumn((MerchantViewModel v) => v.Name);
+      lstMerchants.DisableRemove();
+      lstMerchants.AddColumn((MerchantViewModel v) => v.Name).SortOrder = ColumnSortOrder.Ascending;
       lstMerchants.Editor = this;
       lstMerchants.DataSource = mMerchants.Items;
+
+      lstMerchants.MergeVisible = true;
+      lstMerchants.Merge += lstMerchants_Merge;
+    }
+
+    private void lstMerchants_Merge(object sender, EventArgs e)
+    {
+      throw new NotImplementedException();
     }
 
     public bool AllowEdit

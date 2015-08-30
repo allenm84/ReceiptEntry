@@ -15,7 +15,7 @@ namespace ReceiptEntry.ViewModel
       get { return mParent; }
     }
 
-    protected readonly BindingList<T> mItems = new BindingList<T>();
+    protected readonly BindingListEx<T> mItems = new BindingListEx<T>();
     public BindingList<T> Items
     {
       get { return mItems; }
@@ -26,6 +26,17 @@ namespace ReceiptEntry.ViewModel
     public BaseListViewModel(SaveFileViewModel parent)
     {
       mParent = parent;
+      mItems.Removing += mItems_Removing;
+    }
+
+    private void mItems_Removing(object sender, BeforeRemoveEventArgs e)
+    {
+      e.Cancel = RemovingItem(mItems[e.Index]);
+    }
+
+    protected virtual bool RemovingItem(T item)
+    {
+      return false;
     }
 
     protected override void Commit()

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using ReceiptEntry.ViewModel;
 using DevExpress.Data;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace ReceiptEntry.DExpress
 {
@@ -29,6 +30,7 @@ namespace ReceiptEntry.DExpress
     {
       lstColumns.AutoGenerateColumns = false;
       lstColumns.Mode = GridListControlViewMode.List;
+      lstColumns.DisableRemove();
       lstColumns.AddColumn((ReceiptColumnViewModel v) => v.Name).SortOrder = ColumnSortOrder.Ascending;
 
       var colType = lstColumns.AddColumn((ReceiptColumnViewModel v) => v.Type);
