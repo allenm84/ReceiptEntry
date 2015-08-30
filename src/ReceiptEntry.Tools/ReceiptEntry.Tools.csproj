@@ -40,9 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\ParameterDelegateCommand.cs" />
     <Compile Include="Levenshtein.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\Expressions.cs" />
+    <Compile Include="Parameters\CommandParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\SaveFileSerializer.cs" />
   </ItemGroup>

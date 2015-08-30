@@ -41,7 +41,19 @@ namespace ReceiptEntry.DExpress
 
     private void lstMerchants_Merge(object sender, EventArgs e)
     {
-      throw new NotImplementedException();
+      using (var dlg = new TextInputForm())
+      {
+        dlg.Text = "Name of Merged Merchant";
+        dlg.Input = "<Merged>";
+        if (dlg.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+        {
+          mMerchants.MergeMerchantsCommand.Execute(new MergeMerchantsParameter
+          {
+            Name = dlg.Input,
+            Merchants = lstMerchants.GetSelectedValues<MerchantViewModel>().ToArray(),
+          });
+        }
+      }
     }
 
     public bool AllowEdit

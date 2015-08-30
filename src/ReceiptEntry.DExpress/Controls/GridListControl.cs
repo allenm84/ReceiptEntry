@@ -282,6 +282,15 @@ namespace ReceiptEntry.DExpress
       }
     }
 
+    public IEnumerable<T> GetSelectedValues<T>() where T : class
+    {
+      var selected = gridViewItems.GetSelectedRows();
+      foreach (var r in selected)
+      {
+        yield return gridViewItems.GetRow(r) as T;
+      }
+    }
+
     public void DisableRemove()
     {
       ctrlButtons.DisableRemove();

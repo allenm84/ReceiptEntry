@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Tools\BindingListEx.cs" />
+    <Compile Include="ViewModels\Merchant\MergeMerchantsParameter.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptListViewModel.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptTaxViewModel.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptItemViewModel.cs" />
     <Compile Include="ViewModels\Receipt\ReceiptViewModel.cs" />
